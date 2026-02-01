@@ -1,0 +1,12 @@
+{
+    "preset": "per",
+    "rules": {
+        "not_operator_with_successor_space": true,
+        "types_spaces": {
+            "space": "single"
+        },
+        "ordered_imports": {
+            "sort_algorithm": "alpha"
+        }
+    }
+}
