@@ -8,7 +8,7 @@
     </label>
 
     @if($attendanceCount > 0)
-        <div class="text-sm text-gray-600">
+        <div class="text-sm text-gray-600 dark:text-gray-400">
             {{ $attendanceCount }} {{ Str::plural('person', $attendanceCount) }} attended
         </div>
     @endif

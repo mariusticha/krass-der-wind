@@ -3,21 +3,21 @@
         <flux:button
             wire:click="rsvp('yes')"
             size="sm"
-            :variant="$rsvpStatus === 'yes' ? 'primary' : 'ghost'"
+            variant="{{ $rsvpStatus === 'yes' ? 'primary' : 'ghost' }}"
         >
             ✓ Yes
         </flux:button>
         <flux:button
             wire:click="rsvp('maybe')"
             size="sm"
-            :variant="$rsvpStatus === 'maybe' ? 'primary' : 'ghost'"
+            variant="{{ $rsvpStatus === 'maybe' ? 'primary' : 'ghost' }}"
         >
             ? Maybe
         </flux:button>
         <flux:button
             wire:click="rsvp('no')"
             size="sm"
-            :variant="$rsvpStatus === 'no' ? 'primary' : 'ghost'"
+            variant="{{ $rsvpStatus === 'no' ? 'primary' : 'ghost' }}"
             color="red"
         >
             ✗ No
@@ -25,7 +25,7 @@
     </div>
 
     @if($rsvpCount > 0)
-        <div class="text-sm text-gray-600">
+        <div class="text-sm text-gray-600 dark:text-gray-400">
             {{ $rsvpCount }} {{ Str::plural('person', $rsvpCount) }} responded
         </div>
     @endif
