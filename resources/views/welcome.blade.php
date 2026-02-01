@@ -39,14 +39,14 @@
             </div>
 
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-                <div class="text-center">
-                    <h1 class="text-5xl lg:text-7xl font-bold mb-6 bg-gradient-to-r from-amber-500 via-orange-500 to-amber-600 bg-clip-text text-transparent animate-gradient bg-[length:200%_auto]">
+                <div class="text-center animate-fade-in-up">
+                    <h1 class="text-5xl lg:text-7xl font-bold mb-6 bg-gradient-to-r from-amber-500 via-orange-500 to-amber-600 bg-clip-text text-transparent animate-gradient bg-[length:200%_auto] opacity-0 animate-fade-in-up" style="animation-delay: 0.2s; animation-fill-mode: forwards;">
                         Krass der Wind
                     </h1>
-                    <p class="text-xl lg:text-2xl text-zinc-600 dark:text-zinc-400 mb-8 max-w-2xl mx-auto transform hover:scale-105 transition-transform duration-300">
+                    <p class="text-xl lg:text-2xl text-zinc-600 dark:text-zinc-400 mb-8 max-w-2xl mx-auto transform hover:scale-105 transition-transform duration-300 opacity-0 animate-fade-in-up" style="animation-delay: 0.4s; animation-fill-mode: forwards;">
                         Politische Musik-Aktion! Neu seit 2024 in Falkensee!
                     </p>
-                    <div class="flex justify-center space-x-4">
+                    <div class="flex justify-center space-x-4 opacity-0 animate-fade-in-up" style="animation-delay: 0.6s; animation-fill-mode: forwards;">
                         <a href="{{ route('gigs.index') }}" class="group relative px-8 py-3 rounded-lg bg-amber-500 text-white font-semibold hover:bg-amber-600 transition-all duration-300 shadow-lg hover:shadow-2xl hover:shadow-amber-500/50 hover:-translate-y-1 font-sans overflow-hidden">
                             <span class="relative z-10">Unsere Auftritte</span>
                             <div class="absolute inset-0 bg-gradient-to-r from-amber-600 to-orange-600 opacity-0 group-hover:opacity-100 transition-opacity"></div>
@@ -61,12 +61,16 @@
         </section>
 
         <!-- About Section -->
-        <section id="about" class="relative py-20 bg-white dark:bg-zinc-900 overflow-hidden">
+        <section id="about" class="relative py-20 bg-white dark:bg-zinc-900 overflow-hidden"
+                 x-data="{ inView: false }"
+                 x-intersect:enter="inView = true"
+                 x-intersect:leave="inView = false">
             <!-- Animated background gradient mesh -->
             <div class="absolute inset-0 bg-gradient-to-br from-amber-50/50 via-transparent to-orange-50/50 dark:from-amber-950/20 dark:via-transparent dark:to-orange-950/20"></div>
             <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-amber-500/50 to-transparent"></div>
 
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 transition-all duration-1000 ease-out"
+                 :class="inView ? 'opacity-100 translate-y-0' : 'opacity-50 translate-y-8'">
                 <div class="grid md:grid-cols-2 gap-12 items-center">
                     <div class="space-y-6 transform hover:translate-x-2 transition-transform duration-500">
                         <h2 class="text-4xl font-bold mb-6 bg-gradient-to-r from-amber-600 to-orange-600 bg-clip-text text-transparent">Über Uns</h2>
@@ -110,7 +114,10 @@
         </section>
 
         <!-- CTA Section -->
-        <section class="relative py-20 overflow-hidden">
+        <section class="relative py-20 overflow-hidden"
+                 x-data="{ inView: false }"
+                 x-intersect:enter="inView = true"
+                 x-intersect:leave="inView = false">
             <!-- Animated gradient background -->
             <div class="absolute inset-0 bg-gradient-to-br from-amber-500 via-orange-500 to-amber-600 bg-[length:200%_200%] animate-gradient"></div>
 
@@ -122,7 +129,8 @@
                 </div>
             </div>
 
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10 transition-all duration-1000 ease-out"
+                 :class="inView ? 'opacity-100 translate-y-0' : 'opacity-50 translate-y-8'">
                 <h2 class="text-4xl font-bold text-white mb-4 transform hover:scale-110 transition-transform duration-300">Bereit mitzumachen?</h2>
                 <p class="text-xl text-white/90 mb-8 max-w-2xl mx-auto leading-relaxed">
                     Wir proben einmal im Monat in Falkensee. Notenkenntnisse und Spielerfahrung sind erforderlich – wir spielen aber als Amateurmusiker*innen auf unterschiedlichen Niveaus.

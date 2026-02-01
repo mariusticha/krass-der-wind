@@ -1,5 +1,5 @@
-<nav class="border-b border-zinc-200 dark:border-zinc-700 bg-white dark:bg-zinc-900 fixed top-0 left-0 right-0 z-50 transition-transform duration-300"
-     :class="scrolled ? 'translate-y-0' : '-translate-y-full'"
+<nav class="border-b border-zinc-200 dark:border-zinc-700 bg-white/95 dark:bg-zinc-900/95 backdrop-blur-md fixed top-0 left-0 right-0 z-50 transition-all duration-700 ease-out"
+     :class="scrolled ? 'translate-y-0 opacity-100 shadow-lg' : '-translate-y-full opacity-0'"
      x-cloak>
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex justify-between items-center h-16">
