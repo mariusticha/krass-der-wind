@@ -1,5 +1,6 @@
 <?php
 
+use App\Livewire\Pages\Gigs\Index as GigsIndex;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -20,7 +21,7 @@ Route::get('/login', function () {
     return app(\Laravel\Fortify\Http\Controllers\AuthenticatedSessionController::class)->create();
 })->name('login');
 
-Route::livewire('gigs', 'pages::gigs.⚡index')->name('gigs.index');
+Route::livewire('gigs', GigsIndex::class)->name('gigs.index');
 
 Route::view('dashboard', 'dashboard')
     ->middleware(['auth', 'verified'])
