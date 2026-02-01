@@ -77,7 +77,7 @@ class GigFactory extends Factory
         $playlist = fake()->randomElements($songs, fake()->numberBetween(5, 10));
 
         return [
-            'name' => fake()->randomElement($gigTypes) . ' ' . fake()->year(),
+            'name' => fake()->randomElement($gigTypes),
             'description' => fake()->boolean(70) ? fake()->paragraph() : null,
             'date' => fake()->dateTimeBetween('-6 months', '+6 months'),
             'time' => fake()->time(),
