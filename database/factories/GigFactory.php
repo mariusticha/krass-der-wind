@@ -2,10 +2,11 @@
 
 namespace Database\Factories;
 
+use App\Models\Gig;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Gig>
+ * @extends Factory<Gig>
  */
 class GigFactory extends Factory
 {
@@ -89,28 +90,28 @@ class GigFactory extends Factory
 
     public function past(): static
     {
-        return $this->state(fn(array $attributes) => [
+        return $this->state(fn(array $attributes): array => [
             'date' => fake()->dateTimeBetween('-1 year', '-1 day'),
         ]);
     }
 
     public function upcoming(): static
     {
-        return $this->state(fn(array $attributes) => [
+        return $this->state(fn(array $attributes): array => [
             'date' => fake()->dateTimeBetween('now', '+6 months'),
         ]);
     }
 
     public function public(): static
     {
-        return $this->state(fn(array $attributes) => [
+        return $this->state(fn(array $attributes): array => [
             'is_public' => true,
         ]);
     }
 
     public function private(): static
     {
-        return $this->state(fn(array $attributes) => [
+        return $this->state(fn(array $attributes): array => [
             'is_public' => false,
         ]);
     }
