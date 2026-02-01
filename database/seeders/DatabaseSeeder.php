@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Gig;
 use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -13,11 +14,69 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // User::factory(10)->create();
-
-        User::factory()->create([
-            'name' => 'Test User',
-            'email' => 'test@example.com',
+        // Create 5 band members
+        $users = collect([
+            User::factory()->create([
+                'name' => 'Max Mustermann',
+                'email' => 'max@krass-der-wind.de',
+            ]),
+            User::factory()->create([
+                'name' => 'Anna Schmidt',
+                'email' => 'anna@krass-der-wind.de',
+            ]),
+            User::factory()->create([
+                'name' => 'Thomas Müller',
+                'email' => 'thomas@krass-der-wind.de',
+            ]),
+            User::factory()->create([
+                'name' => 'Lisa Weber',
+                'email' => 'lisa@krass-der-wind.de',
+            ]),
+            User::factory()->create([
+                'name' => 'Michael Bauer',
+                'email' => 'michael@krass-der-wind.de',
+            ]),
         ]);
+
+        // Create 5 past gigs with attendance
+        $pastGigs = Gig::factory(5)->past()->public()->create();
+
+        foreach ($pastGigs as $gig) {
+            // Random attendance (2-5 people played)
+            $attendees = $users->random(fake()->numberBetween(2, 5));
+            foreach ($attendees as $user) {
+                $gig->users()->attach($user->id, [
+                    'attended' => true,
+                    'attended_at' => $gig->date->addHours(fake()->numberBetween(1, 4)),
+                ]);
+            }
+        }
+
+        // Create 5 upcoming gigs with RSVPs
+        $upcomingGigs = Gig::factory(5)->upcoming()->create();
+
+        foreach ($upcomingGigs as $gig) {
+            // Random RSVPs (3-5 people responded)
+            $rsvpUsers = $users->random(fake()->numberBetween(3, 5));
+            foreach ($rsvpUsers as $user) {
+                $gig->users()->attach($user->id, [
+                    'rsvp_status' => fake()->randomElement(['yes', 'maybe', 'no']),
+                    'rsvp_at' => now()->subDays(fake()->numberBetween(1, 14)),
+                ]);
+            }
+        }
+
+        // Create 2 private upcoming gigs (band practice, internal events)
+        $privateGigs = Gig::factory(2)->upcoming()->private()->create();
+
+        foreach ($privateGigs as $gig) {
+            $rsvpUsers = $users->random(fake()->numberBetween(2, 4));
+            foreach ($rsvpUsers as $user) {
+                $gig->users()->attach($user->id, [
+                    'rsvp_status' => fake()->randomElement(['yes', 'maybe']),
+                    'rsvp_at' => now()->subDays(fake()->numberBetween(1, 7)),
+                ]);
+            }
+        }
     }
 }

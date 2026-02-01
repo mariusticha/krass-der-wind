@@ -1,10 +1,26 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
+use App\Models\User;
 
 Route::get('/', function () {
     return view('welcome');
 })->name('home');
+
+// Auto-login for local development
+Route::get('/login', function () {
+    if (request()->has('auto_login') && app()->environment('local')) {
+        $user = User::first();
+        if ($user) {
+            Auth::login($user);
+            return redirect()->route('dashboard');
+        }
+    }
+    return app(\Laravel\Fortify\Http\Controllers\AuthenticatedSessionController::class)->create();
+})->name('login');
+
+Route::livewire('gigs', 'pages::gigs.⚡index')->name('gigs.index');
 
 Route::view('dashboard', 'dashboard')
     ->middleware(['auth', 'verified'])

@@ -1,0 +1,44 @@
+<nav class="border-b border-zinc-200 dark:border-zinc-700 bg-white dark:bg-zinc-900 sticky top-0 z-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex justify-between items-center h-16">
+            <!-- Logo/Brand -->
+            <a href="{{ route('home') }}" class="flex items-center space-x-2 hover:opacity-80 transition">
+                <svg class="w-8 h-8 text-amber-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19V6l12-3v13M9 19c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zm12-3c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zM9 10l12-3"/>
+                </svg>
+                <span class="text-xl font-bold">Krass der Wind</span>
+            </a>
+
+            <!-- Nav Links - Left Aligned -->
+            <div class="flex items-center space-x-4 md:space-x-8 flex-1 ml-8">
+                <a href="{{ route('gigs.index') }}" class="text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white transition text-sm md:text-base">Gigs</a>
+                <a href="https://noethernetz.de/krassderwind/noten-fuer-krassderwind/" target="_blank" class="text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white transition flex items-center gap-1 text-sm md:text-base">
+                    Noten
+                    <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/>
+                    </svg>
+                </a>
+                <a href="{{ route('home') }}#about" class="text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white transition text-sm md:text-base">About</a>
+
+                @if(app()->environment('local'))
+                    <a href="{{ route('login') }}?auto_login=1" class="text-amber-600 dark:text-amber-500 hover:text-amber-700 dark:hover:text-amber-400 transition text-sm font-medium">
+                        🔧 Quick Login
+                    </a>
+                @endif
+            </div>
+
+            <!-- Auth Links - Right Side -->
+            <div class="flex items-center space-x-4">
+                @auth
+                    <a href="{{ route('dashboard') }}" class="text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white transition text-sm md:text-base">
+                        Dashboard
+                    </a>
+                @else
+                    <a href="{{ route('login') }}" class="text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white transition text-sm md:text-base">
+                        Login
+                    </a>
+                @endauth
+            </div>
+        </div>
+    </div>
+</nav>
