@@ -18,7 +18,7 @@ Route::get('/login', function () {
             return redirect()->route('dashboard');
         }
     }
-    return app(\Laravel\Fortify\Http\Controllers\AuthenticatedSessionController::class)->create();
+    return app(\Laravel\Fortify\Http\Controllers\AuthenticatedSessionController::class)->create(request());
 })->name('login');
 
 Route::livewire('gigs', GigsIndex::class)->name('gigs.index');

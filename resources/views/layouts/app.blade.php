@@ -6,7 +6,7 @@
     <title>{{ $title ?? 'Krass der Wind' }}</title>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
-<body>
+<body class="min-h-screen bg-white dark:bg-zinc-900">
     {{ $slot }}
 
     @fluxScripts

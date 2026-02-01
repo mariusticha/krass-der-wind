@@ -19,14 +19,14 @@
                         Krass der Wind
                     </h1>
                     <p class="text-xl lg:text-2xl text-zinc-600 dark:text-zinc-400 mb-8 max-w-2xl mx-auto">
-                        Eine traditionelle Blaskapelle mit modernem Sound. Erleben Sie echte bayerische Blasmusik.
+                        Politische Musik-Aktion! Neu seit 2024 in Falkensee!
                     </p>
                     <div class="flex justify-center space-x-4">
                         <a href="{{ route('gigs.index') }}" class="px-8 py-3 rounded-lg bg-amber-500 text-white font-semibold hover:bg-amber-600 transition shadow-lg">
                             Unsere Auftritte
                         </a>
                         <a href="#about" class="px-8 py-3 rounded-lg border-2 border-zinc-300 dark:border-zinc-600 text-zinc-900 dark:text-zinc-100 font-semibold hover:bg-zinc-100 dark:hover:bg-zinc-800 transition">
-                            Mehr erfahren
+                            Jetzt mitmachen!
                         </a>
                     </div>
                 </div>
@@ -44,10 +44,13 @@
                     <div>
                         <h2 class="text-4xl font-bold mb-6">Über Uns</h2>
                         <p class="text-lg text-zinc-600 dark:text-zinc-400 mb-4">
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.
+                            Wir sind Holz- und Blechbläser*innen aus Falkensee und Umgebung. Wir spielen auf Veranstaltungen gegen Rechts – für Demokratie und gegen Menschenfeindlichkeit, Gewalt, Ausgrenzung und das Recht des Stärkeren.
+                        </p>
+                        <p class="text-lg text-zinc-600 dark:text-zinc-400 mb-4">
+                            Wir musizieren für die Solidarität mit der angegriffenen Ukraine, mit klarem Bekenntnis gegen Nationalismus, für europäische Werte und Menschenrechte, zu Klimaschutz und zur deutschen Verantwortung für den Holocaust.
                         </p>
                         <p class="text-lg text-zinc-600 dark:text-zinc-400 mb-6">
-                            Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                            Blasinstrumente jeder Art sind willkommen – wir spielen ganz altmodisch ohne elektrische Verstärkung. Mitmachen kann jede*r im Alter von 14 bis 99. Ausnahmen sind erlaubt!
                         </p>
                         <a href="{{ route('gigs.index') }}" class="inline-flex items-center text-amber-600 dark:text-amber-500 font-semibold hover:text-amber-700 dark:hover:text-amber-400">
                             Unsere Auftritte ansehen
@@ -68,13 +71,18 @@
         <!-- CTA Section -->
         <section class="py-20 bg-gradient-to-br from-amber-500 to-orange-600">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-                <h2 class="text-4xl font-bold text-white mb-4">Bereit für unvergessliche Blasmusik?</h2>
+                <h2 class="text-4xl font-bold text-white mb-4">Bereit mitzumachen?</h2>
                 <p class="text-xl text-white/90 mb-8 max-w-2xl mx-auto">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Buchen Sie uns für Ihr nächstes Event!
+                    Wir proben einmal im Monat in Falkensee. Notenkenntnisse und Spielerfahrung sind erforderlich – wir spielen aber als Amateurmusiker*innen auf unterschiedlichen Niveaus.
                 </p>
-                <a href="{{ route('gigs.index') }}" class="inline-block px-8 py-3 rounded-lg bg-white text-amber-600 font-semibold hover:bg-zinc-100 transition shadow-lg">
-                    Aktuelle Auftritte
-                </a>
+                <div class="flex justify-center space-x-4">
+                    <a href="{{ route('gigs.index') }}" class="inline-block px-8 py-3 rounded-lg bg-white text-amber-600 font-semibold hover:bg-zinc-100 transition shadow-lg">
+                        Aktuelle Auftritte
+                    </a>
+                    <a href="https://noethernetz.de/krassderwind/" target="_blank" class="inline-block px-8 py-3 rounded-lg border-2 border-white text-white font-semibold hover:bg-white/10 transition">
+                        Mehr erfahren
+                    </a>
+                </div>
             </div>
         </section>
 
@@ -85,7 +93,7 @@
                     <div>
                         <h3 class="text-white font-bold text-lg mb-4">Krass der Wind</h3>
                         <p class="text-sm">
-                            Traditionelle bayerische Blasmusik mit Herz und Seele.
+                            Politische Blasmusik aus Falkensee – für Demokratie und Menschenrechte.
                         </p>
                     </div>
                     <div>
@@ -109,5 +117,13 @@
                 </div>
             </div>
         </footer>
+
+        @fluxScripts
+    </body>
+</html>
+            </div>
+        </footer>
+
+        @fluxScripts
     </body>
 </html>
