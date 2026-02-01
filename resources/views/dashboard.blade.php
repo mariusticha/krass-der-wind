@@ -60,8 +60,8 @@ $recentGigs = $user->gigs()
             <flux:card class="p-6">
                 <div class="flex items-center justify-between">
                     <div>
-                        <p class="text-sm text-zinc-600 dark:text-zinc-400">Total Gigs Attended</p>
-                        <p class="text-3xl font-bold text-zinc-900 dark:text-zinc-100 mt-2">{{ $attendedGigs }}</p>
+                        <p class="text-sm text-zinc-600 dark:text-zinc-400 font-sans">Total Gigs Attended</p>
+                        <p class="text-3xl font-bold text-zinc-900 dark:text-zinc-100 mt-2 font-sans">{{ $attendedGigs }}</p>
                     </div>
                     <div class="w-12 h-12 rounded-full bg-amber-100 dark:bg-amber-900/20 flex items-center justify-center">
                         <svg class="w-6 h-6 text-amber-600 dark:text-amber-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -75,8 +75,8 @@ $recentGigs = $user->gigs()
             <flux:card class="p-6">
                 <div class="flex items-center justify-between">
                     <div>
-                        <p class="text-sm text-zinc-600 dark:text-zinc-400">Upcoming Gigs (Accepted)</p>
-                        <p class="text-3xl font-bold text-zinc-900 dark:text-zinc-100 mt-2">{{ $upcomingRsvps }}</p>
+                        <p class="text-sm text-zinc-600 dark:text-zinc-400 font-sans">Upcoming Gigs (Accepted)</p>
+                        <p class="text-3xl font-bold text-zinc-900 dark:text-zinc-100 mt-2 font-sans">{{ $upcomingRsvps }}</p>
                     </div>
                     <div class="w-12 h-12 rounded-full bg-blue-100 dark:bg-blue-900/20 flex items-center justify-center">
                         <svg class="w-6 h-6 text-blue-600 dark:text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -90,8 +90,8 @@ $recentGigs = $user->gigs()
             <flux:card class="p-6">
                 <div class="flex items-center justify-between">
                     <div>
-                        <p class="text-sm text-zinc-600 dark:text-zinc-400">All Gigs</p>
-                        <p class="text-3xl font-bold text-zinc-900 dark:text-zinc-100 mt-2">{{ $totalGigs }}</p>
+                        <p class="text-sm text-zinc-600 dark:text-zinc-400 font-sans">All Gigs</p>
+                        <p class="text-3xl font-bold text-zinc-900 dark:text-zinc-100 mt-2 font-sans">{{ $totalGigs }}</p>
                     </div>
                     <div class="w-12 h-12 rounded-full bg-purple-100 dark:bg-purple-900/20 flex items-center justify-center">
                         <svg class="w-6 h-6 text-purple-600 dark:text-purple-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -108,7 +108,7 @@ $recentGigs = $user->gigs()
                 <flux:card class="p-6">
                     <h3 class="text-lg font-semibold text-zinc-900 dark:text-zinc-100 mb-4">Next Gig You've Accepted</h3>
                     <div class="space-y-2">
-                        <p class="font-medium text-zinc-900 dark:text-zinc-100">{{ $nextGig->name }}</p>
+                        <p class="font-medium text-zinc-900 dark:text-zinc-100 font-sans">{{ $nextGig->name }}</p>
                         <p class="text-sm text-zinc-600 dark:text-zinc-400 flex items-center gap-2">
                             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
@@ -144,7 +144,7 @@ $recentGigs = $user->gigs()
                 <flux:card class="p-6">
                     <h3 class="text-lg font-semibold text-zinc-900 dark:text-zinc-100 mb-4">Last Gig Played</h3>
                     <div class="space-y-2">
-                        <p class="font-medium text-zinc-900 dark:text-zinc-100">{{ $lastGig->name }}</p>
+                        <p class="font-medium text-zinc-900 dark:text-zinc-100 font-sans">{{ $lastGig->name }}</p>
                         <p class="text-sm text-zinc-600 dark:text-zinc-400 flex items-center gap-2">
                             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
@@ -182,7 +182,7 @@ $recentGigs = $user->gigs()
                     @foreach($recentGigs as $gig)
                         <div class="flex items-center justify-between p-3 rounded-lg bg-zinc-50 dark:bg-zinc-800/50">
                             <div>
-                                <p class="font-medium text-zinc-900 dark:text-zinc-100">{{ $gig->name }}</p>
+                                <p class="font-medium text-zinc-900 dark:text-zinc-100 font-sans">{{ $gig->name }}</p>
                                 <p class="text-sm text-zinc-600 dark:text-zinc-400">
                                     {{ $gig->date->format('M j, Y') }} • {{ $gig->location }}
                                 </p>

@@ -23,10 +23,10 @@
                         Politische Musik-Aktion! Neu seit 2024 in Falkensee!
                     </p>
                     <div class="flex justify-center space-x-4">
-                        <a href="{{ route('gigs.index') }}" class="px-8 py-3 rounded-lg bg-amber-500 text-white font-semibold hover:bg-amber-600 transition shadow-lg">
+                        <a href="{{ route('gigs.index') }}" class="px-8 py-3 rounded-lg bg-amber-500 text-white font-semibold hover:bg-amber-600 transition shadow-lg font-sans">
                             Unsere Auftritte
                         </a>
-                        <a href="#about" class="px-8 py-3 rounded-lg border-2 border-zinc-300 dark:border-zinc-600 text-zinc-900 dark:text-zinc-100 font-semibold hover:bg-zinc-100 dark:hover:bg-zinc-800 transition">
+                        <a href="#about" class="px-8 py-3 rounded-lg border-2 border-zinc-300 dark:border-zinc-600 text-zinc-900 dark:text-zinc-100 font-semibold hover:bg-zinc-100 dark:hover:bg-zinc-800 transition font-sans">
                             Jetzt mitmachen!
                         </a>
                     </div>
@@ -77,10 +77,10 @@
                     Wir proben einmal im Monat in Falkensee. Notenkenntnisse und Spielerfahrung sind erforderlich – wir spielen aber als Amateurmusiker*innen auf unterschiedlichen Niveaus.
                 </p>
                 <div class="flex justify-center space-x-4">
-                    <a href="{{ route('gigs.index') }}" class="inline-block px-8 py-3 rounded-lg bg-white text-amber-600 font-semibold hover:bg-zinc-100 transition shadow-lg">
+                    <a href="{{ route('gigs.index') }}" class="inline-block px-8 py-3 rounded-lg bg-white text-amber-600 font-semibold hover:bg-zinc-100 transition shadow-lg font-sans">
                         Aktuelle Auftritte
                     </a>
-                    <a href="https://noethernetz.de/krassderwind/" target="_blank" class="inline-block px-8 py-3 rounded-lg border-2 border-white text-white font-semibold hover:bg-white/10 transition">
+                    <a href="https://noethernetz.de/krassderwind/" target="_blank" class="inline-block px-8 py-3 rounded-lg border-2 border-white text-white font-semibold hover:bg-white/10 transition font-sans">
                         Mehr erfahren
                     </a>
                 </div>
