@@ -11,7 +11,12 @@
 
             <!-- Nav Links - Left Aligned -->
             <div class="flex items-center space-x-4 md:space-x-8 flex-1 ml-8">
-                <a href="{{ route('gigs.index') }}" class="text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white transition text-sm md:text-base">Gigs</a>
+                <a
+                    href="{{ route('gigs.index') }}"
+                    class="text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white transition text-sm md:text-base {{ request()->routeIs('gigs.*') ? 'font-semibold !text-amber-600 dark:!text-amber-500' : '' }}"
+                >
+                    Gigs
+                </a>
                 <a href="https://noethernetz.de/krassderwind/noten-fuer-krassderwind/" target="_blank" class="text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white transition flex items-center gap-1 text-sm md:text-base">
                     Noten
                     <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -50,10 +55,20 @@
                             </div>
                             <flux:menu.separator />
                             <flux:menu.radio.group>
-                                <flux:menu.item :href="route('dashboard')" icon="home" wire:navigate>
+                                <flux:menu.item
+                                    :href="route('dashboard')"
+                                    icon="home"
+                                    wire:navigate
+                                    :class="request()->routeIs('dashboard') ? 'font-semibold' : ''"
+                                >
                                     {{ __('Dashboard') }}
                                 </flux:menu.item>
-                                <flux:menu.item :href="route('profile.edit')" icon="cog" wire:navigate>
+                                <flux:menu.item
+                                    :href="route('profile.edit')"
+                                    icon="cog"
+                                    wire:navigate
+                                    :class="request()->routeIs('profile.*', 'user-password.*', 'two-factor.*', 'appearance.*') ? 'font-semibold' : ''"
+                                >
                                     {{ __('Settings') }}
                                 </flux:menu.item>
                             </flux:menu.radio.group>

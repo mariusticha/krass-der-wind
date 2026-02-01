@@ -86,9 +86,15 @@
                                     @endif
 
                                     @if($gig->playlist)
-                                        <div class="mt-4">
-                                            <p class="font-medium text-sm text-gray-700 dark:text-gray-300 mb-2">Playlist:</p>
-                                            <ul class="list-disc list-inside text-sm text-gray-600 dark:text-gray-400 space-y-1">
+                                        <div class="mt-4" x-data="{ open: false }">
+                                            <button
+                                                @click="open = !open"
+                                                class="flex items-center gap-1 font-medium text-sm text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-gray-100 mb-2"
+                                            >
+                                                <span>Playlist ({{ count($gig->playlist) }} songs)</span>
+                                                <flux:icon.chevron-down class="size-4 transition-transform" ::class="open && 'rotate-180'" />
+                                            </button>
+                                            <ul x-show="open" x-collapse class="list-disc list-inside text-sm text-gray-600 dark:text-gray-400 space-y-1">
                                                 @foreach($gig->playlist as $song)
                                                     <li>{{ $song }}</li>
                                                 @endforeach
@@ -206,9 +212,15 @@
                                     @endif
 
                                     @if($gig->playlist)
-                                        <div class="mt-4">
-                                            <p class="font-medium text-sm text-gray-700 dark:text-gray-300 mb-2">Playlist:</p>
-                                            <ul class="list-disc list-inside text-sm text-gray-600 dark:text-gray-400 space-y-1">
+                                        <div class="mt-4" x-data="{ open: false }">
+                                            <button
+                                                @click="open = !open"
+                                                class="flex items-center gap-1 font-medium text-sm text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-gray-100 mb-2"
+                                            >
+                                                <span>Playlist ({{ count($gig->playlist) }} songs)</span>
+                                                <flux:icon.chevron-down class="size-4 transition-transform" ::class="open && 'rotate-180'" />
+                                            </button>
+                                            <ul x-show="open" x-collapse class="list-disc list-inside text-sm text-gray-600 dark:text-gray-400 space-y-1">
                                                 @foreach($gig->playlist as $song)
                                                     <li>{{ $song }}</li>
                                                 @endforeach
