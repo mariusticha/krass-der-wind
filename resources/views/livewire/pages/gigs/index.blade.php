@@ -1,7 +1,7 @@
 <div class="min-h-screen bg-white dark:bg-zinc-900">
     <x-public-nav />
 
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div class="mb-8 flex justify-between items-center">
             <div>
                 <h1 class="text-3xl font-bold text-zinc-900 dark:text-zinc-100">Gigs</h1>
@@ -15,7 +15,7 @@
             </div>
 
             @auth
-                <flux:button wire:click="openForm" icon="plus">
+                <flux:button href="{{ route('gigs.create') }}" wire:navigate icon="plus">
                     Create Gig
                 </flux:button>
             @endauth
@@ -38,7 +38,9 @@
                                     <div class="flex items-center gap-2 mb-2">
                                         <h3 class="text-xl font-semibold">{{ $gig->name }}</h3>
                                         @auth
-                                            @if(!$gig->is_public)
+                                            @if($gig->is_public)
+                                                <flux:badge color="green" size="sm">Public</flux:badge>
+                                            @else
                                                 <flux:badge color="zinc" size="sm">Private</flux:badge>
                                             @endif
                                         @endauth
@@ -77,7 +79,8 @@
                                 @auth
                                     <div class="flex gap-2 ml-4">
                                         <flux:button
-                                            wire:click="editGig({{ $gig->id }})"
+                                            href="{{ route('gigs.edit', $gig) }}"
+                                            wire:navigate
                                             size="sm"
                                             variant="ghost"
                                             icon="pencil"
@@ -120,7 +123,9 @@
                                     <div class="flex items-center gap-2 mb-2">
                                         <h3 class="text-xl font-semibold">{{ $gig->name }}</h3>
                                         @auth
-                                            @if(!$gig->is_public)
+                                            @if($gig->is_public)
+                                                <flux:badge color="green" size="sm">Public</flux:badge>
+                                            @else
                                                 <flux:badge color="zinc" size="sm">Private</flux:badge>
                                             @endif
                                         @endauth
@@ -184,10 +189,5 @@
                 </div>
             @endif
         </div>
-
-        @auth
-            {{-- Form Modal --}}
-            <livewire:gigs.⚡form />
-        @endauth
     </div>
 </div>

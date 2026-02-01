@@ -1,5 +1,6 @@
 <?php
 
+use App\Livewire\Pages\Gigs\Edit as GigsEdit;
 use App\Livewire\Pages\Gigs\Index as GigsIndex;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
@@ -22,6 +23,8 @@ Route::get('/login', function () {
 })->name('login');
 
 Route::livewire('gigs', GigsIndex::class)->name('gigs.index');
+Route::livewire('gigs/create', GigsEdit::class)->middleware('auth')->name('gigs.create');
+Route::livewire('gigs/{gig}/edit', GigsEdit::class)->middleware('auth')->name('gigs.edit');
 
 Route::view('dashboard', 'dashboard')
     ->middleware(['auth', 'verified'])

@@ -1,4 +1,4 @@
-<flux:modal name="gig-form" wire:model.self="showModal" class="md:w-2/3 space-y-6">
+<flux:modal wire:model.self="showModal" class="md:w-2/3 space-y-6">
     <div>
         <flux:heading size="lg">{{ $gigId ? 'Edit Gig' : 'Create New Gig' }}</flux:heading>
         <flux:subheading>{{ $gigId ? 'Update the gig details' : 'Add a new performance to the schedule' }}</flux:subheading>

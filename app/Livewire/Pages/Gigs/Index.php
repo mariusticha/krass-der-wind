@@ -54,16 +54,6 @@ class Index extends Component
         $this->loadGigs();
     }
 
-    public function openForm(): void
-    {
-        $this->dispatch('open-gig-form');
-    }
-
-    public function editGig($gigId): void
-    {
-        $this->dispatch('edit-gig', gigId: $gigId);
-    }
-
     public function render(): Factory|View
     {
         return view('livewire.pages.gigs.index');
