@@ -14,7 +14,7 @@ return new class extends Migration {
             $table->id();
             $table->foreignId('gig_id')->constrained()->cascadeOnDelete();
             $table->foreignId('user_id')->constrained()->cascadeOnDelete();
-            $table->enum('rsvp_status', ['yes', 'no', 'maybe'])->nullable();
+            $table->enum('rsvp_status', ['yes', 'no'])->nullable();
             $table->boolean('attended')->nullable();
             $table->timestamp('rsvp_at')->nullable();
             $table->timestamp('attended_at')->nullable();

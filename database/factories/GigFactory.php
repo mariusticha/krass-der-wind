@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use App\Models\Gig;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -54,6 +55,26 @@ class GigFactory extends Factory
             'Weinfest',
             'Konzert im Park',
             'Jubiläum',
+            'Frühlingsfest',
+            'Herbstfest',
+            'Dorffest',
+            'Schützenfest',
+            'Volksfest',
+            'Kirchweih',
+            'Silvesterfeier',
+            'Faschingsball',
+            'Maifest',
+            'Serenata',
+            'Gartenparty',
+            'Betriebsfeier',
+            'Vereinsfest',
+            'Jubiläumsfeier',
+            'Tag der offenen Tür',
+            'Kulturveranstaltung',
+            'Open Air Konzert',
+            'Benefizkonzert',
+            'Erntedankfest',
+            'Seefest',
         ];
 
         $songs = [
@@ -75,14 +96,28 @@ class GigFactory extends Factory
         ];
 
         $playlist = fake()->randomElements($songs, fake()->numberBetween(5, 10));
+        $date = fake()->dateTimeBetween('-6 months', '+6 months');
+        $city = fake()->randomElement($cities);
+
+        // Generate unique gig name with safety check
+        $gigType = fake()->randomElement($gigTypes);
+        $year = Carbon::parse($date)->format('Y');
+        $name = $gigType . ' ' . $city . ' ' . $year;
+        
+        // If name exists, add a counter suffix
+        $counter = 1;
+        while (Gig::where('name', $name)->exists()) {
+            $counter++;
+            $name = $gigType . ' ' . $city . ' ' . $year . ' #' . $counter;
+        }
 
         return [
-            'name' => fake()->randomElement($gigTypes),
+            'name' => $name,
             'description' => fake()->boolean(70) ? fake()->paragraph() : null,
-            'date' => fake()->dateTimeBetween('-6 months', '+6 months'),
+            'date' => $date,
             'time' => fake()->time(),
             'location' => fake()->randomElement($venues),
-            'city' => fake()->randomElement($cities),
+            'city' => $city,
             'playlist' => $playlist,
             'is_public' => fake()->boolean(90),
         ];
@@ -90,15 +125,27 @@ class GigFactory extends Factory
 
     public function past(): static
     {
+        $newDate = fake()->dateTimeBetween('-1 year', '-1 day');
+
         return $this->state(fn(array $attributes): array => [
-            'date' => fake()->dateTimeBetween('-1 year', '-1 day'),
+            'name' => str($attributes['name'])->replace(
+                Carbon::parse($attributes['date'])->format('Y'),
+                Carbon::parse($newDate)->format('Y'),
+            )->value(),
+            'date' => $newDate,
         ]);
     }
 
     public function upcoming(): static
     {
+        $newDate = fake()->dateTimeBetween('now', '+6 months');
+
         return $this->state(fn(array $attributes): array => [
-            'date' => fake()->dateTimeBetween('now', '+6 months'),
+            'name' => str($attributes['name'])->replace(
+                Carbon::parse($attributes['date'])->format('Y'),
+                Carbon::parse($newDate)->format('Y'),
+            )->value(),
+            'date' => $newDate,
         ]);
     }
 

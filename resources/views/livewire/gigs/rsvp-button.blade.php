@@ -8,13 +8,6 @@
             ✓ Yes
         </flux:button>
         <flux:button
-            wire:click="rsvp('maybe')"
-            size="sm"
-            variant="{{ $rsvpStatus === 'maybe' ? 'primary' : 'ghost' }}"
-        >
-            ? Maybe
-        </flux:button>
-        <flux:button
             wire:click="rsvp('no')"
             size="sm"
             variant="{{ $rsvpStatus === 'no' ? 'primary' : 'ghost' }}"

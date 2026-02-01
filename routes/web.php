@@ -16,7 +16,7 @@ Route::get('/login', function () {
         $user = User::first();
         if ($user) {
             Auth::login($user);
-            return redirect()->route('dashboard');
+            return redirect()->back();
         }
     }
     return app(\Laravel\Fortify\Http\Controllers\AuthenticatedSessionController::class)->create(request());

@@ -193,8 +193,6 @@ $recentGigs = $user->gigs()
                             @endphp
                             @if($rsvpStatus === 'yes')
                                 <flux:badge color="green">Accepted</flux:badge>
-                            @elseif($rsvpStatus === 'maybe')
-                                <flux:badge color="yellow">Maybe</flux:badge>
                             @elseif($rsvpStatus === 'no')
                                 <flux:badge color="red">Declined</flux:badge>
                             @else

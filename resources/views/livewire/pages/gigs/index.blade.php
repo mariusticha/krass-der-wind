@@ -43,6 +43,15 @@
                                             @else
                                                 <flux:badge color="zinc" size="sm">Private</flux:badge>
                                             @endif
+
+                                            @php
+                                                $userGig = $gig->users->firstWhere('id', auth()->id());
+                                                $isAttending = $userGig && $userGig->pivot->rsvp_status === 'yes';
+                                            @endphp
+
+                                            @if($isAttending)
+                                                <flux:badge color="blue" size="sm">Attending</flux:badge>
+                                            @endif
                                         @endauth
                                     </div>
 
@@ -58,6 +67,15 @@
                                             <flux:icon.map-pin class="size-4" />
                                             {{ $gig->location }}, {{ $gig->city }}
                                         </p>
+                                        @auth
+                                            @php
+                                                $attendeeCount = $gig->users->where('pivot.rsvp_status', 'yes')->count();
+                                            @endphp
+                                            <p class="flex items-center gap-2 text-sm text-blue-600 dark:text-blue-400">
+                                                <flux:icon.user-group class="size-4" />
+                                                {{ $attendeeCount }} {{ Str::plural('person', $attendeeCount) }} attending
+                                            </p>
+                                        @endauth
                                     </div>
 
                                     @if($gig->description)
@@ -78,6 +96,20 @@
 
                                 @auth
                                     <div class="flex gap-2 ml-4">
+                                        @php
+                                            $userGig = $gig->users->firstWhere('id', auth()->id());
+                                            $isAttending = $userGig && $userGig->pivot->rsvp_status === 'yes';
+                                        @endphp
+
+                                        <flux:button
+                                            wire:click="toggleRsvp({{ $gig->id }})"
+                                            size="sm"
+                                            variant="ghost"
+                                            :color="$isAttending ? 'blue' : 'zinc'"
+                                            icon="{{ $isAttending ? 'check' : 'plus' }}"
+                                        >
+                                            {{ $isAttending ? 'Attending' : 'Attend' }}
+                                        </flux:button>
                                         <flux:button
                                             href="{{ route('gigs.edit', $gig) }}"
                                             wire:navigate
@@ -128,6 +160,15 @@
                                             @else
                                                 <flux:badge color="zinc" size="sm">Private</flux:badge>
                                             @endif
+
+                                            @php
+                                                $userGig = $gig->users->firstWhere('id', auth()->id());
+                                                $didAttend = $userGig && $userGig->pivot->attended;
+                                            @endphp
+
+                                            @if($didAttend)
+                                                <flux:badge color="purple" size="sm">Attended</flux:badge>
+                                            @endif
                                         @endauth
                                     </div>
 
@@ -143,6 +184,15 @@
                                             <flux:icon.map-pin class="size-4" />
                                             {{ $gig->location }}, {{ $gig->city }}
                                         </p>
+                                        @auth
+                                            @php
+                                                $participantCount = $gig->users->where('pivot.attended', true)->count();
+                                            @endphp
+                                            <p class="flex items-center gap-2 text-sm text-purple-600 dark:text-purple-400">
+                                                <flux:icon.user-group class="size-4" />
+                                                {{ $participantCount }} {{ Str::plural('person', $participantCount) }} attended
+                                            </p>
+                                        @endauth
                                     </div>
 
                                     @if($gig->description)
@@ -163,8 +213,23 @@
 
                                 @auth
                                     <div class="flex gap-2 ml-4">
+                                        @php
+                                            $userGig = $gig->users->firstWhere('id', auth()->id());
+                                            $didAttend = $userGig && $userGig->pivot->attended;
+                                        @endphp
+
                                         <flux:button
-                                            wire:click="editGig({{ $gig->id }})"
+                                            wire:click="toggleAttendance({{ $gig->id }})"
+                                            size="sm"
+                                            variant="ghost"
+                                            :color="$didAttend ? 'purple' : 'zinc'"
+                                            icon="{{ $didAttend ? 'check' : 'plus' }}"
+                                        >
+                                            {{ $didAttend ? 'Attended' : 'Mark Attended' }}
+                                        </flux:button>
+                                        <flux:button
+                                            href="{{ route('gigs.edit', $gig) }}"
+                                            wire:navigate
                                             size="sm"
                                             variant="ghost"
                                             icon="pencil"

@@ -32,15 +32,9 @@ class Index extends Component
             $pastQuery->public();
         }
 
-        // Load user's RSVP/attendance data if authenticated
-        if (auth()->check()) {
-            $upcomingQuery->with(['users' => function ($q): void {
-                $q->where('user_id', auth()->id());
-            }]);
-            $pastQuery->with(['users' => function ($q): void {
-                $q->where('user_id', auth()->id());
-            }]);
-        }
+        // Load all users with pivot data for counts and current user status
+        $upcomingQuery->with('users');
+        $pastQuery->with('users');
 
         $this->upcomingGigs = $upcomingQuery->upcoming()->get();
         $this->pastGigs = $pastQuery->past()->get();
@@ -51,6 +45,44 @@ class Index extends Component
         $gig->delete();
 
         $this->dispatch('gig-deleted');
+        $this->loadGigs();
+    }
+
+    public function toggleRsvp(Gig $gig): void
+    {
+        $user = auth()->user();
+        $pivot = $user->gigs()->where('gig_id', $gig->id)->first();
+
+        if ($pivot && $pivot->pivot->rsvp_status === 'yes') {
+            // Currently attending -> remove RSVP
+            $user->gigs()->detach($gig->id);
+        } else {
+            // Not attending or no response -> set to attending
+            $user->gigs()->syncWithoutDetaching([
+                $gig->id => ['rsvp_status' => 'yes', 'updated_at' => now()]
+            ]);
+        }
+
+        $this->loadGigs();
+    }
+
+    public function toggleAttendance(Gig $gig): void
+    {
+        $user = auth()->user();
+        $pivot = $user->gigs()->where('gig_id', $gig->id)->first();
+
+        if ($pivot && $pivot->pivot->attended) {
+            // Currently marked as attended -> mark as not attended
+            $user->gigs()->syncWithoutDetaching([
+                $gig->id => ['attended' => false, 'attended_at' => null]
+            ]);
+        } else {
+            // Not attended -> mark as attended
+            $user->gigs()->syncWithoutDetaching([
+                $gig->id => ['attended' => true, 'attended_at' => now()]
+            ]);
+        }
+
         $this->loadGigs();
     }
 
