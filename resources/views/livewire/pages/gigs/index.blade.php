@@ -71,10 +71,13 @@
                                             @php
                                                 $attendeeCount = $gig->users->where('pivot.rsvp_status', 'yes')->count();
                                             @endphp
-                                            <p class="flex items-center gap-2 text-sm text-blue-600 dark:text-blue-400">
+                                            <button
+                                                wire:click="showAttendees({{ $gig->id }})"
+                                                class="flex items-center gap-2 text-sm text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 cursor-pointer"
+                                            >
                                                 <flux:icon.user-group class="size-4" />
                                                 {{ $attendeeCount }} {{ Str::plural('person', $attendeeCount) }} attending
-                                            </p>
+                                            </button>
                                         @endauth
                                     </div>
 
@@ -188,10 +191,13 @@
                                             @php
                                                 $participantCount = $gig->users->where('pivot.attended', true)->count();
                                             @endphp
-                                            <p class="flex items-center gap-2 text-sm text-purple-600 dark:text-purple-400">
+                                            <button
+                                                wire:click="showAttendees({{ $gig->id }})"
+                                                class="flex items-center gap-2 text-sm text-purple-600 dark:text-purple-400 hover:text-purple-700 dark:hover:text-purple-300 cursor-pointer"
+                                            >
                                                 <flux:icon.user-group class="size-4" />
                                                 {{ $participantCount }} {{ Str::plural('person', $participantCount) }} attended
-                                            </p>
+                                            </button>
                                         @endauth
                                     </div>
 
@@ -255,4 +261,41 @@
             @endif
         </div>
     </div>
+
+    {{-- Attendees Modal --}}
+    @if($showAttendeesModal && $selectedGig)
+        <flux:modal wire:model="showAttendeesModal" class="md:w-[600px]" :backdrop-class="'backdrop-blur-sm'">
+            <div>
+                <flux:heading size="lg">Attendees</flux:heading>
+                <flux:subheading class="mb-4">{{ $selectedGig->name }}</flux:subheading>
+
+                @php
+                    // For upcoming gigs, show RSVPs
+                    if ($selectedGig->date->isFuture()) {
+                        $attendees = $selectedGig->users->where('pivot.rsvp_status', 'yes');
+                    } else {
+                        // For past gigs, show actual attendees
+                        $attendees = $selectedGig->users->where('pivot.attended', true);
+                    }
+                @endphp
+
+                @if($attendees->isEmpty())
+                    <p class="text-gray-500 dark:text-gray-300 text-center py-4">No attendees yet</p>
+                @else
+                    <ul class="space-y-2">
+                        @foreach($attendees as $user)
+                            <li class="flex items-center justify-between py-2">
+                                <span class="text-gray-900 dark:text-white">{{ $user->name }}</span>
+                                <span class="text-sm text-gray-600 dark:text-gray-300">{{ $user->instrument }}</span>
+                            </li>
+                        @endforeach
+                    </ul>
+                @endif
+            </div>
+
+            <flux:button wire:click="closeAttendeesModal" variant="primary" class="mt-6">
+                Close
+            </flux:button>
+        </flux:modal>
+    @endif
 </div>

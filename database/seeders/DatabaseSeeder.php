@@ -19,22 +19,27 @@ class DatabaseSeeder extends Seeder
             User::factory()->create([
                 'name' => 'Max Mustermann',
                 'email' => 'max@krass-der-wind.de',
+                'instrument' => 'Trumpet',
             ]),
             User::factory()->create([
                 'name' => 'Anna Schmidt',
                 'email' => 'anna@krass-der-wind.de',
+                'instrument' => 'Clarinet',
             ]),
             User::factory()->create([
                 'name' => 'Thomas Müller',
                 'email' => 'thomas@krass-der-wind.de',
+                'instrument' => 'Trombone',
             ]),
             User::factory()->create([
                 'name' => 'Lisa Weber',
                 'email' => 'lisa@krass-der-wind.de',
+                'instrument' => 'Saxophone',
             ]),
             User::factory()->create([
                 'name' => 'Michael Bauer',
                 'email' => 'michael@krass-der-wind.de',
+                'instrument' => 'Tuba',
             ]),
         ]);
 

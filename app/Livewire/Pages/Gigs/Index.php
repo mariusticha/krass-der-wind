@@ -14,6 +14,10 @@ class Index extends Component
 
     public $pastGigs;
 
+    public $showAttendeesModal = false;
+
+    public $selectedGig = null;
+
     public function mount(): void
     {
         $this->loadGigs();
@@ -46,6 +50,18 @@ class Index extends Component
 
         $this->dispatch('gig-deleted');
         $this->loadGigs();
+    }
+
+    public function showAttendees(Gig $gig): void
+    {
+        $this->selectedGig = $gig->load('users');
+        $this->showAttendeesModal = true;
+    }
+
+    public function closeAttendeesModal(): void
+    {
+        $this->showAttendeesModal = false;
+        $this->selectedGig = null;
     }
 
     public function toggleRsvp(Gig $gig): void
