@@ -9,7 +9,7 @@
         @vite(['resources/css/app.css', 'resources/js/app.js'])
         @fluxAppearance
     </head>
-    <body class="min-h-screen bg-white dark:bg-zinc-900 text-zinc-900 dark:text-zinc-100">
+    <body class="min-h-screen bg-white dark:bg-zinc-900 text-zinc-900 dark:text-zinc-100 font-serif">
         <x-public-nav />
 
         <!-- Hero Section -->
