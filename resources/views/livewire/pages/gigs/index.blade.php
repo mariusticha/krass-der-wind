@@ -27,7 +27,7 @@
 
         @if(count($upcomingGigs) === 0)
             <flux:card>
-                <p class="text-gray-500 text-center py-8">No upcoming gigs scheduled.</p>
+                <p class="text-gray-500 dark:text-gray-400 text-center py-8">No upcoming gigs scheduled.</p>
             </flux:card>
         @else
             <div class="space-y-4">
@@ -44,7 +44,7 @@
                                     @endauth
                                 </div>
 
-                                <div class="space-y-1 text-gray-600">
+                                <div class="space-y-1 text-gray-600 dark:text-gray-300">
                                     <p class="flex items-center gap-2">
                                         <flux:icon.calendar class="size-4" />
                                         {{ $gig->date->format('l, F j, Y') }}
@@ -59,13 +59,13 @@
                                 </div>
 
                                 @if($gig->description)
-                                    <p class="mt-3 text-gray-700">{{ $gig->description }}</p>
+                                    <p class="mt-3 text-gray-700 dark:text-gray-300">{{ $gig->description }}</p>
                                 @endif
 
                                 @if($gig->playlist)
                                     <div class="mt-4">
-                                        <p class="font-medium text-sm text-gray-700 mb-2">Playlist:</p>
-                                        <ul class="list-disc list-inside text-sm text-gray-600 space-y-1">
+                                        <p class="font-medium text-sm text-gray-700 dark:text-gray-300 mb-2">Playlist:</p>
+                                        <ul class="list-disc list-inside text-sm text-gray-600 dark:text-gray-400 space-y-1">
                                             @foreach($gig->playlist as $song)
                                                 <li>{{ $song }}</li>
                                             @endforeach
@@ -116,7 +116,7 @@
 
         @if(count($pastGigs) === 0)
             <flux:card>
-                <p class="text-gray-500 text-center py-8">No past gigs yet.</p>
+                <p class="text-gray-500 dark:text-gray-400 text-center py-8">No past gigs yet.</p>
             </flux:card>
         @else
             <div class="space-y-4">
@@ -133,7 +133,7 @@
                                     @endauth
                                 </div>
 
-                                <div class="space-y-1 text-gray-600">
+                                <div class="space-y-1 text-gray-600 dark:text-gray-300">
                                     <p class="flex items-center gap-2">
                                         <flux:icon.calendar class="size-4" />
                                         {{ $gig->date->format('l, F j, Y') }}
@@ -148,13 +148,13 @@
                                 </div>
 
                                 @if($gig->description)
-                                    <p class="mt-3 text-gray-700">{{ $gig->description }}</p>
+                                    <p class="mt-3 text-gray-700 dark:text-gray-300">{{ $gig->description }}</p>
                                 @endif
 
                                 @if($gig->playlist)
                                     <div class="mt-4">
-                                        <p class="font-medium text-sm text-gray-700 mb-2">Playlist:</p>
-                                        <ul class="list-disc list-inside text-sm text-gray-600 space-y-1">
+                                        <p class="font-medium text-sm text-gray-700 dark:text-gray-300 mb-2">Playlist:</p>
+                                        <ul class="list-disc list-inside text-sm text-gray-600 dark:text-gray-400 space-y-1">
                                             @foreach($gig->playlist as $song)
                                                 <li>{{ $song }}</li>
                                             @endforeach
