@@ -1,3 +1,6 @@
 <x-layouts::auth.simple :title="$title ?? null">
-    {{ $slot }}
+    <div class="relative">
+        <x-animated-background />
+        {{ $slot }}
+    </div>
 </x-layouts::auth.simple>
