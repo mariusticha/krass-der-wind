@@ -4,24 +4,18 @@
     <x-public-nav />
 
     <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 pt-24 pb-12 relative z-10">
-        <div class="mb-8 flex justify-between items-center">
-            <div>
-                <h1 class="text-3xl font-bold bg-gradient-to-r from-amber-600 to-orange-600 bg-clip-text text-transparent">Gigs</h1>
-                <p class="text-zinc-600 dark:text-zinc-400 mt-1">
-                    @guest
-                        Check out where we've been and where we're going!
-                    @else
-                        Manage your band's performances
-                    @endguest
-                </p>
-            </div>
-
-            @auth
-                <flux:button href="{{ route('gigs.create') }}" wire:navigate icon="plus">
-                    Create Gig
-                </flux:button>
-            @endauth
-        </div>
+        <x-page-header
+            title="Gigs"
+            :description="auth()->guest() ? 'Check out where we\'ve been and where we\'re going!' : 'Manage your band\'s performances'"
+        >
+            <x-slot:actions>
+                @auth
+                    <flux:button href="{{ route('gigs.create') }}" wire:navigate icon="plus">
+                        Create Gig
+                    </flux:button>
+                @endauth
+            </x-slot:actions>
+        </x-page-header>
 
         {{-- Upcoming Gigs --}}
         <div class="mb-12">
@@ -304,8 +298,13 @@
                 @else
                     <ul class="space-y-2">
                         @foreach($attendees as $user)
-                            <li class="flex items-center justify-between py-2">
-                                <span class="text-gray-900 dark:text-white">{{ $user->name }}</span>
+                            <li class="flex items-center justify-between py-2 px-3 rounded-lg {{ $user->id === auth()->id() ? 'bg-amber-100 dark:bg-amber-900/30 ring-2 ring-amber-500/50' : '' }}">
+                                <span class="font-medium {{ $user->id === auth()->id() ? 'text-amber-900 dark:text-amber-100' : 'text-gray-900 dark:text-white' }}">
+                                    {{ $user->name }}
+                                    @if($user->id === auth()->id())
+                                        <span class="text-xs text-amber-600 dark:text-amber-400">(You)</span>
+                                    @endif
+                                </span>
                                 <span class="text-sm text-gray-600 dark:text-gray-300">{{ $user->instrument }}</span>
                             </li>
                         @endforeach

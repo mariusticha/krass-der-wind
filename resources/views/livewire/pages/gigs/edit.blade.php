@@ -4,14 +4,10 @@
     <x-public-nav />
 
     <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 pt-24 pb-12 relative z-10">
-        <div class="mb-8">
-            <h1 class="text-3xl font-bold bg-gradient-to-r from-amber-600 to-orange-600 bg-clip-text text-transparent">
-                {{ $gigId ? 'Edit Gig' : 'Create New Gig' }}
-            </h1>
-            <p class="text-zinc-600 dark:text-zinc-400 mt-1">
-                {{ $gigId ? 'Update the gig details' : 'Add a new performance to the schedule' }}
-            </p>
-        </div>
+        <x-page-header
+            :title="$gigId ? 'Edit Gig' : 'Create New Gig'"
+            :description="$gigId ? 'Update the gig details' : 'Add a new performance to the schedule'"
+        />
 
         <flux:card>
             <div class="p-6 sm:p-8">

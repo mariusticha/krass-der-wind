@@ -48,13 +48,12 @@ $recentGigs = $user->gigs()
 
     <x-public-nav />
 
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-24 pb-12 relative z-10">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 pt-24 pb-12 relative z-10">
         <div class="flex h-full w-full flex-1 flex-col gap-6">
-        <!-- Welcome Header -->
-        <div class="mb-4">
-            <h1 class="text-3xl font-bold bg-gradient-to-r from-amber-600 to-orange-600 bg-clip-text text-transparent">Welcome back, {{ $user->name }}!</h1>
-            <p class="text-zinc-600 dark:text-zinc-400 mt-1">Here's an overview of your band activity</p>
-        </div>
+        <x-page-header
+            :title="'Welcome back, ' . $user->name . '!'"
+            description="Here's an overview of your band activity"
+        />
 
         <!-- Stats Grid -->
         <div class="grid auto-rows-min gap-4 md:grid-cols-3">
