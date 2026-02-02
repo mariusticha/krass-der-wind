@@ -1,9 +1,11 @@
-<div class="min-h-screen bg-white dark:bg-zinc-900">
+<div class="min-h-screen bg-gradient-to-br from-zinc-50 to-zinc-100 dark:from-zinc-900 dark:to-zinc-800 relative overflow-hidden">
+    <x-animated-background />
+
     <x-public-nav />
 
-    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 pt-24 pb-12 relative z-10">
         <div class="mb-8">
-            <h1 class="text-3xl font-bold text-zinc-900 dark:text-zinc-100">
+            <h1 class="text-3xl font-bold bg-gradient-to-r from-amber-600 to-orange-600 bg-clip-text text-transparent">
                 {{ $gigId ? 'Edit Gig' : 'Create New Gig' }}
             </h1>
             <p class="text-zinc-600 dark:text-zinc-400 mt-1">
