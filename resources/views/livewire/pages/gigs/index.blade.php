@@ -1,7 +1,7 @@
 <div class="min-h-screen bg-gradient-to-br from-zinc-50 to-zinc-100 dark:from-zinc-900 dark:to-zinc-800 relative overflow-hidden">
     <x-animated-background />
 
-    <x-public-nav />
+    <x-navigation />
 
     <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 pt-24 pb-12 relative z-10">
         <x-page-header

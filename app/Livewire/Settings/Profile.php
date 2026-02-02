@@ -10,7 +10,6 @@ use Livewire\Attributes\Computed;
 use Livewire\Attributes\Layout;
 use Livewire\Component;
 
-#[Layout('layouts.settings')]
 class Profile extends Component
 {
     use ProfileValidationRules;

@@ -8,7 +8,6 @@ use Illuminate\Validation\ValidationException;
 use Livewire\Attributes\Layout;
 use Livewire\Component;
 
-#[Layout('layouts.settings')]
 class Password extends Component
 {
     use PasswordValidationRules;

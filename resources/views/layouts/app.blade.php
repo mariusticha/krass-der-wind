@@ -8,6 +8,8 @@
     @fluxAppearance
 </head>
 <body class="min-h-screen bg-white dark:bg-zinc-900 font-serif">
+    <x-navigation />
+
     {{ $slot }}
 
     @fluxScripts

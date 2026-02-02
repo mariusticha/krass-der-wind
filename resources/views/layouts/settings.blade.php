@@ -8,7 +8,7 @@
     @fluxAppearance
 </head>
 <body class="min-h-screen bg-white dark:bg-zinc-900">
-    <x-public-nav />
+    <x-navigation />
 
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         {{ $slot }}

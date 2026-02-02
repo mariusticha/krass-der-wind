@@ -10,7 +10,7 @@
         @fluxAppearance
     </head>
     <body class="min-h-screen bg-white dark:bg-zinc-900 text-zinc-900 dark:text-zinc-100 font-serif" x-data="{ scrolled: false }" @scroll.window="scrolled = window.scrollY > 100">
-        <x-public-nav />
+        <x-navigation />
 
         <!-- Hero Section -->
         <section class="relative overflow-hidden bg-gradient-to-br from-zinc-50 to-zinc-100 dark:from-zinc-900 dark:to-zinc-800 min-h-screen flex items-center">
