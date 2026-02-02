@@ -15,6 +15,8 @@
     @scroll.window="scrolled = window.scrollY > 100">
     <x-navigation />
 
+    <x-animated-background />
+
     <!-- Hero Section -->
     <section
         class="relative overflow-hidden bg-gradient-to-br from-zinc-50 to-zinc-100 dark:from-zinc-900 dark:to-zinc-800 min-h-screen flex items-center">
@@ -137,7 +139,7 @@
     </section>
 
     <!-- About Section -->
-    <section id="about" class="relative py-20 bg-white dark:bg-zinc-900 overflow-hidden">
+    <section id="about" class="relative py-20 overflow-hidden">
         <!-- Animated background gradient mesh -->
         <div
             class="absolute inset-0 bg-gradient-to-br from-amber-50/50 via-transparent to-orange-50/50 dark:from-amber-950/20 dark:via-transparent dark:to-orange-950/20">
@@ -289,36 +291,7 @@
     </section>
 
     <!-- Footer -->
-    <footer class="bg-zinc-900 text-zinc-400 py-12">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="grid md:grid-cols-3 gap-8 mb-8">
-                <div>
-                    <h3 class="text-white font-bold text-lg mb-4">Krass der Wind</h3>
-                    <p class="text-sm">
-                        Politische Blasmusik aus Falkensee – für Demokratie und Menschenrechte.
-                    </p>
-                </div>
-                <div>
-                    <h3 class="text-white font-bold text-lg mb-4">Navigation</h3>
-                    <ul class="space-y-2 text-sm">
-                        <li><a href="{{ route('home') }}" class="hover:text-white transition">Home</a></li>
-                        <li><a href="{{ route('gigs.index') }}" class="hover:text-white transition">Gigs</a></li>
-                        <li><a href="#about" class="hover:text-white transition">About</a></li>
-                    </ul>
-                </div>
-                <div>
-                    <h3 class="text-white font-bold text-lg mb-4">Kontakt</h3>
-                    <ul class="space-y-2 text-sm">
-                        <li>info@krassderwind.de</li>
-                        <li>+49 123 456789</li>
-                    </ul>
-                </div>
-            </div>
-            <div class="border-t border-zinc-800 pt-8 text-center text-sm">
-                <p>&copy; {{ date('Y') }} Krass der Wind. Alle Rechte vorbehalten.</p>
-            </div>
-        </div>
-    </footer>
+    <x-layouts::footer />
 
     @fluxScripts
 </body>
