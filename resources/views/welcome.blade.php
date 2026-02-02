@@ -110,7 +110,7 @@
         </section>
 
         <!-- Smooth transition gradient between sections -->
-        <div class="h-64 bg-gradient-to-b from-white via-white/80 via-amber-50/30 via-amber-50/60 to-amber-100 dark:from-zinc-900 dark:via-zinc-900/80 dark:via-amber-950/10 dark:via-amber-950/25 dark:to-amber-950/40"></div>
+        <div class="h-64 bg-gradient-to-b from-white via-amber-50/40 to-amber-100 dark:from-zinc-900 dark:via-amber-950/20 dark:to-amber-950/40"></div>
 
         <!-- CTA Section -->
         <section class="relative py-20 overflow-hidden">
@@ -126,7 +126,7 @@
                 <div class="absolute bottom-20 left-1/4 w-[300px] h-[300px] bg-gradient-to-tr from-orange-400/25 to-amber-300/15 rounded-full blur-3xl animate-pulse" style="animation-duration: 5s; animation-delay: 1s;"></div>
 
                 <!-- Small floating yellow orb -->
-                <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-gradient-to-r from-amber-300/20 to-orange-300/15 rounded-full blur-3xl" style="animation: float 8s ease-in-out infinite;"></div>
+                <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-gradient-to-r from-amber-300/20 to-orange-300/15 rounded-full blur-3xl animate-pulse" style="animation-duration: 8s;"></div>
 
                 <!-- Accent orbs -->
                 <div class="absolute top-1/4 left-10 w-32 h-32 bg-amber-400/20 rounded-full blur-2xl animate-bounce" style="animation-duration: 6s;"></div>
