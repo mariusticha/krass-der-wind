@@ -107,7 +107,7 @@ class Edit extends Component
         $this->redirect(route('gigs.index'), navigate: true);
     }
 
-    public function render(): Factory|View
+    public function render(): Factory | View
     {
         return view('livewire.pages.gigs.edit');
     }

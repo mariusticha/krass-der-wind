@@ -2,9 +2,9 @@
 
 namespace App\Livewire\Gigs;
 
+use App\Models\Gig;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
-use App\Models\Gig;
 use Livewire\Attributes\Locked;
 use Livewire\Component;
 
@@ -45,7 +45,7 @@ class AttendanceButton extends Component
         $this->loadAttendance();
     }
 
-    public function render(): Factory|View
+    public function render(): Factory | View
     {
         return view('livewire.gigs.attendance-button');
     }

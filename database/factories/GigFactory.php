@@ -103,7 +103,7 @@ class GigFactory extends Factory
         $gigType = fake()->randomElement($gigTypes);
         $year = Carbon::parse($date)->format('Y');
         $name = $gigType . ' ' . $city . ' ' . $year;
-        
+
         // If name exists, add a counter suffix
         $counter = 1;
         while (Gig::where('name', $name)->exists()) {

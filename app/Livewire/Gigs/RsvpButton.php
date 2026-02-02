@@ -2,9 +2,9 @@
 
 namespace App\Livewire\Gigs;
 
+use App\Models\Gig;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
-use App\Models\Gig;
 use Livewire\Attributes\Locked;
 use Livewire\Component;
 
@@ -52,7 +52,7 @@ class RsvpButton extends Component
         $this->loadRsvpStatus();
     }
 
-    public function render(): Factory|View
+    public function render(): Factory | View
     {
         return view('livewire.gigs.rsvp-button');
     }

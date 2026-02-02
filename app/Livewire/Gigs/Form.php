@@ -2,9 +2,9 @@
 
 namespace App\Livewire\Gigs;
 
+use App\Models\Gig;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
-use App\Models\Gig;
 use Livewire\Attributes\On;
 use Livewire\Component;
 
@@ -123,7 +123,7 @@ class Form extends Component
         $this->reset();
     }
 
-    public function render(): Factory|View
+    public function render(): Factory | View
     {
         return view('livewire.gigs.form');
     }

@@ -2,9 +2,9 @@
 
 namespace App\Livewire\Pages\Gigs;
 
+use App\Models\Gig;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
-use App\Models\Gig;
 use Livewire\Attributes\On;
 use Livewire\Component;
 
@@ -16,7 +16,7 @@ class Index extends Component
 
     public $showAttendeesModal = false;
 
-    public $selectedGig = null;
+    public $selectedGig;
 
     public function mount(): void
     {
@@ -75,7 +75,7 @@ class Index extends Component
         } else {
             // Not attending or no response -> set to attending
             $user->gigs()->syncWithoutDetaching([
-                $gig->id => ['rsvp_status' => 'yes', 'updated_at' => now()]
+                $gig->id => ['rsvp_status' => 'yes', 'updated_at' => now()],
             ]);
         }
 
@@ -90,19 +90,19 @@ class Index extends Component
         if ($pivot && $pivot->pivot->attended) {
             // Currently marked as attended -> mark as not attended
             $user->gigs()->syncWithoutDetaching([
-                $gig->id => ['attended' => false, 'attended_at' => null]
+                $gig->id => ['attended' => false, 'attended_at' => null],
             ]);
         } else {
             // Not attended -> mark as attended
             $user->gigs()->syncWithoutDetaching([
-                $gig->id => ['attended' => true, 'attended_at' => now()]
+                $gig->id => ['attended' => true, 'attended_at' => now()],
             ]);
         }
 
         $this->loadGigs();
     }
 
-    public function render(): Factory|View
+    public function render(): Factory | View
     {
         return view('livewire.pages.gigs.index');
     }
