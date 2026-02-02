@@ -119,24 +119,40 @@
                                             {{ $isAttending ? 'Attending' : 'Attend' }}
                                         </flux:button>
                                         <flux:button
-                                            href="{{ route('gigs.edit', $gig) }}"
-                                            wire:navigate
+                                            wire:click="togglePublic({{ $gig->id }})"
                                             size="sm"
                                             variant="ghost"
-                                            icon="pencil"
+                                            icon="{{ $gig->is_public ? 'eye-slash' : 'eye' }}"
+                                            title="{{ $gig->is_public ? 'Make Private' : 'Make Public' }}"
                                         >
-                                            Edit
+                                            {{ $gig->is_public ? 'Unpublish' : 'Publish' }}
                                         </flux:button>
-                                        <flux:button
-                                            wire:click="deleteGig({{ $gig->id }})"
-                                            wire:confirm="Are you sure you want to delete this gig?"
-                                            size="sm"
-                                            variant="ghost"
-                                            color="red"
-                                            icon="trash"
-                                        >
-                                            Delete
-                                        </flux:button>
+                                        <flux:dropdown position="bottom" align="end">
+                                            <flux:button
+                                                size="sm"
+                                                variant="ghost"
+                                                icon="ellipsis-vertical"
+                                                square
+                                            />
+
+                                            <flux:menu>
+                                                <flux:menu.item
+                                                    :href="route('gigs.edit', $gig)"
+                                                    wire:navigate
+                                                    icon="pencil"
+                                                >
+                                                    Edit
+                                                </flux:menu.item>
+                                                <flux:menu.item
+                                                    wire:click="deleteGig({{ $gig->id }})"
+                                                    wire:confirm="Are you sure you want to delete this gig?"
+                                                    icon="trash"
+                                                    variant="danger"
+                                                >
+                                                    Delete
+                                                </flux:menu.item>
+                                            </flux:menu>
+                                        </flux:dropdown>
                                     </div>
                                 @endauth
                             </div>
@@ -248,24 +264,40 @@
                                             {{ $didAttend ? 'Attended' : 'Mark Attended' }}
                                         </flux:button>
                                         <flux:button
-                                            href="{{ route('gigs.edit', $gig) }}"
-                                            wire:navigate
+                                            wire:click="togglePublic({{ $gig->id }})"
                                             size="sm"
                                             variant="ghost"
-                                            icon="pencil"
+                                            icon="{{ $gig->is_public ? 'eye-slash' : 'eye' }}"
+                                            title="{{ $gig->is_public ? 'Make Private' : 'Make Public' }}"
                                         >
-                                            Edit
+                                            {{ $gig->is_public ? 'Unpublish' : 'Publish' }}
                                         </flux:button>
-                                        <flux:button
-                                            wire:click="deleteGig({{ $gig->id }})"
-                                            wire:confirm="Are you sure you want to delete this gig?"
-                                            size="sm"
-                                            variant="ghost"
-                                            color="red"
-                                            icon="trash"
-                                        >
-                                            Delete
-                                        </flux:button>
+                                        <flux:dropdown position="bottom" align="end">
+                                            <flux:button
+                                                size="sm"
+                                                variant="ghost"
+                                                icon="ellipsis-vertical"
+                                                square
+                                            />
+
+                                            <flux:menu>
+                                                <flux:menu.item
+                                                    :href="route('gigs.edit', $gig)"
+                                                    wire:navigate
+                                                    icon="pencil"
+                                                >
+                                                    Edit
+                                                </flux:menu.item>
+                                                <flux:menu.item
+                                                    wire:click="deleteGig({{ $gig->id }})"
+                                                    wire:confirm="Are you sure you want to delete this gig?"
+                                                    icon="trash"
+                                                    variant="danger"
+                                                >
+                                                    Delete
+                                                </flux:menu.item>
+                                            </flux:menu>
+                                        </flux:dropdown>
                                     </div>
                                 @endauth
                             </div>

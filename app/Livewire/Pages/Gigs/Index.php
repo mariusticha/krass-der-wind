@@ -102,6 +102,12 @@ class Index extends Component
         $this->loadGigs();
     }
 
+    public function togglePublic(Gig $gig): void
+    {
+        $gig->update(['is_public' => ! $gig->is_public]);
+        $this->loadGigs();
+    }
+
     public function render(): Factory | View
     {
         return view('livewire.pages.gigs.index');

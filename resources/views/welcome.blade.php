@@ -91,14 +91,12 @@
                     <div class="relative group">
                         <!-- Animated glow effect -->
                         <div class="absolute -inset-4 bg-gradient-to-r from-amber-500 to-orange-500 rounded-2xl opacity-20 group-hover:opacity-30 blur-2xl transition-opacity duration-500"></div>
-                        <div class="relative bg-gradient-to-br from-amber-400 via-orange-500 to-amber-600 rounded-2xl aspect-square flex items-center justify-center shadow-2xl transform group-hover:scale-105 group-hover:rotate-2 transition-all duration-500 overflow-hidden">
+                        <div class="relative bg-gradient-to-br from-amber-400 via-orange-500 to-amber-600 rounded-2xl aspect-[4/3] max-w-md mx-auto flex items-center justify-center shadow-2xl transform group-hover:scale-105 transition-all duration-500 overflow-hidden">
                             <!-- Animated background pattern -->
                             <div class="absolute inset-0 opacity-10">
                                 <div class="absolute inset-0 bg-gradient-to-br from-white to-transparent animate-pulse"></div>
                             </div>
-                            <svg class="w-48 h-48 text-white/30 transform group-hover:scale-110 group-hover:rotate-12 transition-all duration-700" fill="currentColor" viewBox="0 0 24 24">
-                                <path d="M9 19V6l12-3v13M9 19c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zm12-3c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zM9 10l12-3"/>
-                            </svg>
+                            <img src="{{ asset('images/2025-kdw-funny.jpg') }}" alt="Krass der Wind Band" class="w-full h-full object-cover transform group-hover:scale-110 transition-all duration-700">
                             <!-- Floating particles -->
                             <div class="absolute top-10 left-10 w-2 h-2 bg-white/40 rounded-full animate-ping"></div>
                             <div class="absolute bottom-20 right-20 w-3 h-3 bg-white/30 rounded-full animate-ping" style="animation-delay: 0.5s;"></div>
