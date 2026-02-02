@@ -16,7 +16,7 @@
         <div class="mb-12">
             <h2
                 class="text-2xl font-semibold mb-6 bg-gradient-to-r from-amber-500 to-orange-500 bg-clip-text text-transparent">
-                Upcoming Gigs
+                Upcoming
             </h2>
 
             @if (count($upcomingGigs) === 0)
@@ -26,119 +26,7 @@
             @else
                 <div class="space-y-4">
                     @foreach ($upcomingGigs as $gig)
-                        <flux:card
-                            class="transition-all duration-300 hover:scale-[1.02] hover:shadow-2xl hover:shadow-amber-500/10 relative overflow-hidden group">
-                            <!-- Card hover gradient effect -->
-                            <div
-                                class="absolute inset-0 bg-gradient-to-r from-amber-500/5 to-orange-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none">
-                            </div>
-
-                            <div class="flex justify-between items-start relative z-10">
-                                <div class="flex-1">
-                                    <div class="flex items-center gap-2 mb-2">
-                                        <h3 class="text-xl font-semibold">{{ $gig->name }}</h3>
-                                        @auth
-                                            @if ($gig->is_public)
-                                                <flux:badge color="green" size="sm">Public</flux:badge>
-                                            @else
-                                                <flux:badge color="zinc" size="sm">Private</flux:badge>
-                                            @endif
-
-                                            @php
-                                                $userGig = $gig->users->firstWhere('id', auth()->id());
-                                                $isAttending = $userGig && $userGig->pivot->rsvp_status === 'yes';
-                                            @endphp
-
-                                            @if ($isAttending)
-                                                <flux:badge color="blue" size="sm">Attending</flux:badge>
-                                            @endif
-                                        @endauth
-                                    </div>
-
-                                    <div class="space-y-1 text-gray-600 dark:text-gray-300">
-                                        <p class="flex items-center gap-2">
-                                            <flux:icon.calendar class="size-4" />
-                                            {{ $gig->date->format('l, F j, Y') }}
-                                            @if ($gig->time)
-                                                at {{ $gig->time->format('H:i') }}
-                                            @endif
-                                        </p>
-                                        <p class="flex items-center gap-2">
-                                            <flux:icon.map-pin class="size-4" />
-                                            {{ $gig->location }}, {{ $gig->city }}
-                                        </p>
-                                        @auth
-                                            @php
-                                                $attendeeCount = $gig->users
-                                                    ->where('pivot.rsvp_status', 'yes')
-                                                    ->count();
-                                            @endphp
-                                            <button wire:click="showAttendees({{ $gig->id }})"
-                                                class="flex items-center gap-2 text-sm text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 cursor-pointer">
-                                                <flux:icon.user-group class="size-4" />
-                                                {{ $attendeeCount }} {{ Str::plural('person', $attendeeCount) }} attending
-                                            </button>
-                                        @endauth
-                                    </div>
-
-                                    @if ($gig->description)
-                                        <p class="mt-3 text-gray-700 dark:text-gray-300">{{ $gig->description }}</p>
-                                    @endif
-
-                                    @if ($gig->playlist)
-                                        <div class="mt-4" x-data="{ open: false }">
-                                            <button @click="open = !open"
-                                                class="flex items-center gap-1 font-medium text-sm text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-gray-100 mb-2">
-                                                <span>Playlist ({{ count($gig->playlist) }} songs)</span>
-                                                <flux:icon.chevron-down class="size-4 transition-transform"
-                                                    ::class="open && 'rotate-180'" />
-                                            </button>
-                                            <ul x-show="open" x-collapse
-                                                class="list-disc list-inside text-sm text-gray-600 dark:text-gray-400 space-y-1">
-                                                @foreach ($gig->playlist as $song)
-                                                    <li>{{ $song }}</li>
-                                                @endforeach
-                                            </ul>
-                                        </div>
-                                    @endif
-                                </div>
-
-                                @auth
-                                    <div class="flex gap-2 ml-4">
-                                        @php
-                                            $userGig = $gig->users->firstWhere('id', auth()->id());
-                                            $isAttending = $userGig && $userGig->pivot->rsvp_status === 'yes';
-                                        @endphp
-
-                                        <flux:button wire:click="toggleRsvp({{ $gig->id }})" size="sm"
-                                            variant="ghost" :color="$isAttending ? 'blue' : 'zinc'"
-                                            icon="{{ $isAttending ? 'check' : 'plus' }}">
-                                            {{ $isAttending ? 'Attending' : 'Attend' }}
-                                        </flux:button>
-                                        <flux:button wire:click="togglePublic({{ $gig->id }})" size="sm"
-                                            variant="ghost" icon="{{ $gig->is_public ? 'eye-slash' : 'eye' }}"
-                                            title="{{ $gig->is_public ? 'Make Private' : 'Make Public' }}">
-                                            {{ $gig->is_public ? 'Unpublish' : 'Publish' }}
-                                        </flux:button>
-                                        <flux:dropdown position="bottom" align="end">
-                                            <flux:button size="sm" variant="ghost" icon="ellipsis-vertical" square />
-
-                                            <flux:menu>
-                                                <flux:menu.item :href="route('gigs.edit', $gig)" wire:navigate
-                                                    icon="pencil">
-                                                    Edit
-                                                </flux:menu.item>
-                                                <flux:menu.item wire:click="deleteGig({{ $gig->id }})"
-                                                    wire:confirm="Are you sure you want to delete this gig?" icon="trash"
-                                                    variant="danger">
-                                                    Delete
-                                                </flux:menu.item>
-                                            </flux:menu>
-                                        </flux:dropdown>
-                                    </div>
-                                @endauth
-                            </div>
-                        </flux:card>
+                        <x-gig-card :gig="$gig" type="upcoming" />
                     @endforeach
                 </div>
             @endif
@@ -148,7 +36,8 @@
         <div>
             <h2
                 class="text-2xl font-semibold mb-6 bg-gradient-to-r from-purple-500 to-blue-500 bg-clip-text text-transparent">
-                Past Gigs</h2>
+                Past
+            </h2>
 
             @if (count($pastGigs) === 0)
                 <flux:card>
@@ -157,118 +46,7 @@
             @else
                 <div class="space-y-4">
                     @foreach ($pastGigs as $gig)
-                        <flux:card
-                            class="transition-all duration-300 hover:scale-[1.01] hover:shadow-xl hover:shadow-purple-500/10 relative overflow-hidden group">
-                            <!-- Card hover gradient effect -->
-                            <div
-                                class="absolute inset-0 bg-gradient-to-r from-purple-500/5 to-blue-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none">
-                            </div>
-
-                            <div class="flex justify-between items-start relative z-10">
-                                <div class="flex-1 opacity-90">
-                                    <div class="flex items-center gap-2 mb-2">
-                                        <h3 class="text-xl font-semibold">{{ $gig->name }}</h3>
-                                        @auth
-                                            @if ($gig->is_public)
-                                                <flux:badge color="green" size="sm">Public</flux:badge>
-                                            @else
-                                                <flux:badge color="zinc" size="sm">Private</flux:badge>
-                                            @endif
-
-                                            @php
-                                                $userGig = $gig->users->firstWhere('id', auth()->id());
-                                                $didAttend = $userGig && $userGig->pivot->attended;
-                                            @endphp
-
-                                            @if ($didAttend)
-                                                <flux:badge color="purple" size="sm">Attended</flux:badge>
-                                            @endif
-                                        @endauth
-                                    </div>
-
-                                    <div class="space-y-1 text-gray-600 dark:text-gray-300">
-                                        <p class="flex items-center gap-2">
-                                            <flux:icon.calendar class="size-4" />
-                                            {{ $gig->date->format('l, F j, Y') }}
-                                            @if ($gig->time)
-                                                at {{ $gig->time->format('H:i') }}
-                                            @endif
-                                        </p>
-                                        <p class="flex items-center gap-2">
-                                            <flux:icon.map-pin class="size-4" />
-                                            {{ $gig->location }}, {{ $gig->city }}
-                                        </p>
-                                        @auth
-                                            @php
-                                                $participantCount = $gig->users->where('pivot.attended', true)->count();
-                                            @endphp
-                                            <button wire:click="showAttendees({{ $gig->id }})"
-                                                class="flex items-center gap-2 text-sm text-purple-600 dark:text-purple-400 hover:text-purple-700 dark:hover:text-purple-300 cursor-pointer">
-                                                <flux:icon.user-group class="size-4" />
-                                                {{ $participantCount }} {{ Str::plural('person', $participantCount) }}
-                                                attended
-                                            </button>
-                                        @endauth
-                                    </div>
-
-                                    @if ($gig->description)
-                                        <p class="mt-3 text-gray-700 dark:text-gray-300">{{ $gig->description }}</p>
-                                    @endif
-
-                                    @if ($gig->playlist)
-                                        <div class="mt-4" x-data="{ open: false }">
-                                            <button @click="open = !open"
-                                                class="flex items-center gap-1 font-medium text-sm text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-gray-100 mb-2">
-                                                <span>Playlist ({{ count($gig->playlist) }} songs)</span>
-                                                <flux:icon.chevron-down class="size-4 transition-transform"
-                                                    ::class="open && 'rotate-180'" />
-                                            </button>
-                                            <ul x-show="open" x-collapse
-                                                class="list-disc list-inside text-sm text-gray-600 dark:text-gray-400 space-y-1">
-                                                @foreach ($gig->playlist as $song)
-                                                    <li>{{ $song }}</li>
-                                                @endforeach
-                                            </ul>
-                                        </div>
-                                    @endif
-                                </div>
-
-                                @auth
-                                    <div class="flex gap-2 ml-4">
-                                        @php
-                                            $userGig = $gig->users->firstWhere('id', auth()->id());
-                                            $didAttend = $userGig && $userGig->pivot->attended;
-                                        @endphp
-
-                                        <flux:button wire:click="toggleAttendance({{ $gig->id }})" size="sm"
-                                            variant="ghost" :color="$didAttend ? 'purple' : 'zinc'"
-                                            icon="{{ $didAttend ? 'check' : 'plus' }}">
-                                            {{ $didAttend ? 'Attended' : 'Mark Attended' }}
-                                        </flux:button>
-                                        <flux:button wire:click="togglePublic({{ $gig->id }})" size="sm"
-                                            variant="ghost" icon="{{ $gig->is_public ? 'eye-slash' : 'eye' }}"
-                                            title="{{ $gig->is_public ? 'Make Private' : 'Make Public' }}">
-                                            {{ $gig->is_public ? 'Unpublish' : 'Publish' }}
-                                        </flux:button>
-                                        <flux:dropdown position="bottom" align="end">
-                                            <flux:button size="sm" variant="ghost" icon="ellipsis-vertical" square />
-
-                                            <flux:menu>
-                                                <flux:menu.item :href="route('gigs.edit', $gig)" wire:navigate
-                                                    icon="pencil">
-                                                    Edit
-                                                </flux:menu.item>
-                                                <flux:menu.item wire:click="deleteGig({{ $gig->id }})"
-                                                    wire:confirm="Are you sure you want to delete this gig?"
-                                                    icon="trash" variant="danger">
-                                                    Delete
-                                                </flux:menu.item>
-                                            </flux:menu>
-                                        </flux:dropdown>
-                                    </div>
-                                @endauth
-                            </div>
-                        </flux:card>
+                        <x-gig-card :gig="$gig" type="past" />
                     @endforeach
                 </div>
             @endif
