@@ -6,9 +6,7 @@ use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return view('welcome');
-})->name('home');
+Route::view('/', 'welcome-2')->name('home');
 
 // Auto-login for local development
 Route::get('/login', function () {

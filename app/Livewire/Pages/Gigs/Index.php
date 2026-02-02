@@ -110,6 +110,7 @@ class Index extends Component
 
     public function render(): Factory | View
     {
-        return view('livewire.pages.gigs.index');
+        return view('livewire.pages.gigs.index')
+            ->layout('layouts::app');
     }
 }

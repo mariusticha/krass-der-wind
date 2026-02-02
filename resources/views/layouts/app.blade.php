@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}" x-data :class="$flux.dark && 'dark'">
+
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -7,11 +8,19 @@
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     @fluxAppearance
 </head>
-<body class="min-h-screen bg-white dark:bg-zinc-900 font-serif">
+
+<body class="min-h-screen bg-white dark:bg-zinc-900 font-serif flex flex-col">
+    <x-animated-background />
+
     <x-navigation />
 
-    {{ $slot }}
+    <main class="flex-1">
+        {{ $slot }}
+    </main>
 
     @fluxScripts
+
+    <x-layouts::footer />
 </body>
+
 </html>
