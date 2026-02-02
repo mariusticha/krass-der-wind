@@ -61,16 +61,12 @@
         </section>
 
         <!-- About Section -->
-        <section id="about" class="relative py-20 bg-white dark:bg-zinc-900 overflow-hidden"
-                 x-data="{ inView: false }"
-                 x-intersect:enter="inView = true"
-                 x-intersect:leave="inView = false">
+        <section id="about" class="relative py-20 bg-white dark:bg-zinc-900 overflow-hidden">
             <!-- Animated background gradient mesh -->
             <div class="absolute inset-0 bg-gradient-to-br from-amber-50/50 via-transparent to-orange-50/50 dark:from-amber-950/20 dark:via-transparent dark:to-orange-950/20"></div>
             <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-amber-500/50 to-transparent"></div>
 
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 transition-all duration-1000 ease-out"
-                 :class="inView ? 'opacity-100 translate-y-0' : 'opacity-50 translate-y-8'">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 scroll-reveal">
                 <div class="grid md:grid-cols-2 gap-12 items-center">
                     <div class="space-y-6 transform hover:translate-x-2 transition-transform duration-500">
                         <h2 class="text-4xl font-bold mb-6 bg-gradient-to-r from-amber-600 to-orange-600 bg-clip-text text-transparent">Über Uns</h2>
@@ -114,10 +110,7 @@
         </section>
 
         <!-- CTA Section -->
-        <section class="relative py-20 overflow-hidden"
-                 x-data="{ inView: false }"
-                 x-intersect:enter="inView = true"
-                 x-intersect:leave="inView = false">
+        <section class="relative py-20 overflow-hidden">
             <!-- Animated gradient background -->
             <div class="absolute inset-0 bg-gradient-to-br from-amber-500 via-orange-500 to-amber-600 bg-[length:200%_200%] animate-gradient"></div>
 
@@ -129,8 +122,7 @@
                 </div>
             </div>
 
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10 transition-all duration-1000 ease-out"
-                 :class="inView ? 'opacity-100 translate-y-0' : 'opacity-50 translate-y-8'">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10 scroll-reveal scroll-reveal-delay-2">
                 <h2 class="text-4xl font-bold text-white mb-4 transform hover:scale-110 transition-transform duration-300">Bereit mitzumachen?</h2>
                 <p class="text-xl text-white/90 mb-8 max-w-2xl mx-auto leading-relaxed">
                     Wir proben einmal im Monat in Falkensee. Notenkenntnisse und Spielerfahrung sind erforderlich – wir spielen aber als Amateurmusiker*innen auf unterschiedlichen Niveaus.

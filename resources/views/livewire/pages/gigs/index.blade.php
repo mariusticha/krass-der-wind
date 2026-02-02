@@ -1,10 +1,29 @@
-<div class="min-h-screen bg-white dark:bg-zinc-900">
+<div class="min-h-screen bg-gradient-to-br from-zinc-50 to-zinc-100 dark:from-zinc-900 dark:to-zinc-800 relative overflow-hidden">
+    <!-- Animated background elements -->
+    <div class="absolute inset-0 overflow-hidden pointer-events-none">
+        <div class="absolute top-20 right-20 w-96 h-96 bg-gradient-to-br from-amber-500/10 to-orange-500/10 rounded-full blur-3xl animate-pulse"></div>
+        <div class="absolute bottom-40 left-20 w-[500px] h-[500px] bg-gradient-to-tr from-orange-500/8 to-amber-500/8 rounded-full blur-3xl animate-pulse" style="animation-delay: 1.5s;"></div>
+        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[700px] bg-gradient-to-r from-amber-400/5 to-orange-400/5 rounded-full blur-3xl animate-spin" style="animation-duration: 40s;"></div>
+
+        <!-- Floating musical notes -->
+        <div class="absolute top-32 left-1/4 text-amber-500/15 animate-bounce" style="animation-duration: 4s;">
+            <svg class="w-10 h-10" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/>
+            </svg>
+        </div>
+        <div class="absolute top-1/3 right-1/4 text-orange-500/12 animate-bounce" style="animation-duration: 5s; animation-delay: 1s;">
+            <svg class="w-14 h-14" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/>
+            </svg>
+        </div>
+    </div>
+
     <x-public-nav />
 
-    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12 relative z-10">
         <div class="mb-8 flex justify-between items-center">
             <div>
-                <h1 class="text-3xl font-bold text-zinc-900 dark:text-zinc-100">Gigs</h1>
+                <h1 class="text-3xl font-bold bg-gradient-to-r from-amber-600 to-orange-600 bg-clip-text text-transparent">Gigs</h1>
                 <p class="text-zinc-600 dark:text-zinc-400 mt-1">
                     @guest
                         Check out where we've been and where we're going!
@@ -23,7 +42,7 @@
 
         {{-- Upcoming Gigs --}}
         <div class="mb-12">
-            <h2 class="text-2xl font-semibold mb-6">Upcoming Gigs</h2>
+            <h2 class="text-2xl font-semibold mb-6 bg-gradient-to-r from-amber-500 to-orange-500 bg-clip-text text-transparent">Upcoming Gigs</h2>
 
             @if(count($upcomingGigs) === 0)
                 <flux:card>
@@ -32,8 +51,11 @@
             @else
                 <div class="space-y-4">
                     @foreach($upcomingGigs as $gig)
-                        <flux:card>
-                            <div class="flex justify-between items-start">
+                        <flux:card class="transition-all duration-300 hover:scale-[1.02] hover:shadow-2xl hover:shadow-amber-500/10 relative overflow-hidden group">
+                            <!-- Card hover gradient effect -->
+                            <div class="absolute inset-0 bg-gradient-to-r from-amber-500/5 to-orange-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"></div>
+
+                            <div class="flex justify-between items-start relative z-10">
                                 <div class="flex-1">
                                     <div class="flex items-center gap-2 mb-2">
                                         <h3 class="text-xl font-semibold">{{ $gig->name }}</h3>
@@ -149,7 +171,7 @@
 
         {{-- Past Gigs --}}
         <div>
-            <h2 class="text-2xl font-semibold mb-6">Past Gigs</h2>
+            <h2 class="text-2xl font-semibold mb-6 bg-gradient-to-r from-purple-500 to-blue-500 bg-clip-text text-transparent">Past Gigs</h2>
 
             @if(count($pastGigs) === 0)
                 <flux:card>
@@ -158,8 +180,11 @@
             @else
                 <div class="space-y-4">
                     @foreach($pastGigs as $gig)
-                        <flux:card>
-                            <div class="flex justify-between items-start">
+                        <flux:card class="transition-all duration-300 hover:scale-[1.01] hover:shadow-xl hover:shadow-purple-500/10 relative overflow-hidden group">
+                            <!-- Card hover gradient effect -->
+                            <div class="absolute inset-0 bg-gradient-to-r from-purple-500/5 to-blue-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"></div>
+
+                            <div class="flex justify-between items-start relative z-10">
                                 <div class="flex-1 opacity-90">
                                     <div class="flex items-center gap-2 mb-2">
                                         <h3 class="text-xl font-semibold">{{ $gig->name }}</h3>
