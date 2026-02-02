@@ -2,7 +2,7 @@
     <x-animated-background />
 </div>
 
-<div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 pt-24 pb-12">
+<div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 pt-20 sm:pt-24 pb-8 sm:pb-12">
     <x-page-header
         title="Settings"
         description="Manage your profile and account settings"
