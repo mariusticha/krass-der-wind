@@ -1,4 +1,6 @@
-<nav class="border-b border-zinc-200 dark:border-zinc-700 bg-white dark:bg-zinc-900 sticky top-0 z-50">
+<nav class="backdrop-blur-xl fixed top-0 left-0 right-0 z-50 transition-all duration-700 ease-out"
+     :class="scrolled ? 'translate-y-0 opacity-100' : '-translate-y-full opacity-0'"
+     x-cloak>
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex justify-between items-center h-16">
             <!-- Logo/Brand -->
@@ -6,12 +8,17 @@
                 <svg class="w-8 h-8 text-amber-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19V6l12-3v13M9 19c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zm12-3c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zM9 10l12-3"/>
                 </svg>
-                <span class="text-xl font-bold">Krass der Wind</span>
+                <span class="text-xl font-bold text-zinc-900 dark:text-zinc-100">Krass der Wind</span>
             </a>
 
             <!-- Nav Links - Left Aligned -->
             <div class="flex items-center space-x-4 md:space-x-8 flex-1 ml-8">
-                <a href="{{ route('gigs.index') }}" class="text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white transition text-sm md:text-base">Gigs</a>
+                <a
+                    href="{{ route('gigs.index') }}"
+                    class="text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white transition text-sm md:text-base {{ request()->routeIs('gigs.*') ? 'font-semibold !text-amber-600 dark:!text-amber-500' : '' }}"
+                >
+                    Gigs
+                </a>
                 <a href="https://noethernetz.de/krassderwind/noten-fuer-krassderwind/" target="_blank" class="text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white transition flex items-center gap-1 text-sm md:text-base">
                     Noten
                     <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -30,9 +37,58 @@
             <!-- Auth Links - Right Side -->
             <div class="flex items-center space-x-4">
                 @auth
-                    <a href="{{ route('dashboard') }}" class="text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white transition text-sm md:text-base">
-                        Dashboard
-                    </a>
+                    <!-- User Dropdown Menu -->
+                    <flux:dropdown position="bottom" align="end">
+                        <flux:profile
+                            :initials="auth()->user()->initials()"
+                            icon-trailing="chevron-down"
+                        />
+
+                        <flux:menu>
+                            <div class="flex items-center gap-2 px-1 py-1.5 text-start text-sm">
+                                <flux:avatar
+                                    :name="auth()->user()->name"
+                                    :initials="auth()->user()->initials()"
+                                />
+                                <div class="grid flex-1 text-start text-sm leading-tight">
+                                    <flux:heading class="truncate">{{ auth()->user()->name }}</flux:heading>
+                                    <flux:text class="truncate">{{ auth()->user()->email }}</flux:text>
+                                </div>
+                            </div>
+                            <flux:menu.separator />
+                            <flux:menu.radio.group>
+                                <flux:menu.item
+                                    :href="route('dashboard')"
+                                    icon="home"
+                                    wire:navigate
+                                    :class="request()->routeIs('dashboard') ? 'font-semibold' : ''"
+                                >
+                                    {{ __('Dashboard') }}
+                                </flux:menu.item>
+                                <flux:menu.item
+                                    :href="route('profile.edit')"
+                                    icon="cog"
+                                    wire:navigate
+                                    :class="request()->routeIs('profile.*', 'user-password.*', 'two-factor.*', 'appearance.*') ? 'font-semibold' : ''"
+                                >
+                                    {{ __('Settings') }}
+                                </flux:menu.item>
+                            </flux:menu.radio.group>
+                            <flux:menu.separator />
+                            <form method="POST" action="{{ route('logout') }}" class="w-full">
+                                @csrf
+                                <flux:menu.item
+                                    as="button"
+                                    type="submit"
+                                    icon="arrow-right-start-on-rectangle"
+                                    class="w-full cursor-pointer"
+                                    data-test="logout-button"
+                                >
+                                    {{ __('Log Out') }}
+                                </flux:menu.item>
+                            </form>
+                        </flux:menu>
+                    </flux:dropdown>
                 @else
                     <a href="{{ route('login') }}" class="text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white transition text-sm md:text-base">
                         Login

@@ -7,8 +7,10 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 use Livewire\Attributes\Computed;
+use Livewire\Attributes\Layout;
 use Livewire\Component;
 
+#[Layout('layouts.settings')]
 class Profile extends Component
 {
     use ProfileValidationRules;
@@ -17,6 +19,8 @@ class Profile extends Component
 
     public string $email = '';
 
+    public string $instrument = '';
+
     /**
      * Mount the component.
      */
@@ -24,6 +28,7 @@ class Profile extends Component
     {
         $this->name = Auth::user()->name;
         $this->email = Auth::user()->email;
+        $this->instrument = Auth::user()->instrument;
     }
 
     /**

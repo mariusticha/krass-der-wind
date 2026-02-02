@@ -14,36 +14,45 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // Create 5 band members
+        // Create 20 band members/musicians
         $users = collect([
             User::factory()->create([
                 'name' => 'Max Mustermann',
                 'email' => 'max@krass-der-wind.de',
+                'instrument' => 'Trumpet',
             ]),
             User::factory()->create([
                 'name' => 'Anna Schmidt',
                 'email' => 'anna@krass-der-wind.de',
+                'instrument' => 'Clarinet',
             ]),
             User::factory()->create([
                 'name' => 'Thomas Müller',
                 'email' => 'thomas@krass-der-wind.de',
+                'instrument' => 'Trombone',
             ]),
             User::factory()->create([
                 'name' => 'Lisa Weber',
                 'email' => 'lisa@krass-der-wind.de',
+                'instrument' => 'Saxophone',
             ]),
             User::factory()->create([
                 'name' => 'Michael Bauer',
                 'email' => 'michael@krass-der-wind.de',
+                'instrument' => 'Tuba',
             ]),
         ]);
+
+        // Add 15 more musicians
+        $additionalUsers = User::factory(15)->create();
+        $users = $users->merge($additionalUsers);
 
         // Create 5 past gigs with attendance
         $pastGigs = Gig::factory(5)->past()->public()->create();
 
         foreach ($pastGigs as $gig) {
-            // Random attendance (2-5 people played)
-            $attendees = $users->random(fake()->numberBetween(2, 5));
+            // More people attended (8-15 people played)
+            $attendees = $users->random(fake()->numberBetween(8, 15));
             foreach ($attendees as $user) {
                 $gig->users()->attach($user->id, [
                     'attended' => true,
@@ -56,11 +65,11 @@ class DatabaseSeeder extends Seeder
         $upcomingGigs = Gig::factory(5)->upcoming()->create();
 
         foreach ($upcomingGigs as $gig) {
-            // Random RSVPs (3-5 people responded)
-            $rsvpUsers = $users->random(fake()->numberBetween(3, 5));
+            // More RSVPs (10-18 people responded)
+            $rsvpUsers = $users->random(fake()->numberBetween(10, 18));
             foreach ($rsvpUsers as $user) {
                 $gig->users()->attach($user->id, [
-                    'rsvp_status' => fake()->randomElement(['yes', 'maybe', 'no']),
+                    'rsvp_status' => fake()->randomElement(['yes', 'yes', 'yes', 'no']), // 75% yes, 25% no
                     'rsvp_at' => now()->subDays(fake()->numberBetween(1, 14)),
                 ]);
             }
@@ -70,10 +79,11 @@ class DatabaseSeeder extends Seeder
         $privateGigs = Gig::factory(2)->upcoming()->private()->create();
 
         foreach ($privateGigs as $gig) {
-            $rsvpUsers = $users->random(fake()->numberBetween(2, 4));
+            // More people for private events too (6-12)
+            $rsvpUsers = $users->random(fake()->numberBetween(6, 12));
             foreach ($rsvpUsers as $user) {
                 $gig->users()->attach($user->id, [
-                    'rsvp_status' => fake()->randomElement(['yes', 'maybe']),
+                    'rsvp_status' => 'yes',
                     'rsvp_at' => now()->subDays(fake()->numberBetween(1, 7)),
                 ]);
             }

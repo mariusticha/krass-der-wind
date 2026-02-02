@@ -24,9 +24,23 @@ class UserFactory extends Factory
      */
     public function definition(): array
     {
+        $instruments = [
+            'Trumpet',
+            'Trombone',
+            'Tuba',
+            'Saxophone',
+            'Clarinet',
+            'Flute',
+            'French Horn',
+            'Euphonium',
+            'Drums',
+            'Percussion',
+        ];
+
         return [
             'name' => fake()->name(),
             'email' => fake()->unique()->safeEmail(),
+            'instrument' => fake()->randomElement($instruments),
             'email_verified_at' => now(),
             'password' => static::$password ??= Hash::make('password'),
             'remember_token' => Str::random(10),
