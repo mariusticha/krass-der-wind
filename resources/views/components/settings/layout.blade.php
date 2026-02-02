@@ -1,3 +1,5 @@
+@props(['heading', 'subheading'])
+
 <div class="flex flex-col md:flex-row md:items-start gap-6 md:gap-10">
     <div class="w-full md:w-[220px] md:flex-shrink-0">
         <flux:navlist aria-label="{{ __('Settings') }}">
@@ -13,9 +15,13 @@
     <flux:separator class="md:hidden" />
 
     <div class="flex-1 min-w-0">
-        <div class="w-full max-w-lg">
+        <div class="w-full max-w-lg space-y-6">
+            <div>
+                <flux:heading size="lg">{{ $heading }}</flux:heading>
+                <flux:subheading>{{ $subheading }}</flux:subheading>
+            </div>
+
             {{ $slot }}
         </div>
     </div>
-</div>
 </div>
