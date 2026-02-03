@@ -37,8 +37,8 @@ class Index extends Component
         }
 
         // Load all users with pivot data for counts and current user status
-        $upcomingQuery->with('users');
-        $pastQuery->with('users');
+        $upcomingQuery->with(['users', 'songs']);
+        $pastQuery->with(['users', 'songs']);
 
         $this->upcomingGigs = $upcomingQuery->upcoming()->get();
         $this->pastGigs = $pastQuery->past()->get();

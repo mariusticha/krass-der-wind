@@ -95,7 +95,6 @@ class GigFactory extends Factory
             'Königgrätzer Marsch',
         ];
 
-        $playlist = fake()->randomElements($songs, fake()->numberBetween(5, 10));
         $date = fake()->dateTimeBetween('-6 months', '+6 months');
         $city = fake()->randomElement($cities);
 
@@ -118,7 +117,6 @@ class GigFactory extends Factory
             'time' => fake()->time(),
             'location' => fake()->randomElement($venues),
             'city' => $city,
-            'playlist' => $playlist,
             'is_public' => fake()->boolean(90),
         ];
     }

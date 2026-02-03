@@ -3,6 +3,7 @@
 namespace App\Livewire\Pages\Gigs;
 
 use App\Models\Gig;
+use App\Models\Song;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Livewire\Component;
@@ -23,9 +24,24 @@ class Edit extends Component
 
     public string $description = '';
 
-    public array $playlist = [''];
-
     public bool $isPublic = true;
+
+    // Song management
+    public array $selectedSongs = [];
+
+    public bool $isOrdered = false;
+
+    public string $songSearch = '';
+
+    public bool $showAddSongModal = false;
+
+    public string $newSongName = '';
+
+    public string $newSongArtist = '';
+
+    public ?int $newSongYear = null;
+
+    public string $newSongDescription = '';
 
     protected function rules(): array
     {
@@ -36,9 +52,11 @@ class Edit extends Component
             'location' => ['required', 'string', 'max:255'],
             'city' => ['required', 'string', 'max:255'],
             'description' => ['nullable', 'string'],
-            'playlist' => ['nullable', 'array'],
-            'playlist.*' => ['nullable', 'string'],
             'isPublic' => ['boolean'],
+            'isOrdered' => ['boolean'],
+            'selectedSongs' => ['array'],
+            'selectedSongs.*.id' => ['required', 'exists:songs,id'],
+            'selectedSongs.*.notes' => ['nullable', 'string'],
         ];
     }
 
@@ -52,51 +70,163 @@ class Edit extends Component
             $this->location = $gig->location;
             $this->city = $gig->city;
             $this->description = $gig->description ?? '';
-            $this->playlist = empty($gig->playlist) ? [''] : $gig->playlist;
             $this->isPublic = $gig->is_public;
+
+            // Load songs
+            $this->selectedSongs = $gig->songs->map(function ($song) {
+                return [
+                    'id' => $song->id,
+                    'name' => $song->name,
+                    'artist' => $song->artist,
+                    'year' => $song->year,
+                    'order' => $song->pivot->order,
+                    'notes' => $song->pivot->notes,
+                ];
+            })->toArray();
+
+            // Check if any song has an order set
+            $this->isOrdered = collect($this->selectedSongs)->some(fn($song) => $song['order'] !== null);
         }
     }
 
-    public function addSong(): void
+    public function getAvailableSongsProperty()
     {
-        $this->playlist[] = '';
+        $query = Song::query()->orderBy('artist')->orderBy('name');
+
+        if ($this->songSearch) {
+            $query->where(function ($q) {
+                $q->where('name', 'like', '%' . $this->songSearch . '%')
+                    ->orWhere('artist', 'like', '%' . $this->songSearch . '%');
+            });
+        }
+
+        return $query->limit(50)->get();
     }
 
-    public function removeSong(int $index): void
+    public function addSelectedSong(int $songId): void
     {
-        unset($this->playlist[$index]);
-        $this->playlist = array_values($this->playlist);
+        $song = Song::findOrFail($songId);
 
-        if ($this->playlist === []) {
-            $this->playlist = [''];
+        // Check if already added
+        if (collect($this->selectedSongs)->contains('id', $songId)) {
+            return;
         }
+
+        $this->selectedSongs[] = [
+            'id' => $song->id,
+            'name' => $song->name,
+            'artist' => $song->artist,
+            'year' => $song->year,
+            'order' => $this->isOrdered ? count($this->selectedSongs) + 1 : null,
+            'notes' => '',
+        ];
+
+        $this->songSearch = '';
+    }
+
+    public function removeSelectedSong(int $index): void
+    {
+        unset($this->selectedSongs[$index]);
+        $this->selectedSongs = array_values($this->selectedSongs);
+
+        // Recalculate order if ordered
+        if ($this->isOrdered) {
+            foreach ($this->selectedSongs as $i => $song) {
+                $this->selectedSongs[$i]['order'] = $i + 1;
+            }
+        }
+    }
+
+    public function updatedIsOrdered(): void
+    {
+        if ($this->isOrdered) {
+            // Assign orders
+            foreach ($this->selectedSongs as $i => $song) {
+                $this->selectedSongs[$i]['order'] = $i + 1;
+            }
+        } else {
+            // Remove orders
+            foreach ($this->selectedSongs as $i => $song) {
+                $this->selectedSongs[$i]['order'] = null;
+            }
+        }
+    }
+
+    public function updateSongOrder(array $orderedIds): void
+    {
+        $reordered = [];
+        foreach ($orderedIds as $index => $id) {
+            $song = collect($this->selectedSongs)->firstWhere('id', $id);
+            if ($song) {
+                $song['order'] = $this->isOrdered ? $index + 1 : null;
+                $reordered[] = $song;
+            }
+        }
+        $this->selectedSongs = $reordered;
+    }
+
+    public function openAddSongModal(): void
+    {
+        $this->showAddSongModal = true;
+        $this->newSongName = '';
+        $this->newSongArtist = '';
+        $this->newSongYear = null;
+        $this->newSongDescription = '';
+    }
+
+    public function closeAddSongModal(): void
+    {
+        $this->showAddSongModal = false;
+    }
+
+    public function createAndAddSong(): void
+    {
+        $this->validate([
+            'newSongName' => ['required', 'string', 'max:255'],
+            'newSongArtist' => ['required', 'string', 'max:255'],
+            'newSongYear' => ['nullable', 'integer', 'min:1900', 'max:2100'],
+            'newSongDescription' => ['nullable', 'string'],
+        ]);
+
+        $song = Song::create([
+            'name' => $this->newSongName,
+            'artist' => $this->newSongArtist,
+            'year' => $this->newSongYear,
+            'description' => $this->newSongDescription,
+        ]);
+
+        $this->addSelectedSong($song->id);
+        $this->closeAddSongModal();
     }
 
     public function save(): void
     {
         $validated = $this->validate();
 
-        // Filter out empty songs
-        $validated['playlist'] = array_filter(
-            array_map(trim(...), $validated['playlist'] ?? []),
-        );
-
-        if (empty($validated['playlist'])) {
-            $validated['playlist'] = null;
-        }
-
         // Map to correct database column name
         $validated['is_public'] = $validated['isPublic'];
         unset($validated['isPublic']);
+        unset($validated['isOrdered']);
+        unset($validated['selectedSongs']);
 
         if ($this->gigId) {
             $gig = Gig::findOrFail($this->gigId);
             $gig->update($validated);
             $message = 'Gig updated successfully!';
         } else {
-            Gig::create($validated);
+            $gig = Gig::create($validated);
             $message = 'Gig created successfully!';
         }
+
+        // Sync songs
+        $syncData = [];
+        foreach ($this->selectedSongs as $song) {
+            $syncData[$song['id']] = [
+                'order' => $song['order'],
+                'notes' => $song['notes'] ?: null,
+            ];
+        }
+        $gig->songs()->sync($syncData);
 
         session()->flash('message', $message);
         $this->redirect(route('gigs.index'), navigate: true);

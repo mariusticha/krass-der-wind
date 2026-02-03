@@ -18,7 +18,6 @@ class Gig extends Model
         return [
             'date' => 'date',
             'time' => 'datetime',
-            'playlist' => 'array',
             'is_public' => 'boolean',
         ];
     }
@@ -28,6 +27,14 @@ class Gig extends Model
         return $this->belongsToMany(User::class)
             ->withPivot(['rsvp_status', 'attended', 'rsvp_at', 'attended_at'])
             ->withTimestamps();
+    }
+
+    public function songs(): BelongsToMany
+    {
+        return $this->belongsToMany(Song::class)
+            ->withPivot('order', 'notes')
+            ->withTimestamps()
+            ->orderByPivot('order');
     }
 
     public function scopeUpcoming(Builder $query): void

@@ -1,8 +1,8 @@
 <?php
 
 use App\Livewire\Gigs\AttendanceButton;
-use App\Livewire\Gigs\Form;
 use App\Livewire\Gigs\RsvpButton;
+use App\Livewire\Pages\Gigs\Edit;
 use App\Livewire\Pages\Gigs\Index;
 use App\Models\Gig;
 use App\Models\User;
@@ -12,20 +12,15 @@ test('authenticated users can create a gig', function () {
     $user = User::factory()->create();
 
     Livewire::actingAs($user)
-        ->test(Form::class)
-        ->call('openForm')
-        ->assertSet('showModal', true)
+        ->test(Edit::class)
         ->set('name', 'Test Gig')
         ->set('date', '2026-06-15')
         ->set('time', '19:00')
         ->set('location', 'Test Venue')
         ->set('city', 'Berlin')
         ->set('description', 'A test gig')
-        ->set('playlist', ['Song 1', 'Song 2'])
         ->set('isPublic', true)
-        ->call('save')
-        ->assertSet('showModal', false)
-        ->assertDispatched('gig-saved');
+        ->call('save');
 
     expect(Gig::where('name', 'Test Gig')->exists())->toBeTrue();
 });
@@ -38,13 +33,11 @@ test('authenticated users can edit a gig', function () {
     ]);
 
     Livewire::actingAs($user)
-        ->test(Form::class)
-        ->dispatch('edit-gig', gigId: $gig->id)
+        ->test(Edit::class, ['gig' => $gig])
         ->assertSet('gigId', $gig->id)
         ->assertSet('name', 'Original Name')
         ->set('name', 'Updated Name')
-        ->call('save')
-        ->assertDispatched('gig-saved');
+        ->call('save');
 
     expect($gig->fresh()->name)->toBe('Updated Name');
 });

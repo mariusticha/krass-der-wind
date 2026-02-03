@@ -89,19 +89,39 @@
                 <p class="mt-3 text-sm md:text-base text-gray-700 dark:text-gray-300">{{ $gig->description }}</p>
             @endif
 
-            @if ($gig->playlist)
+            @if ($gig->songs && $gig->songs->count() > 0)
                 <div class="mt-4" x-data="{ open: false }">
                     <button @click="open = !open"
                         class="flex items-center gap-1 font-medium text-sm text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-gray-100 mb-2">
-                        <span>Playlist ({{ count($gig->playlist) }} songs)</span>
+                        <flux:icon.musical-note class="size-4" />
+                        <span>Setlist ({{ $gig->songs->count() }}
+                            {{ Str::plural('song', $gig->songs->count()) }})</span>
                         <flux:icon.chevron-down class="size-4 transition-transform" ::class="open && 'rotate-180'" />
                     </button>
-                    <ul x-show="open" x-collapse
-                        class="list-disc list-inside text-sm text-gray-600 dark:text-gray-400 space-y-1">
-                        @foreach ($gig->playlist as $song)
-                            <li>{{ $song }}</li>
+                    <div x-show="open" x-collapse class="space-y-1.5">
+                        @foreach ($gig->songs as $song)
+                            <div class="flex items-center gap-3 text-sm">
+                                @if ($song->pivot->order)
+                                    <span
+                                        class="text-sm font-medium text-zinc-500 dark:text-zinc-400 min-w-[1.25rem] text-right flex-shrink-0">{{ $song->pivot->order }}.</span>
+                                @else
+                                    <span class="text-zinc-400 dark:text-zinc-500 min-w-[1.25rem] flex-shrink-0">•</span>
+                                @endif
+                                <div class="flex-1 min-w-0">
+                                    <div class="text-gray-700 dark:text-gray-300">
+                                        <span class="font-medium font-sans">{{ $song->name }}</span>
+                                        <span class="text-gray-500 dark:text-gray-400">{{ $song->artist }}@if($song->year) ({{ $song->year }})@endif</span>
+                                    </div>
+                                    @auth
+                                        @if ($song->pivot->notes)
+                                            <div class="text-xs text-gray-500 dark:text-gray-400 italic mt-0.5">
+                                                {{ $song->pivot->notes }}</div>
+                                        @endif
+                                    @endauth
+                                </div>
+                            </div>
                         @endforeach
-                    </ul>
+                    </div>
                 </div>
             @endif
         </div>
@@ -120,7 +140,7 @@
                         <span>{{ $gig->is_public ? 'Unpublish' : 'Publish' }}</span>
                     </flux:button>
                     <flux:dropdown position="bottom" align="end">
-                        <flux:button size="sm" variant="ghost" icon="ellipsis-vertical" square
+                        <flux:button size="sm" variant="ghost" icon="ellipsis-horizontal" square
                             class="w-full md:w-auto">
                         </flux:button>
 

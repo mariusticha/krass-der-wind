@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\Gig;
+use App\Models\Song;
 use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -47,6 +48,9 @@ class DatabaseSeeder extends Seeder
         $additionalUsers = User::factory(15)->create();
         $users = $users->merge($additionalUsers);
 
+        // Create a realistic song library (50 songs)
+        $songs = Song::factory(50)->create();
+
         // Create 5 past gigs with attendance
         $pastGigs = Gig::factory(5)->past()->public()->create();
 
@@ -57,6 +61,21 @@ class DatabaseSeeder extends Seeder
                 $gig->users()->attach($user->id, [
                     'attended' => true,
                     'attended_at' => $gig->date->addHours(fake()->numberBetween(1, 4)),
+                ]);
+            }
+
+            // Add 8-15 songs to each past gig with order
+            $gigSongs = $songs->random(fake()->numberBetween(8, 15));
+            foreach ($gigSongs->values() as $index => $song) {
+                $gig->songs()->attach($song->id, [
+                    'order' => $index + 1,
+                    'notes' => fake()->optional(0.2)->randomElement([
+                        'Crowd favorite',
+                        'Extended solo',
+                        'Acoustic version',
+                        'Slower tempo',
+                        'Sing-along',
+                    ]),
                 ]);
             }
         }
@@ -73,6 +92,20 @@ class DatabaseSeeder extends Seeder
                     'rsvp_at' => now()->subDays(fake()->numberBetween(1, 14)),
                 ]);
             }
+
+            // Add 10-18 songs to each upcoming gig with order
+            $gigSongs = $songs->random(fake()->numberBetween(10, 18));
+            foreach ($gigSongs->values() as $index => $song) {
+                $gig->songs()->attach($song->id, [
+                    'order' => $index + 1,
+                    'notes' => fake()->optional(0.15)->randomElement([
+                        'Opening song',
+                        'Finale',
+                        'Try new arrangement',
+                        'Keep it short',
+                    ]),
+                ]);
+            }
         }
 
         // Create 2 private upcoming gigs (band practice, internal events)
@@ -85,6 +118,19 @@ class DatabaseSeeder extends Seeder
                 $gig->users()->attach($user->id, [
                     'rsvp_status' => 'yes',
                     'rsvp_at' => now()->subDays(fake()->numberBetween(1, 7)),
+                ]);
+            }
+
+            // Add 5-10 songs to practice gigs without order (unordered practice list)
+            $gigSongs = $songs->random(fake()->numberBetween(5, 10));
+            foreach ($gigSongs as $song) {
+                $gig->songs()->attach($song->id, [
+                    'order' => null,
+                    'notes' => fake()->optional(0.3)->randomElement([
+                        'Needs practice',
+                        'New song',
+                        'Work on transitions',
+                    ]),
                 ]);
             }
         }
