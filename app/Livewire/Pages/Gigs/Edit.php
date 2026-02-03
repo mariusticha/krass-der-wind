@@ -73,19 +73,17 @@ class Edit extends Component
             $this->isPublic = $gig->is_public;
 
             // Load songs
-            $this->selectedSongs = $gig->songs->map(function ($song) {
-                return [
-                    'id' => $song->id,
-                    'name' => $song->name,
-                    'artist' => $song->artist,
-                    'year' => $song->year,
-                    'order' => $song->pivot->order,
-                    'notes' => $song->pivot->notes,
-                ];
-            })->toArray();
+            $this->selectedSongs = $gig->songs->map(fn($song): array => [
+                'id' => $song->id,
+                'name' => $song->name,
+                'artist' => $song->artist,
+                'year' => $song->year,
+                'order' => $song->pivot->order,
+                'notes' => $song->pivot->notes,
+            ])->toArray();
 
             // Check if any song has an order set
-            $this->isOrdered = collect($this->selectedSongs)->some(fn($song) => $song['order'] !== null);
+            $this->isOrdered = collect($this->selectedSongs)->some(fn($song): bool => $song['order'] !== null);
         }
     }
 
@@ -93,8 +91,8 @@ class Edit extends Component
     {
         $query = Song::query()->orderBy('artist')->orderBy('name');
 
-        if ($this->songSearch) {
-            $query->where(function ($q) {
+        if ($this->songSearch !== '' && $this->songSearch !== '0') {
+            $query->where(function ($q): void {
                 $q->where('name', 'like', '%' . $this->songSearch . '%')
                     ->orWhere('artist', 'like', '%' . $this->songSearch . '%');
             });
@@ -131,7 +129,7 @@ class Edit extends Component
 
         // Recalculate order if ordered
         if ($this->isOrdered) {
-            foreach ($this->selectedSongs as $i => $song) {
+            foreach (array_keys($this->selectedSongs) as $i) {
                 $this->selectedSongs[$i]['order'] = $i + 1;
             }
         }
@@ -141,12 +139,12 @@ class Edit extends Component
     {
         if ($this->isOrdered) {
             // Assign orders
-            foreach ($this->selectedSongs as $i => $song) {
+            foreach (array_keys($this->selectedSongs) as $i) {
                 $this->selectedSongs[$i]['order'] = $i + 1;
             }
         } else {
             // Remove orders
-            foreach ($this->selectedSongs as $i => $song) {
+            foreach (array_keys($this->selectedSongs) as $i) {
                 $this->selectedSongs[$i]['order'] = null;
             }
         }
@@ -162,6 +160,7 @@ class Edit extends Component
                 $reordered[] = $song;
             }
         }
+
         $this->selectedSongs = $reordered;
     }
 
@@ -226,6 +225,7 @@ class Edit extends Component
                 'notes' => $song['notes'] ?: null,
             ];
         }
+
         $gig->songs()->sync($syncData);
 
         session()->flash('message', $message);

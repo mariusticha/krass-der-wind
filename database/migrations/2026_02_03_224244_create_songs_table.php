@@ -10,7 +10,7 @@ return new class extends Migration {
      */
     public function up(): void
     {
-        Schema::create('songs', function (Blueprint $table) {
+        Schema::create('songs', function (Blueprint $table): void {
             $table->id();
             $table->string('name');
             $table->string('artist');

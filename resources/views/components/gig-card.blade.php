@@ -105,12 +105,16 @@
                                     <span
                                         class="text-sm font-medium text-zinc-500 dark:text-zinc-400 min-w-[1.25rem] text-right flex-shrink-0">{{ $song->pivot->order }}.</span>
                                 @else
-                                    <span class="text-zinc-400 dark:text-zinc-500 min-w-[1.25rem] flex-shrink-0">•</span>
+                                    <span
+                                        class="text-zinc-400 dark:text-zinc-500 min-w-[1.25rem] flex-shrink-0">•</span>
                                 @endif
                                 <div class="flex-1 min-w-0">
                                     <div class="text-gray-700 dark:text-gray-300">
                                         <span class="font-medium font-sans">{{ $song->name }}</span>
-                                        <span class="text-gray-500 dark:text-gray-400">{{ $song->artist }}@if($song->year) ({{ $song->year }})@endif</span>
+                                        <span class="text-gray-500 dark:text-gray-400">{{ $song->artist }}@if ($song->year)
+                                                ({{ $song->year }})
+                                            @endif
+                                        </span>
                                     </div>
                                     @auth
                                         @if ($song->pivot->notes)

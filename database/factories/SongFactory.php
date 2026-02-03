@@ -2,10 +2,11 @@
 
 namespace Database\Factories;
 
+use App\Models\Song;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Song>
+ * @extends Factory<Song>
  */
 class SongFactory extends Factory
 {
@@ -35,7 +36,7 @@ class SongFactory extends Factory
         ];
 
         return [
-            'name' => fake()->words(rand(1, 4), true),
+            'name' => fake()->words(random_int(1, 4), true),
             'artist' => fake()->randomElement($artists),
             'year' => fake()->optional(0.8)->numberBetween(1960, 2026),
             'description' => fake()->optional(0.3)->sentence(),

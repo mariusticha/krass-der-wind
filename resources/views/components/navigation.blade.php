@@ -17,6 +17,10 @@
                     class="text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white transition text-base {{ request()->routeIs('gigs.*') ? 'font-semibold !text-amber-600 dark:!text-amber-500' : '' }}">
                     Gigs
                 </a>
+                <a href="{{ route('songs.index') }}"
+                    class="text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white transition text-base {{ request()->routeIs('songs.*') ? 'font-semibold !text-amber-600 dark:!text-amber-500' : '' }}">
+                    Songs
+                </a>
                 <a href="https://noethernetz.de/krassderwind/noten-fuer-krassderwind/" target="_blank"
                     class="text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white transition flex items-center gap-1 text-base">
                     Noten
@@ -106,6 +110,11 @@
                     class="px-3 py-2 rounded-lg text-zinc-600 dark:text-zinc-400 hover:bg-zinc-100 dark:hover:bg-zinc-800 transition {{ request()->routeIs('gigs.*') ? 'font-semibold !text-amber-600 dark:!text-amber-500 bg-amber-50 dark:bg-amber-950/30' : '' }}"
                     @click="mobileMenuOpen = false">
                     Gigs
+                </a>
+                <a href="{{ route('songs.index') }}"
+                    class="px-3 py-2 rounded-lg text-zinc-600 dark:text-zinc-400 hover:bg-zinc-100 dark:hover:bg-zinc-800 transition {{ request()->routeIs('songs.*') ? 'font-semibold !text-amber-600 dark:!text-amber-500 bg-amber-50 dark:bg-amber-950/30' : '' }}"
+                    @click="mobileMenuOpen = false">
+                    Songs
                 </a>
                 <a href="https://noethernetz.de/krassderwind/noten-fuer-krassderwind/" target="_blank"
                     class="px-3 py-2 rounded-lg text-zinc-600 dark:text-zinc-400 hover:bg-zinc-100 dark:hover:bg-zinc-800 transition flex items-center gap-1"

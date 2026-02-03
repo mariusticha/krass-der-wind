@@ -77,24 +77,6 @@ class GigFactory extends Factory
             'Seefest',
         ];
 
-        $songs = [
-            'In München steht ein Hofbräuhaus',
-            'Ein Prosit der Gemütlichkeit',
-            'Beer Barrel Polka',
-            'Böhmischer Traum',
-            'Marsch der Medici',
-            'Florentiner Marsch',
-            'Alte Kameraden',
-            'Freude schöner Götterfunken',
-            'Radetzky Marsch',
-            'Die lustigen Dorfschmiede',
-            'Fliegermarsch',
-            'Hoch Heidecksburg',
-            'Stars and Stripes Forever',
-            'Preußens Gloria',
-            'Königgrätzer Marsch',
-        ];
-
         $date = fake()->dateTimeBetween('-6 months', '+6 months');
         $city = fake()->randomElement($cities);
 
