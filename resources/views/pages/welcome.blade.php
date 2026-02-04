@@ -1,6 +1,6 @@
 <x-layouts::app title="Krass der Wind - Brass Band">
     <!-- Hero Section with LOUD Background -->
-    <section
+    <section id="hero-section" data-section="hero" data-section-name="Hero - Landing"
         class="relative overflow-hidden bg-gradient-to-br from-zinc-50 to-zinc-100 dark:from-zinc-900 dark:to-zinc-800 h-screen flex items-center">
         <!-- Animated background elements - ONLY IN HERO -->
         <div class="absolute inset-0 overflow-hidden z-0">
@@ -121,10 +121,11 @@
     </section>
 
     <!-- About Section - Clean, using app layout background -->
-    <section id="about" class="relative py-20 overflow-hidden">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+    <section id="about-section" data-section="about" data-section-name="About - Über Uns" data-section-animate
+        class="relative overflow-hidden min-h-screen flex items-center py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full">
             <div class="grid md:grid-cols-2 gap-12 items-center">
-                <div class="space-y-6 transform hover:translate-x-2 transition-transform duration-500">
+                <div class="space-y-6" data-section-content>
                     <h2
                         class="text-4xl font-bold mb-6 bg-gradient-to-r from-amber-600 to-orange-600 bg-clip-text text-transparent">
                         Über Uns</h2>
@@ -157,7 +158,7 @@
                         </svg>
                     </a>
                 </div>
-                <div class="relative group">
+                <div class="relative group" data-section-content>
                     <!-- Animated glow effect -->
                     <div
                         class="absolute -inset-4 bg-gradient-to-r from-amber-500 to-orange-500 rounded-2xl opacity-20 group-hover:opacity-30 blur-2xl transition-opacity duration-500">
@@ -184,13 +185,14 @@
     </section>
 
     <!-- CTA Section - Clean with accent highlights -->
-    <section class="relative py-20 overflow-hidden">
+    <section id="cta-section" data-section="cta" data-section-name="CTA - Bereit Mitzumachen" data-section-animate
+        class="relative overflow-hidden min-h-screen flex items-center py-12">
         <!-- Subtle accent gradient overlay -->
         <div
             class="absolute inset-0 bg-gradient-to-br from-amber-50/30 via-transparent to-orange-50/30 dark:from-amber-950/10 dark:via-transparent dark:to-orange-950/10 pointer-events-none">
         </div>
 
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10" data-section-content>
             <h2
                 class="text-4xl font-bold bg-gradient-to-r from-amber-600 via-orange-500 to-amber-600 bg-clip-text text-transparent mb-4 transform hover:scale-110 transition-transform duration-300">
                 Bereit mitzumachen?</h2>
