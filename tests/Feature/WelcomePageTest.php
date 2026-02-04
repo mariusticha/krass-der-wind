@@ -153,7 +153,7 @@ test('welcome page uses correct layout', function () {
 test('welcome page about section has correct id for anchor navigation', function () {
     $response = $this->get(route('home'));
 
-    $response->assertSee('id="about-section"', false);
+    $response->assertSee('id="about"', false);
 });
 
 // Responsive Design Hints

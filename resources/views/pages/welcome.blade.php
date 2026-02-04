@@ -1,6 +1,6 @@
 <x-layouts::app title="Krass der Wind - Brass Band">
     <!-- Hero Section with LOUD Background -->
-    <section id="hero-section" data-section="hero" data-section-name="Hero - Landing"
+    <section id="hero" data-section="hero" data-section-name="Hero - Landing"
         class="relative overflow-hidden bg-gradient-to-br from-zinc-50 to-zinc-100 dark:from-zinc-900 dark:to-zinc-800 h-screen flex items-center">
         <!-- Animated background elements - ONLY IN HERO -->
         <div class="absolute inset-0 overflow-hidden z-0">
@@ -26,48 +26,49 @@
                 style="animation-duration: 5.2s; animation-delay: 2.5s;"></div>
 
             <!-- Floating musical notes - BIGGER and MORE VISIBLE -->
-            <div class="absolute top-20 left-20 text-amber-500/30 animate-bounce" style="animation-duration: 3s;">
+            <div class="absolute top-20 left-20 text-amber-500/30 dark:text-amber-500/30 text-amber-600/50 animate-bounce"
+                style="animation-duration: 3s;">
                 <svg class="w-16 h-16" fill="currentColor" viewBox="0 0 24 24">
                     <path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z" />
                 </svg>
             </div>
-            <div class="absolute top-40 right-40 text-orange-500/28 animate-bounce"
+            <div class="absolute top-40 right-40 text-orange-600/48 dark:text-orange-500/28 animate-bounce"
                 style="animation-duration: 4s; animation-delay: 0.5s;">
                 <svg class="w-20 h-20" fill="currentColor" viewBox="0 0 24 24">
                     <path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z" />
                 </svg>
             </div>
-            <div class="absolute bottom-40 left-1/3 text-amber-500/22 animate-bounce"
+            <div class="absolute bottom-40 left-1/3 text-amber-600/42 dark:text-amber-500/22 animate-bounce"
                 style="animation-duration: 5s; animation-delay: 1s;">
                 <svg class="w-24 h-24" fill="currentColor" viewBox="0 0 24 24">
                     <path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z" />
                 </svg>
             </div>
-            <div class="absolute top-1/3 right-1/4 text-amber-400/26 animate-bounce"
+            <div class="absolute top-1/3 right-1/4 text-amber-600/46 dark:text-amber-400/26 animate-bounce"
                 style="animation-duration: 4.5s; animation-delay: 0.8s;">
                 <svg class="w-18 h-18" fill="currentColor" viewBox="0 0 24 24">
                     <path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z" />
                 </svg>
             </div>
-            <div class="absolute bottom-1/4 right-1/3 text-orange-400/24 animate-bounce"
+            <div class="absolute bottom-1/4 right-1/3 text-orange-600/44 dark:text-orange-400/24 animate-bounce"
                 style="animation-duration: 5.5s; animation-delay: 1.2s;">
                 <svg class="w-14 h-14" fill="currentColor" viewBox="0 0 24 24">
                     <path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z" />
                 </svg>
             </div>
-            <div class="absolute top-2/3 left-20 text-yellow-500/20 animate-bounce"
+            <div class="absolute top-2/3 left-20 text-yellow-600/40 dark:text-yellow-500/20 animate-bounce"
                 style="animation-duration: 4.2s; animation-delay: 1.8s;">
                 <svg class="w-15 h-15" fill="currentColor" viewBox="0 0 24 24">
                     <path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z" />
                 </svg>
             </div>
-            <div class="absolute top-1/4 left-1/3 text-amber-400/25 animate-bounce"
+            <div class="absolute top-1/4 left-1/3 text-amber-600/45 dark:text-amber-400/25 animate-bounce"
                 style="animation-duration: 3.8s; animation-delay: 0.3s;">
                 <svg class="w-13 h-13" fill="currentColor" viewBox="0 0 24 24">
                     <path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z" />
                 </svg>
             </div>
-            <div class="absolute bottom-1/3 left-1/4 text-orange-500/23 animate-bounce"
+            <div class="absolute bottom-1/3 left-1/4 text-orange-600/43 dark:text-orange-500/23 animate-bounce"
                 style="animation-duration: 4.7s; animation-delay: 2.2s;">
                 <svg class="w-17 h-17" fill="currentColor" viewBox="0 0 24 24">
                     <path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z" />
@@ -75,17 +76,17 @@
             </div>
 
             <!-- Decorative circles/rings - MORE VISIBLE -->
-            <div class="absolute top-32 right-1/4 w-20 h-20 border-2 border-amber-400/25 rounded-full"
+            <div class="absolute top-32 right-1/4 w-20 h-20 border-2 border-amber-600/45 dark:border-amber-400/25 rounded-full"
                 style="animation: float 7s ease-in-out infinite;"></div>
-            <div class="absolute bottom-1/3 left-1/4 w-24 h-24 border-3 border-orange-400/20 rounded-full"
+            <div class="absolute bottom-1/3 left-1/4 w-24 h-24 border-3 border-orange-600/40 dark:border-orange-400/20 rounded-full"
                 style="animation: float 9s ease-in-out infinite; animation-delay: 1s;"></div>
-            <div class="absolute top-1/2 right-20 w-16 h-16 border-2 border-amber-300/18 rounded-full"
+            <div class="absolute top-1/2 right-20 w-16 h-16 border-2 border-amber-600/38 dark:border-amber-300/18 rounded-full"
                 style="animation: float 8s ease-in-out infinite; animation-delay: 2s;"></div>
-            <div class="absolute bottom-1/4 left-1/3 w-18 h-18 border-2 border-yellow-400/22 rounded-full"
+            <div class="absolute bottom-1/4 left-1/3 w-18 h-18 border-2 border-yellow-600/42 dark:border-yellow-400/22 rounded-full"
                 style="animation: float 10s ease-in-out infinite; animation-delay: 0.5s;"></div>
-            <div class="absolute top-1/3 left-1/4 w-22 h-22 border-2 border-amber-500/20 rounded-full"
+            <div class="absolute top-1/3 left-1/4 w-22 h-22 border-2 border-amber-600/40 dark:border-amber-500/20 rounded-full"
                 style="animation: float 8.5s ease-in-out infinite; animation-delay: 1.5s;"></div>
-            <div class="absolute bottom-40 right-1/4 w-14 h-14 border border-orange-400/16 rounded-full"
+            <div class="absolute bottom-40 right-1/4 w-14 h-14 border border-orange-600/36 dark:border-orange-400/16 rounded-full"
                 style="animation: float 9.5s ease-in-out infinite; animation-delay: 0.8s;"></div>
         </div>
 
@@ -121,35 +122,35 @@
     </section>
 
     <!-- About Section - Clean, using app layout background -->
-    <section id="about-section" data-section="about" data-section-name="About - Über Uns" data-section-animate
+    <section id="about" data-section="about" data-section-name="About - Über Uns" data-section-animate
         class="relative overflow-hidden min-h-screen flex items-center py-12">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full">
             <div class="grid md:grid-cols-2 gap-12 items-center">
                 <div class="space-y-6" data-section-content>
                     <h2
-                        class="text-4xl font-bold mb-6 bg-gradient-to-r from-amber-600 to-orange-600 bg-clip-text text-transparent">
+                        class="text-4xl font-bold mb-6 bg-gradient-to-r from-amber-600 to-orange-600 bg-clip-text text-transparent hover:scale-105 transition-transform duration-300 cursor-default">
                         Über Uns</h2>
                     <div class="space-y-4">
                         <p
-                            class="text-lg text-zinc-600 dark:text-zinc-400 leading-relaxed hover:text-zinc-700 dark:hover:text-zinc-300 transition-colors">
+                            class="text-lg text-zinc-600 dark:text-zinc-400 leading-relaxed hover:text-zinc-900 dark:hover:text-zinc-100 hover:scale-105 transition-all duration-300 cursor-default">
                             Wir sind Holz- und Blechbläser*innen aus Falkensee und Umgebung. Wir spielen auf
                             Veranstaltungen gegen Rechts – für Demokratie und gegen Menschenfeindlichkeit, Gewalt,
                             Ausgrenzung und das Recht des Stärkeren.
                         </p>
                         <p
-                            class="text-lg text-zinc-600 dark:text-zinc-400 leading-relaxed hover:text-zinc-700 dark:hover:text-zinc-300 transition-colors">
+                            class="text-lg text-zinc-600 dark:text-zinc-400 leading-relaxed hover:text-zinc-900 dark:hover:text-zinc-100 hover:scale-105 transition-all duration-300 cursor-default">
                             Wir musizieren für die Solidarität mit der angegriffenen Ukraine, mit klarem Bekenntnis
                             gegen Nationalismus, für europäische Werte und Menschenrechte, zu Klimaschutz und zur
                             deutschen Verantwortung für den Holocaust.
                         </p>
                         <p
-                            class="text-lg text-zinc-600 dark:text-zinc-400 leading-relaxed hover:text-zinc-700 dark:hover:text-zinc-300 transition-colors">
+                            class="text-lg text-zinc-600 dark:text-zinc-400 leading-relaxed hover:text-zinc-900 dark:hover:text-zinc-100 hover:scale-105 transition-all duration-300 cursor-default">
                             Blasinstrumente jeder Art sind willkommen – wir spielen ganz altmodisch ohne elektrische
                             Verstärkung. Mitmachen kann jede*r im Alter von 14 bis 99. Ausnahmen sind erlaubt!
                         </p>
                     </div>
                     <a href="{{ route('gigs.index') }}"
-                        class="group inline-flex items-center text-amber-600 dark:text-amber-500 font-semibold hover:text-amber-700 dark:hover:text-amber-400 transition-all duration-300">
+                        class="group inline-flex items-center text-amber-600 dark:text-amber-500 font-semibold hover:text-amber-700 dark:hover:text-amber-400 hover:scale-110 transition-all duration-300">
                         <span class="group-hover:mr-4 transition-all duration-300">Unsere Auftritte ansehen</span>
                         <svg class="w-5 h-5 ml-2 group-hover:translate-x-2 transition-transform duration-300"
                             fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -185,7 +186,7 @@
     </section>
 
     <!-- CTA Section - Clean with accent highlights -->
-    <section id="cta-section" data-section="cta" data-section-name="CTA - Bereit Mitzumachen" data-section-animate
+    <section id="cta" data-section="cta" data-section-name="CTA - Bereit Mitzumachen" data-section-animate
         class="relative overflow-hidden min-h-screen flex items-center py-12">
         <!-- Subtle accent gradient overlay -->
         <div
@@ -196,7 +197,8 @@
             <h2
                 class="text-4xl font-bold bg-gradient-to-r from-amber-600 via-orange-500 to-amber-600 bg-clip-text text-transparent mb-4 transform hover:scale-110 transition-transform duration-300">
                 Bereit mitzumachen?</h2>
-            <p class="text-xl text-zinc-700 dark:text-zinc-300 mb-8 max-w-2xl mx-auto leading-relaxed">
+            <p
+                class="text-xl text-zinc-700 dark:text-zinc-300 mb-8 max-w-2xl mx-auto leading-relaxed hover:text-zinc-900 dark:hover:text-zinc-100 hover:scale-105 transition-all duration-300 cursor-default">
                 Wir proben einmal im Monat in Falkensee. Notenkenntnisse und Spielerfahrung sind erforderlich – wir
                 spielen aber als Amateurmusiker*innen auf unterschiedlichen Niveaus.
             </p>
