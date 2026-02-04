@@ -32,50 +32,12 @@
                         <flux:label>Setlist</flux:label>
                         <flux:subheading class="mb-3">Manage the songs for this gig</flux:subheading>
 
-                        <flux:checkbox wire:model.live="isOrdered" label="Setlist has a specific order"
-                            class="mb-4" />
-
                         @if (count($selectedSongs) > 0)
-                            <div class="space-y-2 mb-4" x-data="{
-                                songs: @js($selectedSongs),
-                                isOrdered: @entangle('isOrdered').live,
-                                init() {
-                                    if (this.isOrdered) {
-                                        this.initSortable();
-                                    }
-                                    this.$watch('isOrdered', value => {
-                                        if (value) {
-                                            this.initSortable();
-                                        } else if (this.sortable) {
-                                            this.sortable.destroy();
-                                            this.sortable = null;
-                                        }
-                                    });
-                                },
-                                initSortable() {
-                                    if (this.sortable) return;
-                                    this.$nextTick(() => {
-                                        this.sortable = Sortable.create(this.$refs.songsList, {
-                                            animation: 150,
-                                            handle: '.drag-handle',
-                                            onEnd: () => {
-                                                const orderedIds = Array.from(this.$refs.songsList.children).map(el => parseInt(el.dataset.songId));
-                                                @this.call('updateSongOrder', orderedIds);
-                                            }
-                                        });
-                                    });
-                                }
-                            }" x-init="init()">
-                                <div x-ref="songsList">
+                            <div class="space-y-2 mb-4">
+                                <div>
                                     @foreach ($selectedSongs as $index => $song)
-                                        <div data-song-id="{{ $song['id'] }}"
-                                            class="flex items-start gap-2 p-3 bg-zinc-50 dark:bg-zinc-800 rounded-lg">
-                                            @if ($isOrdered)
-                                                <div
-                                                    class="drag-handle cursor-move flex-shrink-0 mt-2 text-zinc-400 hover:text-zinc-600 dark:hover:text-zinc-300">
-                                                    <flux:icon.bars-3 class="size-5" />
-                                                </div>
-                                            @endif
+                                        <div
+                                            class="flex items-start gap-2 p-3 bg-zinc-50 dark:bg-zinc-800 rounded-lg mb-2">
                                             <div class="flex-1 min-w-0">
                                                 <div class="flex items-start justify-between gap-2">
                                                     <div class="flex-1 min-w-0">
@@ -183,8 +145,4 @@
             <flux:button wire:click="createAndAddSong" variant="primary">Create & Add</flux:button>
         </div>
     </flux:modal>
-
-    @script
-        <script src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.0/Sortable.min.js"></script>
-    @endscript
 </div>

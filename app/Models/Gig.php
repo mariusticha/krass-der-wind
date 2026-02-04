@@ -32,9 +32,8 @@ class Gig extends Model
     public function songs(): BelongsToMany
     {
         return $this->belongsToMany(Song::class)
-            ->withPivot('order', 'notes')
-            ->withTimestamps()
-            ->orderByPivot('order');
+            ->withPivot('notes')
+            ->withTimestamps();
     }
 
     public function scopeUpcoming(Builder $query): void

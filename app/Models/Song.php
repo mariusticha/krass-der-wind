@@ -31,7 +31,7 @@ class Song extends Model
     public function gigs(): BelongsToMany
     {
         return $this->belongsToMany(Gig::class)
-            ->withPivot('order', 'notes')
+            ->withPivot('notes')
             ->withTimestamps();
     }
 }

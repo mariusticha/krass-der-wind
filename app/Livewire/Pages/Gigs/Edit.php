@@ -29,8 +29,6 @@ class Edit extends Component
     // Song management
     public array $selectedSongs = [];
 
-    public bool $isOrdered = false;
-
     public string $songSearch = '';
 
     public bool $showAddSongModal = false;
@@ -53,7 +51,6 @@ class Edit extends Component
             'city' => ['required', 'string', 'max:255'],
             'description' => ['nullable', 'string'],
             'isPublic' => ['boolean'],
-            'isOrdered' => ['boolean'],
             'selectedSongs' => ['array'],
             'selectedSongs.*.id' => ['required', 'exists:songs,id'],
             'selectedSongs.*.notes' => ['nullable', 'string'],
@@ -78,12 +75,8 @@ class Edit extends Component
                 'name' => $song->name,
                 'artist' => $song->artist,
                 'year' => $song->year,
-                'order' => $song->pivot->order,
                 'notes' => $song->pivot->notes,
             ])->toArray();
-
-            // Check if any song has an order set
-            $this->isOrdered = collect($this->selectedSongs)->some(fn($song): bool => $song['order'] !== null);
         }
     }
 
@@ -115,7 +108,6 @@ class Edit extends Component
             'name' => $song->name,
             'artist' => $song->artist,
             'year' => $song->year,
-            'order' => $this->isOrdered ? count($this->selectedSongs) + 1 : null,
             'notes' => '',
         ];
 
@@ -126,42 +118,6 @@ class Edit extends Component
     {
         unset($this->selectedSongs[$index]);
         $this->selectedSongs = array_values($this->selectedSongs);
-
-        // Recalculate order if ordered
-        if ($this->isOrdered) {
-            foreach (array_keys($this->selectedSongs) as $i) {
-                $this->selectedSongs[$i]['order'] = $i + 1;
-            }
-        }
-    }
-
-    public function updatedIsOrdered(): void
-    {
-        if ($this->isOrdered) {
-            // Assign orders
-            foreach (array_keys($this->selectedSongs) as $i) {
-                $this->selectedSongs[$i]['order'] = $i + 1;
-            }
-        } else {
-            // Remove orders
-            foreach (array_keys($this->selectedSongs) as $i) {
-                $this->selectedSongs[$i]['order'] = null;
-            }
-        }
-    }
-
-    public function updateSongOrder(array $orderedIds): void
-    {
-        $reordered = [];
-        foreach ($orderedIds as $index => $id) {
-            $song = collect($this->selectedSongs)->firstWhere('id', $id);
-            if ($song) {
-                $song['order'] = $this->isOrdered ? $index + 1 : null;
-                $reordered[] = $song;
-            }
-        }
-
-        $this->selectedSongs = $reordered;
     }
 
     public function openAddSongModal(): void
@@ -205,7 +161,6 @@ class Edit extends Component
         // Map to correct database column name
         $validated['is_public'] = $validated['isPublic'];
         unset($validated['isPublic']);
-        unset($validated['isOrdered']);
         unset($validated['selectedSongs']);
 
         if ($this->gigId) {
@@ -221,7 +176,6 @@ class Edit extends Component
         $syncData = [];
         foreach ($this->selectedSongs as $song) {
             $syncData[$song['id']] = [
-                'order' => $song['order'],
                 'notes' => $song['notes'] ?: null,
             ];
         }

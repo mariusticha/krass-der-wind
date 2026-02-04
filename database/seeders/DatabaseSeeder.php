@@ -64,11 +64,10 @@ class DatabaseSeeder extends Seeder
                 ]);
             }
 
-            // Add 8-15 songs to each past gig with order
+            // Add 8-15 songs to each past gig
             $gigSongs = $songs->random(fake()->numberBetween(8, 15));
-            foreach ($gigSongs->values() as $index => $song) {
+            foreach ($gigSongs as $song) {
                 $gig->songs()->attach($song->id, [
-                    'order' => $index + 1,
                     'notes' => fake()->optional(0.2)->randomElement([
                         'Crowd favorite',
                         'Extended solo',
@@ -93,11 +92,10 @@ class DatabaseSeeder extends Seeder
                 ]);
             }
 
-            // Add 10-18 songs to each upcoming gig with order
+            // Add 10-18 songs to each upcoming gig
             $gigSongs = $songs->random(fake()->numberBetween(10, 18));
-            foreach ($gigSongs->values() as $index => $song) {
+            foreach ($gigSongs as $song) {
                 $gig->songs()->attach($song->id, [
-                    'order' => $index + 1,
                     'notes' => fake()->optional(0.15)->randomElement([
                         'Opening song',
                         'Finale',
@@ -121,11 +119,10 @@ class DatabaseSeeder extends Seeder
                 ]);
             }
 
-            // Add 5-10 songs to practice gigs without order (unordered practice list)
+            // Add 5-10 songs to practice gigs
             $gigSongs = $songs->random(fake()->numberBetween(5, 10));
             foreach ($gigSongs as $song) {
                 $gig->songs()->attach($song->id, [
-                    'order' => null,
                     'notes' => fake()->optional(0.3)->randomElement([
                         'Needs practice',
                         'New song',

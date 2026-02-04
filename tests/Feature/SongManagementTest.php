@@ -75,13 +75,11 @@ test('song has many to many relationship with gigs', function () {
     $gig = Gig::factory()->create();
 
     $gig->songs()->attach($song->id, [
-        'order' => 1,
         'notes' => 'Opening song',
     ]);
 
     expect($song->gigs)->toHaveCount(1)
         ->and($song->gigs->first()->id)->toBe($gig->id)
-        ->and($song->gigs->first()->pivot->order)->toBe(1)
         ->and($song->gigs->first()->pivot->notes)->toBe('Opening song');
 });
 
@@ -95,24 +93,6 @@ test('gig can have multiple songs', function () {
 
     expect($gig->songs)->toHaveCount(3)
         ->and($gig->songs->first())->toBeInstanceOf(Song::class);
-});
-
-test('songs can be ordered in a gig', function () {
-    $gig = Gig::factory()->create();
-    $song1 = Song::factory()->create(['name' => 'First Song']);
-    $song2 = Song::factory()->create(['name' => 'Second Song']);
-    $song3 = Song::factory()->create(['name' => 'Third Song']);
-
-    $gig->songs()->attach([
-        $song1->id => ['order' => 1],
-        $song2->id => ['order' => 2],
-        $song3->id => ['order' => 3],
-    ]);
-
-    $orderedSongs = $gig->songs;
-
-    expect($orderedSongs->first()->name)->toBe('First Song')
-        ->and($orderedSongs->last()->name)->toBe('Third Song');
 });
 
 test('songs can have notes in a gig', function () {
@@ -181,47 +161,6 @@ test('user can remove song from gig', function () {
         ->assertSet('selectedSongs', []);
 });
 
-test('user can toggle ordered setlist', function () {
-    $user = User::factory()->create();
-    $gig = Gig::factory()->create();
-    $song1 = Song::factory()->create();
-    $song2 = Song::factory()->create();
-
-    $component = Livewire::actingAs($user)
-        ->test(Edit::class, ['gig' => $gig])
-        ->call('addSelectedSong', $song1->id)
-        ->call('addSelectedSong', $song2->id)
-        ->assertSet('isOrdered', false);
-
-    // Enable ordering
-    $component->set('isOrdered', true)
-        ->assertSet('selectedSongs.0.order', 1)
-        ->assertSet('selectedSongs.1.order', 2);
-
-    // Disable ordering
-    $component->set('isOrdered', false)
-        ->assertSet('selectedSongs.0.order', null)
-        ->assertSet('selectedSongs.1.order', null);
-});
-
-test('user can reorder songs with drag and drop', function () {
-    $user = User::factory()->create();
-    $gig = Gig::factory()->create();
-    $song1 = Song::factory()->create();
-    $song2 = Song::factory()->create();
-
-    Livewire::actingAs($user)
-        ->test(Edit::class, ['gig' => $gig])
-        ->call('addSelectedSong', $song1->id)
-        ->call('addSelectedSong', $song2->id)
-        ->set('isOrdered', true)
-        ->call('updateSongOrder', [$song2->id, $song1->id])
-        ->assertSet('selectedSongs.0.id', $song2->id)
-        ->assertSet('selectedSongs.0.order', 1)
-        ->assertSet('selectedSongs.1.id', $song1->id)
-        ->assertSet('selectedSongs.1.order', 2);
-});
-
 test('user can add notes to songs in gig', function () {
     $user = User::factory()->create();
     $gig = Gig::factory()->create();
@@ -245,23 +184,6 @@ test('gig displays songs in gig card', function () {
         ->test(Index::class)
         ->assertSee('Test Display Song')
         ->assertSee('Test Display Artist');
-});
-
-test('gig displays ordered songs with numbers', function () {
-    $user = User::factory()->create();
-    $gig = Gig::factory()->upcoming()->create();
-    $song1 = Song::factory()->create(['name' => 'Song One']);
-    $song2 = Song::factory()->create(['name' => 'Song Two']);
-
-    $gig->songs()->attach([
-        $song1->id => ['order' => 1],
-        $song2->id => ['order' => 2],
-    ]);
-
-    Livewire::actingAs($user)
-        ->test(Index::class)
-        ->assertSee('Song One')
-        ->assertSee('Song Two');
 });
 
 test('creating new song validates required fields', function () {
@@ -305,14 +227,12 @@ test('songs persist when saving gig', function () {
         ->test(Edit::class, ['gig' => $gig])
         ->call('addSelectedSong', $song->id)
         ->set('selectedSongs.0.notes', 'Test note')
-        ->set('isOrdered', true)
         ->call('save');
 
     $gig->refresh();
 
     expect($gig->songs)->toHaveCount(1)
         ->and($gig->songs->first()->id)->toBe($song->id)
-        ->and($gig->songs->first()->pivot->order)->toBe(1)
         ->and($gig->songs->first()->pivot->notes)->toBe('Test note');
 });
 
