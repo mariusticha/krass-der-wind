@@ -8,14 +8,14 @@
     </div>
 
     <div class="flex flex-col md:flex-row md:justify-between md:items-start gap-4 relative z-10">
-        <div class="flex-1 min-w-0">
+        <div class="flex-1 min-w-0 flex flex-col">
             <div class="flex flex-wrap items-center gap-2 mb-2">
                 <h3 class="text-xl font-semibold font-sans">{{ $song->name }}</h3>
             </div>
 
             <div class="space-y-1 text-gray-600 dark:text-gray-300">
                 <p class="flex items-center gap-2">
-                    <flux:icon.musical-note class="size-4 flex-shrink-0" />
+                    <flux:icon.microphone class="size-4 flex-shrink-0 mt-0.5" />
                     <span class="text-sm md:text-base">{{ $song->artist }}@if ($song->year)
                             ({{ $song->year }})
                         @endif
@@ -24,7 +24,7 @@
                 @auth
                     @if ($song->gigs_count > 0)
                         <p class="flex items-center gap-2 text-sm">
-                            <flux:icon.calendar class="size-4 flex-shrink-0" />
+                            <flux:icon.calendar class="size-4 flex-shrink-0 mt-0.5" />
                             <span>Used in {{ $song->gigs_count }} {{ Str::plural('gig', $song->gigs_count) }}</span>
                         </p>
                     @endif
@@ -35,7 +35,7 @@
                 @if ($song->description)
                     <p class="mt-3 text-sm md:text-base text-gray-700 dark:text-gray-300">{{ $song->description }}</p>
                 @endif
-                <p class="mt-2 text-xs text-gray-500 dark:text-gray-400">
+                <p class="mt-auto pt-2 text-xs text-gray-500 dark:text-gray-400">
                     Created {{ $song->created_at->diffForHumans() }}
                 </p>
             @endauth
