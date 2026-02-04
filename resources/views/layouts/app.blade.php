@@ -9,7 +9,8 @@
     @fluxAppearance
 </head>
 
-<body class="min-h-screen bg-white dark:bg-zinc-900 flex flex-col">
+<body class="min-h-screen bg-white dark:bg-zinc-900 flex flex-col" x-data="{ scrolled: false }"
+    @scroll.window="scrolled = window.scrollY > 100">
     <x-layout.animated-background />
 
     <x-layout.navigation />

@@ -1,27 +1,9 @@
-<!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" x-data :class="$flux.dark && 'dark'">
-
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-
-    <title>Krass der Wind - Brass Band</title>
-
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
-    @fluxAppearance
-</head>
-
-<body class="min-h-screen bg-white dark:bg-zinc-900 text-zinc-900 dark:text-zinc-100" x-data="{ scrolled: false }"
-    @scroll.window="scrolled = window.scrollY > 100">
-    <x-layout.navigation />
-
-    <x-layout.animated-background />
-
-    <!-- Hero Section -->
+<x-layouts::app title="Krass der Wind - Brass Band">
+    <!-- Hero Section with LOUD Background -->
     <section
-        class="relative overflow-hidden bg-gradient-to-br from-zinc-50 to-zinc-100 dark:from-zinc-900 dark:to-zinc-800 min-h-screen flex items-center">
-        <!-- Animated background elements -->
-        <div class="absolute inset-0 overflow-hidden">
+        class="relative overflow-hidden bg-gradient-to-br from-zinc-50 to-zinc-100 dark:from-zinc-900 dark:to-zinc-800 h-screen flex items-center">
+        <!-- Animated background elements - ONLY IN HERO -->
+        <div class="absolute inset-0 overflow-hidden z-0">
             <!-- Enhanced glowing orbs with HIGH intensity for hero -->
             <div
                 class="absolute top-0 right-0 w-[500px] h-[500px] bg-gradient-to-br from-amber-500/35 to-orange-500/30 rounded-full blur-3xl animate-pulse">
@@ -138,16 +120,9 @@
         </div>
     </section>
 
-    <!-- About Section -->
+    <!-- About Section - Clean, using app layout background -->
     <section id="about" class="relative py-20 overflow-hidden">
-        <!-- Animated background gradient mesh -->
-        <div
-            class="absolute inset-0 bg-gradient-to-br from-amber-50/50 via-transparent to-orange-50/50 dark:from-amber-950/20 dark:via-transparent dark:to-orange-950/20">
-        </div>
-        <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-amber-500/50 to-transparent">
-        </div>
-
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 scroll-reveal">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
             <div class="grid md:grid-cols-2 gap-12 items-center">
                 <div class="space-y-6 transform hover:translate-x-2 transition-transform duration-500">
                     <h2
@@ -208,54 +183,14 @@
         </div>
     </section>
 
-    <!-- Smooth transition gradient between sections -->
-    <div
-        class="h-64 bg-gradient-to-b from-white via-amber-50/40 to-amber-100 dark:from-zinc-900 dark:via-amber-950/20 dark:to-amber-950/40">
-    </div>
-
-    <!-- CTA Section -->
+    <!-- CTA Section - Clean with accent highlights -->
     <section class="relative py-20 overflow-hidden">
-        <!-- Softer gradient background with transparency -->
+        <!-- Subtle accent gradient overlay -->
         <div
-            class="absolute inset-0 bg-gradient-to-br from-amber-100 via-orange-50 to-amber-50 dark:from-amber-950/40 dark:via-orange-950/30 dark:to-amber-950/20">
+            class="absolute inset-0 bg-gradient-to-br from-amber-50/30 via-transparent to-orange-50/30 dark:from-amber-950/10 dark:via-transparent dark:to-orange-950/10 pointer-events-none">
         </div>
 
-        <!-- Floating colorful orbs -->
-        <div class="absolute inset-0 overflow-hidden">
-            <!-- Large floating amber orb -->
-            <div class="absolute top-10 right-1/4 w-[400px] h-[400px] bg-gradient-to-br from-amber-400/30 to-orange-400/20 rounded-full blur-3xl animate-pulse"
-                style="animation-duration: 4s;"></div>
-
-            <!-- Medium floating orange orb -->
-            <div class="absolute bottom-20 left-1/4 w-[300px] h-[300px] bg-gradient-to-tr from-orange-400/25 to-amber-300/15 rounded-full blur-3xl animate-pulse"
-                style="animation-duration: 5s; animation-delay: 1s;"></div>
-
-            <!-- Small floating yellow orb -->
-            <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-gradient-to-r from-amber-300/20 to-orange-300/15 rounded-full blur-3xl animate-pulse"
-                style="animation-duration: 8s;"></div>
-
-            <!-- Accent orbs -->
-            <div class="absolute top-1/4 left-10 w-32 h-32 bg-amber-400/20 rounded-full blur-2xl animate-bounce"
-                style="animation-duration: 6s;"></div>
-            <div class="absolute bottom-1/4 right-10 w-40 h-40 bg-orange-400/15 rounded-full blur-2xl animate-bounce"
-                style="animation-duration: 7s; animation-delay: 2s;"></div>
-
-            <!-- Musical notes floating -->
-            <div class="absolute top-20 left-1/3 text-amber-500/20 animate-bounce" style="animation-duration: 5s;">
-                <svg class="w-12 h-12" fill="currentColor" viewBox="0 0 24 24">
-                    <path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z" />
-                </svg>
-            </div>
-            <div class="absolute bottom-32 right-1/3 text-orange-500/15 animate-bounce"
-                style="animation-duration: 6s; animation-delay: 1.5s;">
-                <svg class="w-16 h-16" fill="currentColor" viewBox="0 0 24 24">
-                    <path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z" />
-                </svg>
-            </div>
-        </div>
-
-        <div
-            class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10 scroll-reveal scroll-reveal-delay-2">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
             <h2
                 class="text-4xl font-bold bg-gradient-to-r from-amber-600 via-orange-500 to-amber-600 bg-clip-text text-transparent mb-4 transform hover:scale-110 transition-transform duration-300">
                 Bereit mitzumachen?</h2>
@@ -280,20 +215,5 @@
                 </a>
             </div>
         </div>
-
-        <!-- Floating decorative rings -->
-        <div class="absolute top-10 left-10 w-20 h-20 border border-amber-400/20 rounded-full"
-            style="animation: float 10s ease-in-out infinite;"></div>
-        <div class="absolute bottom-20 right-20 w-24 h-24 border border-orange-400/15 rounded-full"
-            style="animation: float 12s ease-in-out infinite; animation-delay: 2s;"></div>
-        <div class="absolute top-1/2 right-10 w-16 h-16 border border-amber-300/18 rounded-full"
-            style="animation: float 9s ease-in-out infinite; animation-delay: 1s;"></div>
     </section>
-
-    <!-- Footer -->
-    <x-layout.footer />
-
-    @fluxScripts
-</body>
-
-</html>
+</x-layouts::app>
