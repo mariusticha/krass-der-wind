@@ -41,9 +41,10 @@
                                             <div class="flex-1 min-w-0">
                                                 <div class="flex items-start justify-between gap-2">
                                                     <div class="flex-1 min-w-0">
-                                                        <div class="font-medium text-zinc-900 dark:text-zinc-100">
+                                                        <div
+                                                            class="font-medium text-zinc-900 dark:text-zinc-100 font-sans">
                                                             {{ $song['name'] }}</div>
-                                                        <div class="text-sm text-zinc-600 dark:text-zinc-400">
+                                                        <div class="text-sm text-zinc-600 dark:text-zinc-400 font-sans">
                                                             {{ $song['artist'] }}
                                                             @if ($song['year'])
                                                                 <span
@@ -84,9 +85,9 @@
                                         <button type="button" wire:click="addSelectedSong({{ $song->id }})"
                                             @disabled($isAdded)
                                             class="w-full text-left px-3 py-2 rounded hover:bg-zinc-100 dark:hover:bg-zinc-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors">
-                                            <div class="font-medium text-sm text-zinc-900 dark:text-zinc-100">
+                                            <div class="font-medium text-sm text-zinc-900 dark:text-zinc-100 font-sans">
                                                 {{ $song->name }}</div>
-                                            <div class="text-xs text-zinc-600 dark:text-zinc-400">
+                                            <div class="text-xs text-zinc-600 dark:text-zinc-400 font-sans">
                                                 {{ $song->artist }}
                                                 @if ($song->year)
                                                     <span

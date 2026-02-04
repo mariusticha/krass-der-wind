@@ -11,7 +11,7 @@
     @fluxAppearance
 </head>
 
-<body class="min-h-screen bg-white dark:bg-zinc-900 text-zinc-900 dark:text-zinc-100 font-serif" x-data="{ scrolled: false }"
+<body class="min-h-screen bg-white dark:bg-zinc-900 text-zinc-900 dark:text-zinc-100" x-data="{ scrolled: false }"
     @scroll.window="scrolled = window.scrollY > 100">
     <x-layout.navigation />
 

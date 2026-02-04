@@ -9,7 +9,7 @@
     @fluxAppearance
 </head>
 
-<body class="min-h-screen bg-white dark:bg-zinc-900 font-serif flex flex-col">
+<body class="min-h-screen bg-white dark:bg-zinc-900 flex flex-col">
     <x-layout.animated-background />
 
     <x-layout.navigation />
