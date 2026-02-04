@@ -1,15 +1,15 @@
 @props(['song'])
 
 <flux:card
-    class="transition-all duration-300 hover:scale-[1.02] hover:shadow-2xl hover:shadow-purple-500/10 relative overflow-hidden group">
+    class="transition-all duration-300 hover:scale-[1.02] hover:shadow-2xl hover:shadow-purple-500/10 relative overflow-hidden group flex flex-col">
     <!-- Card hover gradient effect -->
     <div
         class="absolute inset-0 bg-gradient-to-r from-purple-500/5 to-blue-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none">
     </div>
 
-    <div class="flex flex-col md:flex-row md:justify-between gap-4 relative z-10">
-        <div class="flex-1 min-w-0 flex flex-col min-h-[140px]">
-            <div class="flex-grow-0">
+    <div class="flex flex-col md:flex-row md:justify-between gap-4 relative z-10 flex-1">
+        <div class="flex-1 min-w-0 flex flex-col">
+            <div>
                 <div class="flex flex-wrap items-center gap-2 mb-2">
                     <h3 class="text-xl font-semibold font-sans">{{ $song->name }}</h3>
                 </div>
@@ -21,13 +21,6 @@
                             ({{ $song->year }})
                         @endif
                     </x-icon-text>
-                    @auth
-                        @if ($song->gigs_count > 0)
-                            <x-icon-text icon="calendar">
-                                {{ $song->gigs_count }} {{ Str::plural('gig', $song->gigs_count) }}
-                            </x-icon-text>
-                        @endif
-                    @endauth
                 </div>
 
                 @auth
@@ -36,14 +29,6 @@
                     @endif
                 @endauth
             </div>
-
-            <div class="flex-grow"></div>
-
-            @auth
-                <p class="text-xs text-gray-500 dark:text-gray-400 mt-4">
-                    Created {{ $song->created_at->diffForHumans() }}
-                </p>
-            @endauth
         </div>
 
         @auth
@@ -65,4 +50,21 @@
             </div>
         @endauth
     </div>
+
+    @auth
+        <div
+            class="relative z-10 pt-4 mt-4 border-t border-zinc-200/50 dark:border-zinc-700/50 flex items-center justify-between text-xs text-gray-500 dark:text-gray-400">
+            @if ($song->gigs_count > 0)
+                <div class="flex items-center gap-2">
+                    <flux:icon.calendar class="size-4" />
+                    <span>{{ $song->gigs_count }} {{ Str::plural('gig', $song->gigs_count) }}</span>
+                </div>
+            @else
+                <div></div>
+            @endif
+            <p>
+                Created {{ $song->created_at->diffForHumans() }}
+            </p>
+        </div>
+    @endauth
 </flux:card>
