@@ -64,23 +64,20 @@
             </div>
 
             <div class="space-y-1 text-gray-600 dark:text-gray-300">
-                <p class="flex items-center gap-2">
-                    <flux:icon.calendar class="size-4 flex-shrink-0" />
-                    <span class="text-sm md:text-base">{{ $gig->date->format('l, F j, Y') }}
-                        @if ($gig->time)
-                            at {{ $gig->time->format('H:i') }}
-                        @endif
-                    </span>
-                </p>
-                <p class="flex items-center gap-2">
-                    <flux:icon.map-pin class="size-4 flex-shrink-0" />
-                    <span class="text-sm md:text-base">{{ $gig->location }}, {{ $gig->city }}</span>
-                </p>
+                <x-icon-text icon="calendar">
+                    {{ $gig->date->format('l, F j, Y') }}
+                    @if ($gig->time)
+                        at {{ $gig->time->format('H:i') }}
+                    @endif
+                </x-icon-text>
+                <x-icon-text icon="map-pin">
+                    {{ $gig->location }}, {{ $gig->city }}
+                </x-icon-text>
                 @auth
-                    <button wire:click="showAttendees({{ $gig->id }})"
-                        class="flex items-center gap-2 text-sm {{ $attendeeLinkColor }} cursor-pointer">
-                        <flux:icon.user-group class="size-4" />
-                        {{ $attendeeCount }} {{ Str::plural('person', $attendeeCount) }} {{ $attendeeLabel }}
+                    <button wire:click="showAttendees({{ $gig->id }})" class="{{ $attendeeLinkColor }} cursor-pointer">
+                        <x-icon-text icon="user-group" margin="mt-1">
+                            {{ $attendeeCount }} {{ Str::plural('person', $attendeeCount) }} {{ $attendeeLabel }}
+                        </x-icon-text>
                     </button>
                 @endauth
             </div>
@@ -144,7 +141,7 @@
                         <span>{{ $gig->is_public ? 'Unpublish' : 'Publish' }}</span>
                     </flux:button>
                     <flux:dropdown position="bottom" align="end">
-                        <flux:button size="sm" variant="ghost" icon="ellipsis-horizontal" square
+                        <flux:button size="sm" variant="ghost" icon="ellipsis-vertical" square
                             class="w-full md:w-auto">
                         </flux:button>
 
