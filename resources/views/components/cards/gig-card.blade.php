@@ -64,18 +64,18 @@
             </div>
 
             <div class="space-y-1 text-gray-600 dark:text-gray-300">
-                <x-icon-text icon="calendar">
+                <x-ui.icon-text icon="calendar">
                     {{ $gig->date->format('l, F j, Y') }}
                     @if ($gig->time)
                         at {{ $gig->time->format('H:i') }}
                     @endif
                 </x-icon-text>
-                <x-icon-text icon="map-pin">
+                <x-ui.icon-text icon="map-pin">
                     {{ $gig->location }}, {{ $gig->city }}
                 </x-icon-text>
                 @auth
                     <button wire:click="showAttendees({{ $gig->id }})" class="{{ $attendeeLinkColor }} cursor-pointer">
-                        <x-icon-text icon="user-group" margin="mt-1">
+                        <x-ui.icon-text icon="user-group" margin="mt-1">
                             {{ $attendeeCount }} {{ Str::plural('person', $attendeeCount) }} {{ $attendeeLabel }}
                         </x-icon-text>
                     </button>

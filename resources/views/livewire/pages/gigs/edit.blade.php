@@ -1,11 +1,11 @@
 <div
     class="min-h-screen bg-gradient-to-br from-zinc-50 to-zinc-100 dark:from-zinc-900 dark:to-zinc-800 relative overflow-hidden">
-    <x-animated-background />
+    <x-layout.animated-background />
 
-    <x-navigation />
+    <x-layout.navigation />
 
     <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 pt-24 pb-12 relative z-10">
-        <x-page-header :title="$gigId ? 'Edit Gig' : 'Create New Gig'" :description="$gigId ? 'Update the gig details' : 'Add a new performance to the schedule'" />
+        <x-ui.page-header :title="$gigId ? 'Edit Gig' : 'Create New Gig'" :description="$gigId ? 'Update the gig details' : 'Add a new performance to the schedule'" />
 
         <flux:card>
             <div class="p-6 sm:p-8">

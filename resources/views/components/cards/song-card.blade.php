@@ -15,7 +15,7 @@
                 </div>
 
                 <div class="space-y-1 text-gray-600 dark:text-gray-300">
-                    <x-icon-text icon="microphone">
+                    <x-ui.icon-text icon="microphone">
                         {{ $song->artist }}
                         @if ($song->year)
                             ({{ $song->year }})

@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}" class="dark">
     <head>
-        @include('partials.head')
+        @include('components.layout.head')
     </head>
     <body class="min-h-screen bg-white dark:bg-zinc-900">
-        <x-navigation />
+        <x-layout.navigation />
 
         <div class="flex min-h-[calc(100vh-4rem)] flex-col items-center justify-center gap-6 p-6 md:p-10">
             <div class="flex w-full max-w-sm flex-col gap-2">

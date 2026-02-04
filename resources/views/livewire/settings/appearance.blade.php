@@ -1,5 +1,5 @@
 <section class="w-full">
-    @include('partials.settings-heading')
+    @include('components.settings.heading')
 
     <flux:heading class="sr-only">{{ __('Appearance Settings') }}</flux:heading>
 

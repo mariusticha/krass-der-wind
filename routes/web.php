@@ -8,7 +8,7 @@ use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
-Route::view('/', 'welcome')->name('home');
+Route::view('/', 'pages.welcome')->name('home');
 
 // Auto-login for local development
 Route::get('/login', function () {
@@ -30,7 +30,7 @@ Route::livewire('songs', SongsIndex::class)->name('songs.index');
 Route::livewire('songs/create', SongsEdit::class)->middleware('auth')->name('songs.create');
 Route::livewire('songs/{song}/edit', SongsEdit::class)->middleware('auth')->name('songs.edit');
 
-Route::view('dashboard', 'dashboard')
+Route::view('dashboard', 'pages.dashboard')
     ->middleware(['auth', 'verified'])
     ->name('dashboard');
 

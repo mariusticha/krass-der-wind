@@ -10,9 +10,9 @@
 </head>
 
 <body class="min-h-screen bg-white dark:bg-zinc-900 font-serif flex flex-col">
-    <x-animated-background />
+    <x-layout.animated-background />
 
-    <x-navigation />
+    <x-layout.navigation />
 
     <main class="flex-1">
         {{ $slot }}
@@ -20,7 +20,7 @@
 
     @fluxScripts
 
-    <x-layouts::footer />
+    <x-layout.footer />
 </body>
 
 </html>

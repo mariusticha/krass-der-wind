@@ -1,6 +1,6 @@
 <div>
     <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 pt-24 pb-12 relative z-10">
-        <x-page-header title="Gigs" :description="auth()->guest()
+        <x-ui.page-header title="Gigs" :description="auth()->guest()
             ? 'Check out where we\'ve been and where we\'re going!'
             : 'Manage your band\'s performances'">
             <x-slot:actions>
@@ -26,7 +26,7 @@
             @else
                 <div class="space-y-4">
                     @foreach ($upcomingGigs as $gig)
-                        <x-gig-card :gig="$gig" type="upcoming" />
+                        <x-cards.gig-card :gig="$gig" type="upcoming" />
                     @endforeach
                 </div>
             @endif
@@ -46,7 +46,7 @@
             @else
                 <div class="space-y-4">
                     @foreach ($pastGigs as $gig)
-                        <x-gig-card :gig="$gig" type="past" />
+                        <x-cards.gig-card :gig="$gig" type="past" />
                     @endforeach
                 </div>
             @endif

@@ -34,5 +34,5 @@
         </svg>
     </div>
 
-    <x-floating-rings />
+    <x-layout.floating-rings />
 </div>
