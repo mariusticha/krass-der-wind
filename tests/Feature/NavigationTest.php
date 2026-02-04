@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Gig;
 use App\Models\User;
 
 // Navigation Display Tests
@@ -129,11 +130,22 @@ test('navigation has mobile menu toggle', function () {
 });
 
 // Scroll Behavior Tests
-test('navigation uses scroll-based visibility', function () {
+test('navigation uses scroll-based visibility on welcome page', function () {
     $response = $this->get(route('home'));
 
-    $response->assertSee(':class="scrolled', false)
+    $response->assertSee(':class="isWelcomePage', false)
         ->assertSee('translate-y', false);
+});
+
+test('navigation is always visible on non-welcome pages', function () {
+    // Create a test gig to ensure the gigs page exists
+    Gig::factory()->create();
+
+    $response = $this->get(route('gigs.index'));
+
+    // Navigation should still render with the conditional logic
+    $response->assertSee('isWelcomePage', false)
+        ->assertSee('translate-y-0 opacity-100', false);
 });
 
 // Local Development Helper

@@ -9,7 +9,7 @@
     @fluxAppearance
 </head>
 
-<body class="min-h-screen bg-white dark:bg-zinc-900 flex flex-col" x-data="{ scrolled: false }"
+<body class="min-h-screen bg-white dark:bg-zinc-900 flex flex-col" x-data="{ scrolled: false, isWelcomePage: {{ request()->routeIs('home') ? 'true' : 'false' }} }"
     @scroll.window="scrolled = window.scrollY > 100">
     <x-layout.animated-background />
 
