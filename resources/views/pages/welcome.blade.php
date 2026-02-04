@@ -123,28 +123,28 @@
 
     <!-- About Section - Clean, using app layout background -->
     <section id="about" data-section="about" data-section-name="About - Über Uns" data-section-animate
-        class="relative overflow-hidden min-h-screen flex items-center py-12">
+        class="relative overflow-hidden py-36">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full">
             <div class="grid md:grid-cols-2 gap-12 items-center">
                 <div class="space-y-6" data-section-content>
                     <h2
-                        class="text-4xl font-bold mb-6 bg-gradient-to-r from-amber-600 to-orange-600 bg-clip-text text-transparent hover:scale-105 transition-transform duration-300 cursor-default">
+                        class="text-4xl font-bold mb-6 bg-gradient-to-r from-amber-600 to-orange-600 bg-clip-text text-transparent hover:scale-101 transition-transform duration-300 cursor-default">
                         Über Uns</h2>
                     <div class="space-y-4">
                         <p
-                            class="text-lg text-zinc-600 dark:text-zinc-400 leading-relaxed hover:text-zinc-900 dark:hover:text-zinc-100 hover:scale-105 transition-all duration-300 cursor-default">
+                            class="text-lg text-zinc-600 dark:text-zinc-400 leading-relaxed hover:text-zinc-900 dark:hover:text-zinc-100 hover:scale-101 transition-all duration-300 cursor-default">
                             Wir sind Holz- und Blechbläser*innen aus Falkensee und Umgebung. Wir spielen auf
                             Veranstaltungen gegen Rechts – für Demokratie und gegen Menschenfeindlichkeit, Gewalt,
                             Ausgrenzung und das Recht des Stärkeren.
                         </p>
                         <p
-                            class="text-lg text-zinc-600 dark:text-zinc-400 leading-relaxed hover:text-zinc-900 dark:hover:text-zinc-100 hover:scale-105 transition-all duration-300 cursor-default">
+                            class="text-lg text-zinc-600 dark:text-zinc-400 leading-relaxed hover:text-zinc-900 dark:hover:text-zinc-100 hover:scale-101 transition-all duration-300 cursor-default">
                             Wir musizieren für die Solidarität mit der angegriffenen Ukraine, mit klarem Bekenntnis
                             gegen Nationalismus, für europäische Werte und Menschenrechte, zu Klimaschutz und zur
                             deutschen Verantwortung für den Holocaust.
                         </p>
                         <p
-                            class="text-lg text-zinc-600 dark:text-zinc-400 leading-relaxed hover:text-zinc-900 dark:hover:text-zinc-100 hover:scale-105 transition-all duration-300 cursor-default">
+                            class="text-lg text-zinc-600 dark:text-zinc-400 leading-relaxed hover:text-zinc-900 dark:hover:text-zinc-100 hover:scale-101 transition-all duration-300 cursor-default">
                             Blasinstrumente jeder Art sind willkommen – wir spielen ganz altmodisch ohne elektrische
                             Verstärkung. Mitmachen kann jede*r im Alter von 14 bis 99. Ausnahmen sind erlaubt!
                         </p>
@@ -187,7 +187,7 @@
 
     <!-- CTA Section - Clean with accent highlights -->
     <section id="cta" data-section="cta" data-section-name="CTA - Bereit Mitzumachen" data-section-animate
-        class="relative overflow-hidden min-h-screen flex items-center py-12">
+        class="relative overflow-hidden py-36">
         <!-- Subtle accent gradient overlay -->
         <div
             class="absolute inset-0 bg-gradient-to-br from-amber-50/30 via-transparent to-orange-50/30 dark:from-amber-950/10 dark:via-transparent dark:to-orange-950/10 pointer-events-none">
@@ -195,10 +195,10 @@
 
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10" data-section-content>
             <h2
-                class="text-4xl font-bold bg-gradient-to-r from-amber-600 via-orange-500 to-amber-600 bg-clip-text text-transparent mb-4 transform hover:scale-110 transition-transform duration-300">
+                class="text-4xl font-bold bg-gradient-to-r from-amber-600 via-orange-500 to-amber-600 bg-clip-text text-transparent mb-4 transform hover:scale-101 transition-transform duration-300">
                 Bereit mitzumachen?</h2>
             <p
-                class="text-xl text-zinc-700 dark:text-zinc-300 mb-8 max-w-2xl mx-auto leading-relaxed hover:text-zinc-900 dark:hover:text-zinc-100 hover:scale-105 transition-all duration-300 cursor-default">
+                class="text-xl text-zinc-700 dark:text-zinc-300 mb-8 max-w-2xl mx-auto leading-relaxed hover:text-zinc-900 dark:hover:text-zinc-100 hover:scale-101 transition-all duration-300 cursor-default">
                 Wir proben einmal im Monat in Falkensee. Notenkenntnisse und Spielerfahrung sind erforderlich – wir
                 spielen aber als Amateurmusiker*innen auf unterschiedlichen Niveaus.
             </p>
