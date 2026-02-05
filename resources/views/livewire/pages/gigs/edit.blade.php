@@ -112,7 +112,7 @@
                         </div>
                     </div>
 
-                    <flux:checkbox wire:model="isPublic" label="Make this gig public (visible to everyone)" />
+                    <flux:checkbox wire:model="isPublic" label="Publish gig" />
 
                     <div class="flex justify-end gap-3">
                         <flux:button type="button" variant="ghost" wire:click="cancel">Cancel</flux:button>

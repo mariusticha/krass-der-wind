@@ -14,7 +14,10 @@
                             class="hover:text-zinc-900 dark:hover:text-zinc-300 transition">Home</a></li>
                     <li><a href="{{ route('gigs.index') }}"
                             class="hover:text-zinc-900 dark:hover:text-zinc-300 transition">Gigs</a></li>
-                    <li><a href="#about" class="hover:text-zinc-900 dark:hover:text-zinc-300 transition">About</a></li>
+                    <li><a href="{{ route('songs.index') }}"
+                            class="hover:text-zinc-900 dark:hover:text-zinc-300 transition">Songs</a></li>
+                    <li><a href="{{ route('home') }}#about"
+                            class="hover:text-zinc-900 dark:hover:text-zinc-300 transition">About</a></li>
                 </ul>
             </div>
             <div>

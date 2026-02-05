@@ -20,12 +20,14 @@
                         @if ($song->year)
                             ({{ $song->year }})
                         @endif
-                    </x-icon-text>
+                        </x-icon-text>
                 </div>
 
                 @auth
                     @if ($song->description)
-                        <p class="mt-3 text-sm md:text-base text-gray-700 dark:text-gray-300">{{ $song->description }}</p>
+                        <p class="mt-3 text-sm md:text-sm text-gray-700 dark:text-gray-300">{{ $song->description }}</p>
+                    @else
+                        <p class="mt-3 text-sm md:text-sm italic text-gray-500 dark:text-gray-400">No description</p>
                     @endif
                 @endauth
             </div>
