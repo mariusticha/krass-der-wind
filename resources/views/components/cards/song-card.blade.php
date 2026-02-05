@@ -34,7 +34,7 @@
         </div>
 
         @auth
-            <div class="flex gap-2 md:ml-4 md:flex-shrink-0">
+            <div class="flex gap-2 absolute top-3 right-3 md:static md:ml-4 md:flex-shrink-0 z-20">
                 <flux:dropdown position="bottom" align="end">
                     <flux:button size="sm" variant="ghost" icon="ellipsis-vertical" square class="w-full md:w-auto" />
 
