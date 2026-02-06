@@ -6,13 +6,6 @@
     // Get statistics
     $totalGigs = $user->gigs()->count();
     $attendedGigs = $user->gigs()->wherePivot('attended', true)->count();
-    $upcomingRsvps = $user
-        ->gigs()
-        ->whereHas('users', function ($q) use ($user) {
-            $q->where('user_id', $user->id)->where('rsvp_status', 'yes');
-        })
-        ->where('date', '>=', now())
-        ->count();
 
     $nextGig = $user
         ->gigs()
@@ -25,7 +18,14 @@
 
     $lastGig = $user->gigs()->wherePivot('attended', true)->where('date', '<', now())->orderBy('date', 'desc')->first();
 
-    $recentGigs = $user->gigs()->where('date', '>=', now())->orderBy('date')->limit(5)->get();
+    $myUpcomingGigs = $user
+        ->gigs()
+        ->wherePivot('rsvp_status', 'yes')
+        ->where('date', '>=', now())
+        ->orderBy('date')
+        ->limit(5)
+        ->with('users')
+        ->get();
 @endphp
 
 <x-layouts::app :title="'Dashboard - ' . $user->name">
@@ -69,7 +69,7 @@
                             <p class="text-sm text-zinc-600 dark:text-zinc-400 font-sans">Upcoming Gigs (Accepted)
                             </p>
                             <p class="text-3xl font-bold text-zinc-900 dark:text-zinc-100 mt-2 font-sans">
-                                {{ $upcomingRsvps }}</p>
+                                {{ $myUpcomingGigs->count() }}</p>
                         </div>
                         <div
                             class="w-12 h-12 rounded-full bg-blue-100 dark:bg-blue-900/20 flex items-center justify-center">
@@ -115,8 +115,9 @@
                             class="absolute inset-0 bg-gradient-to-r from-amber-500/5 to-orange-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none">
                         </div>
                         <div class="relative z-10">
-                            <h3 class="text-lg font-semibold text-zinc-900 dark:text-zinc-100 mb-4">Next Gig You've
-                                Accepted</h3>
+                            <h3 class="text-lg font-semibold text-zinc-900 dark:text-zinc-100 mb-4">
+                                Next Gig Attending
+                            </h3>
                             <div class="space-y-2">
                                 <p class="font-medium text-zinc-900 dark:text-zinc-100 font-sans">
                                     {{ $nextGig->name }}</p>
@@ -205,19 +206,20 @@
                 @endif
             </div>
 
-            <!-- Recent Upcoming Gigs -->
-            @if ($recentGigs->count() > 0)
+            <!-- My Upcoming Gigs -->
+            @if ($myUpcomingGigs->count() > 0)
                 <flux:card class="p-6">
-                    <h3 class="text-lg font-semibold text-zinc-900 dark:text-zinc-100 mb-4">Upcoming Gigs</h3>
+                    <h3 class="text-lg font-semibold text-zinc-900 dark:text-zinc-100 mb-4">Your Upcoming Gigs</h3>
                     <div class="space-y-3">
-                        @foreach ($recentGigs as $gig)
+                        @foreach ($myUpcomingGigs as $gig)
                             <div
                                 class="flex items-center justify-between p-3 rounded-lg bg-zinc-50 dark:bg-zinc-800/50 transition-all duration-300 hover:scale-[1.02] hover:shadow-lg hover:shadow-blue-500/10 hover:bg-zinc-100 dark:hover:bg-zinc-800 cursor-pointer">
                                 <div>
                                     <p class="font-medium text-zinc-900 dark:text-zinc-100 font-sans">
                                         {{ $gig->name }}</p>
                                     <p class="text-sm text-zinc-600 dark:text-zinc-400">
-                                        {{ $gig->date->format('M j, Y') }} • {{ $gig->location }}
+                                        {{ $gig->date->format('M j, Y') }} • {{ $gig->location }},
+                                        {{ $gig->city }}
                                     </p>
                                 </div>
                                 @php
