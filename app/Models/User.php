@@ -72,4 +72,10 @@ class User extends Authenticatable
             ->withPivot(['rsvp_status', 'attended', 'rsvp_at', 'attended_at'])
             ->withTimestamps();
     }
+
+    public function sheets(): BelongsToMany
+    {
+        return $this->belongsToMany(Sheet::class)
+            ->withTimestamps();
+    }
 }
