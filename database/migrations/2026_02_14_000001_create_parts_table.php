@@ -12,7 +12,7 @@ return new class extends Migration
             $table->id();
             $table->string('name')->unique();
             $table->timestamps();
-            $table->softDeletesDatetime();
+            $table->softDeletes();
         });
     }
 };

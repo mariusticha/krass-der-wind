@@ -2,8 +2,10 @@
 
 use App\Livewire\Pages\Gigs\Edit as GigsEdit;
 use App\Livewire\Pages\Gigs\Index as GigsIndex;
-use App\Livewire\Pages\Songs\Edit as SongsEdit;
+use App\Livewire\Pages\Parts\Index as PartsIndex;
+use App\Livewire\Pages\Parts\Edit as PartsEdit;
 use App\Livewire\Pages\Songs\Index as SongsIndex;
+use App\Livewire\Pages\Songs\Edit as SongsEdit;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -29,6 +31,10 @@ Route::livewire('gigs/{gig}/edit', GigsEdit::class)->middleware('auth')->name('g
 Route::livewire('songs', SongsIndex::class)->name('songs.index');
 Route::livewire('songs/create', SongsEdit::class)->middleware('auth')->name('songs.create');
 Route::livewire('songs/{song}/edit', SongsEdit::class)->middleware('auth')->name('songs.edit');
+
+Route::livewire('parts', PartsIndex::class)->name('parts.index');
+Route::livewire('parts/create', PartsEdit::class)->middleware('auth')->name('parts.create');
+Route::livewire('parts/{part}/edit', PartsEdit::class)->middleware('auth')->name('parts.edit');
 
 Route::view('dashboard', 'pages.dashboard')
     ->middleware(['auth', 'verified'])

@@ -10,7 +10,7 @@
         <flux:card>
             <div class="p-6 sm:p-8">
                 <form wire:submit="save" class="space-y-6">
-                    <flux:input wire:model="name" label="Gig Name" placeholder="e.g. Stadtfest 2026" required />
+                    <flux:input wire:model="name" label="Name" placeholder="e.g. Stadtfest 2026" required />
 
                     <flux:textarea wire:model="description" label="Description" placeholder="Event details..."
                         rows="3" />
