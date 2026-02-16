@@ -11,7 +11,6 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Sheet extends Model
 {
     use HasFactory;
-    use SoftDeletes;
 
     public function part(): BelongsTo
     {
