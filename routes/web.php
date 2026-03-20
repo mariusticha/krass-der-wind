@@ -34,4 +34,7 @@ Route::view('dashboard', 'pages.dashboard')
     ->middleware(['auth', 'verified'])
     ->name('dashboard');
 
+Route::view('imprint', 'pages.imprint')->name('imprint');
+Route::view('privacy', 'pages.privacy')->name('privacy');
+
 require __DIR__ . '/settings.php';

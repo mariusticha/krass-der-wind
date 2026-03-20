@@ -123,4 +123,14 @@ return [
         'store' => env('APP_MAINTENANCE_STORE', 'database'),
     ],
 
+    'legals' => [
+        'first_name' => env('LEGALS_FIRST_NAME', ''),
+        'last_name' => env('LEGALS_LAST_NAME', ''),
+        'street' => env('LEGALS_STREET', ''),
+        'postal_code' => env('LEGALS_POSTAL_CODE', ''),
+        'city' => env('LEGALS_CITY', ''),
+        'country' => env('LEGALS_COUNTRY', ''),
+        'email' => env('LEGALS_EMAIL', '')
+    ],
+
 ];
