@@ -168,6 +168,8 @@
         </div>
     </flux:card>
 
+    @authverified
     <x-ui.confirm-modal name="confirm-delete-gig-{{ $gig->id }}" heading="Delete gig"
         message="This action cannot be undone." wireClick="deleteGig({{ $gig->id }})" />
+    @endauthverified
 </div>

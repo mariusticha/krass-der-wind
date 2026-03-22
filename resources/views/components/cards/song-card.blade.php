@@ -89,6 +89,8 @@
         @endauthverified
     </flux:card>
 
+    @authverified
     <x-ui.confirm-modal name="confirm-delete-song-{{ $song->id }}" heading="Delete song" :message="$deleteMessage"
         wireClick="deleteSong({{ $song->id }})" />
+    @endauthverified
 </div>

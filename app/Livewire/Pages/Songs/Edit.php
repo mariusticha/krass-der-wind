@@ -101,7 +101,7 @@ class Edit extends Component
 
     public function save(): void
     {
-        $validated = $this->validate();
+        $validated = $this->validate($this->rules());
 
         if ($this->songId) {
             $song = Song::findOrFail($this->songId);

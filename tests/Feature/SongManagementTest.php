@@ -5,8 +5,12 @@ use App\Livewire\Pages\Gigs\Index;
 use App\Livewire\Pages\Songs\Edit as SongsEdit;
 use App\Livewire\Pages\Songs\Index as SongsIndex;
 use App\Models\Gig;
+use App\Models\Part;
+use App\Models\Sheet;
 use App\Models\Song;
 use App\Models\User;
+use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Facades\Storage;
 use Livewire\Livewire;
 
 // Model tests
@@ -534,4 +538,124 @@ test('songs index page shows correct titles for guests vs authenticated users', 
     Livewire::actingAs($user)
         ->test(SongsIndex::class)
         ->assertSee('Manage your band\'s song collection');
+});
+
+// Sheet management tests
+
+test('user can add a sheet to a song', function () {
+    Storage::fake();
+
+    $user = User::factory()->create();
+    $song = Song::factory()->create();
+    $part = Part::create(['name' => 'Guitar']);
+
+    Livewire::actingAs($user)
+        ->test(SongsEdit::class, ['song' => $song])
+        ->set('newSheetPartId', $part->id)
+        ->set('newSheetFile', UploadedFile::fake()->create('sheet.pdf', 100, 'application/pdf'))
+        ->call('addSheet')
+        ->assertHasNoErrors();
+
+    $sheet = Sheet::where('song_id', $song->id)->where('part_id', $part->id)->first();
+
+    expect($sheet)->not->toBeNull();
+    Storage::assertExists($sheet->file_path);
+});
+
+test('cannot add duplicate sheet for same song and part', function () {
+    Storage::fake();
+
+    $user = User::factory()->create();
+    $song = Song::factory()->create();
+    $part = Part::create(['name' => 'Keyboard']);
+
+    Sheet::create([
+        'song_id' => $song->id,
+        'part_id' => $part->id,
+        'file_path' => 'sheets/existing.pdf',
+    ]);
+
+    Livewire::actingAs($user)
+        ->test(SongsEdit::class, ['song' => $song])
+        ->set('newSheetPartId', $part->id)
+        ->set('newSheetFile', UploadedFile::fake()->create('sheet.pdf', 100, 'application/pdf'))
+        ->call('addSheet')
+        ->assertHasErrors(['newSheetPartId']);
+
+    expect(Sheet::where('song_id', $song->id)->where('part_id', $part->id)->count())->toBe(1);
+});
+
+test('user can remove a sheet from a song', function () {
+    Storage::fake();
+
+    $user = User::factory()->create();
+    $song = Song::factory()->create();
+    $part = Part::create(['name' => 'Bass']);
+
+    Storage::put('sheets/test.pdf', 'fake pdf content');
+
+    $sheet = Sheet::create([
+        'song_id' => $song->id,
+        'part_id' => $part->id,
+        'file_path' => 'sheets/test.pdf',
+    ]);
+
+    Livewire::actingAs($user)
+        ->test(SongsEdit::class, ['song' => $song])
+        ->call('removeSheet', $sheet->id)
+        ->assertHasNoErrors();
+
+    expect(Sheet::find($sheet->id))->toBeNull();
+    Storage::assertMissing('sheets/test.pdf');
+});
+
+test('adding a sheet validates that a part must be selected', function () {
+    Storage::fake();
+
+    $user = User::factory()->create();
+    $song = Song::factory()->create();
+
+    Livewire::actingAs($user)
+        ->test(SongsEdit::class, ['song' => $song])
+        ->set('newSheetPartId', null)
+        ->set('newSheetFile', UploadedFile::fake()->create('sheet.pdf', 100, 'application/pdf'))
+        ->call('addSheet')
+        ->assertHasErrors(['newSheetPartId']);
+});
+
+test('adding a sheet validates that a file must be uploaded', function () {
+    $user = User::factory()->create();
+    $song = Song::factory()->create();
+    $part = Part::create(['name' => 'Drums']);
+
+    Livewire::actingAs($user)
+        ->test(SongsEdit::class, ['song' => $song])
+        ->set('newSheetPartId', $part->id)
+        ->set('newSheetFile', null)
+        ->call('addSheet')
+        ->assertHasErrors(['newSheetFile']);
+});
+
+test('user cannot remove a sheet belonging to a different song', function () {
+    Storage::fake();
+
+    $user = User::factory()->create();
+    $song = Song::factory()->create();
+    $otherSong = Song::factory()->create();
+    $part = Part::create(['name' => 'Vocals']);
+
+    Storage::put('sheets/other.pdf', 'fake pdf content');
+
+    $sheet = Sheet::create([
+        'song_id' => $otherSong->id,
+        'part_id' => $part->id,
+        'file_path' => 'sheets/other.pdf',
+    ]);
+
+    Livewire::actingAs($user)
+        ->test(SongsEdit::class, ['song' => $song])
+        ->call('removeSheet', $sheet->id)
+        ->assertForbidden();
+
+    expect(Sheet::find($sheet->id))->not->toBeNull();
 });
