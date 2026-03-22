@@ -123,6 +123,16 @@ return [
         'store' => env('APP_MAINTENANCE_STORE', 'database'),
     ],
 
+    /*
+    |--------------------------------------------------------------------------
+    | Legal Information
+    |--------------------------------------------------------------------------
+    |
+    | These configuration options determine the legal information for the
+    | application. This information can be used in various places such as
+    | the footer, legal notices, or contact pages.
+    |
+    */
     'legals' => [
         'first_name' => env('LEGALS_FIRST_NAME', ''),
         'last_name' => env('LEGALS_LAST_NAME', ''),
@@ -132,5 +142,4 @@ return [
         'country' => env('LEGALS_COUNTRY', ''),
         'email' => env('LEGALS_EMAIL', '')
     ],
-
 ];

@@ -36,33 +36,24 @@
                             <div class="space-y-2 mb-4">
                                 <div>
                                     @foreach ($selectedSongs as $index => $song)
-                                        <div
-                                            class="flex items-start gap-4 py-4 px-5 bg-zinc-50 dark:bg-zinc-800 rounded-lg mb-2">
-                                            <div class="flex-1 min-w-0">
-                                                <div class="flex items-start justify-between gap-2">
-                                                    <div class="flex-1 min-w-0">
-                                                        <div
-                                                            class="font-medium text-zinc-900 dark:text-zinc-100 font-sans mb-2">
-                                                            {{ $song['name'] }}
-                                                        </div>
-                                                        <div
-                                                            class="text-sm text-zinc-600 dark:text-zinc-400 font-sans mb-3">
-                                                            {{ $song['artist'] }}
-                                                            @if ($song['year'])
-                                                                <span
-                                                                    class="text-zinc-400 dark:text-zinc-500">({{ $song['year'] }})</span>
-                                                            @endif
-                                                        </div>
-                                                    </div>
-                                                    <flux:button type="button"
-                                                        wire:click="removeSelectedSong({{ $index }})"
-                                                        variant="ghost" color="red" icon="trash" size="sm"
-                                                        square />
+                                        <div class="mb-4">
+                                            <x-ui.removable-row wire:key="song-{{ $song['id'] }}"
+                                                wireClick="removeSelectedSong({{ $index }})">
+                                                <div
+                                                    class="font-medium text-zinc-900 dark:text-zinc-100 font-sans mb-1">
+                                                    {{ $song['name'] }}
+                                                </div>
+                                                <div class="text-sm text-zinc-600 dark:text-zinc-400 font-sans mb-3">
+                                                    {{ $song['artist'] }}
+                                                    @if ($song['year'])
+                                                        <span
+                                                            class="text-zinc-400 dark:text-zinc-500">({{ $song['year'] }})</span>
+                                                    @endif
                                                 </div>
                                                 <flux:input wire:model="selectedSongs.{{ $index }}.notes"
                                                     placeholder="Add notes (e.g., 'extended intro', 'acoustic version')"
-                                                    class="mt-2" size="sm" />
-                                            </div>
+                                                    size="sm" />
+                                            </x-ui.removable-row>
                                         </div>
                                     @endforeach
                                 </div>

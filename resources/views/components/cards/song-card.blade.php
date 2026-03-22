@@ -56,6 +56,14 @@
     @authverified
     <div
         class="relative z-10 pt-4 mt-4 border-t border-zinc-200/50 dark:border-zinc-700/50 flex items-center justify-between text-xs text-gray-500 dark:text-gray-400">
+        @if ($song->sheets()->count() > 0)
+            <div class="flex items-center gap-2">
+                <flux:icon.document-text class="size-4" />
+                <span>{{ $song->sheets()->count() }} {{ Str::plural('sheet', $song->sheets()->count()) }}</span>
+            </div>
+        @else
+            <p class="italic">No sheets available</p>
+        @endif
         @if ($song->gigs_count > 0)
             <div class="flex items-center gap-2">
                 <flux:icon.calendar class="size-4" />
@@ -64,9 +72,6 @@
         @else
             <div></div>
         @endif
-        <p>
-            Created {{ $song->created_at->diffForHumans() }}
-        </p>
     </div>
     @endauthverified
 </flux:card>
