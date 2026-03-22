@@ -1,11 +1,11 @@
 <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 pt-24 pb-12 relative z-10">
-    <x-ui.page-header title="Parts" description="Manage your band's parts collection">
+    <x-ui.heading-1 title="Parts" description="Manage your band's parts collection">
         <x-slot:actions>
             <flux:button href="{{ route('parts.create') }}" wire:navigate icon="plus">
                 Create Part
             </flux:button>
         </x-slot:actions>
-    </x-ui.page-header>
+    </x-ui.heading-1>
 
     @if ($parts->isEmpty())
         <flux:card>

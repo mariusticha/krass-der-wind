@@ -1,5 +1,5 @@
 <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 pt-24 pb-12 relative z-10">
-    <x-ui.page-header :title="$sheetId ? 'Edit Sheet' : 'Create New Sheet'" :description="$sheetId ? 'Update the sheet details' : 'Add a new sheet to the band'" />
+    <x-ui.heading-1 :title="$sheetId ? 'Edit Sheet' : 'Create New Sheet'" :description="$sheetId ? 'Update the sheet details' : 'Add a new sheet to the band'" />
 
     <flux:card>
         <div class="p-6 sm:p-8">

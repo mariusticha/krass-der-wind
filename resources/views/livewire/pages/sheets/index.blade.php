@@ -1,11 +1,11 @@
 <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 pt-24 pb-12 relative z-10">
-    <x-ui.page-header title="Sheets" description="Manage your band's sheet collection">
+    <x-ui.heading-1 title="Sheets" description="Manage your band's sheet collection">
         <x-slot:actions>
             <flux:button href="{{ route('sheets.create') }}" wire:navigate icon="plus">
                 Create Sheet
             </flux:button>
         </x-slot:actions>
-    </x-ui.page-header>
+    </x-ui.heading-1>
 
     @if ($sheets->isEmpty())
         <flux:card>
