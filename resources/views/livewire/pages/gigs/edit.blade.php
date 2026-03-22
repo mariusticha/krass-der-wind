@@ -37,14 +37,16 @@
                                 <div>
                                     @foreach ($selectedSongs as $index => $song)
                                         <div
-                                            class="flex items-start gap-2 p-3 bg-zinc-50 dark:bg-zinc-800 rounded-lg mb-2">
+                                            class="flex items-start gap-4 py-4 px-5 bg-zinc-50 dark:bg-zinc-800 rounded-lg mb-2">
                                             <div class="flex-1 min-w-0">
                                                 <div class="flex items-start justify-between gap-2">
                                                     <div class="flex-1 min-w-0">
                                                         <div
-                                                            class="font-medium text-zinc-900 dark:text-zinc-100 font-sans">
-                                                            {{ $song['name'] }}</div>
-                                                        <div class="text-sm text-zinc-600 dark:text-zinc-400 font-sans">
+                                                            class="font-medium text-zinc-900 dark:text-zinc-100 font-sans mb-2">
+                                                            {{ $song['name'] }}
+                                                        </div>
+                                                        <div
+                                                            class="text-sm text-zinc-600 dark:text-zinc-400 font-sans mb-3">
                                                             {{ $song['artist'] }}
                                                             @if ($song['year'])
                                                                 <span

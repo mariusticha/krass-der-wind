@@ -18,7 +18,7 @@
             <flux:menu.item :href="route('parts.index')" icon="musical-note" wire:navigate>
                 Parts
             </flux:menu.item>
-            <flux:menu.item :href="route('sheets.index')" icon="document" wire:navigate>
+            <flux:menu.item :href="route('sheets.index')" icon="document-text" wire:navigate>
                 Sheets
             </flux:menu.item>
             {{-- <flux:menu.item :href="route('my-sheets.index')" icon="document" wire:navigate>

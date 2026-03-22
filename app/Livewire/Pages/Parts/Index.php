@@ -3,8 +3,7 @@
 namespace App\Livewire\Pages\Parts;
 
 use App\Models\Part;
-use Illuminate\Pagination\LengthAwarePaginator;
-use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Auth;
 use Livewire\Attributes\On;
 use Livewire\Component;
 
@@ -12,6 +11,10 @@ class Index extends Component
 {
     public function deletePart(Part $part): void
     {
+        if (! Auth::check() || ! Auth::user()->hasVerifiedEmail()) {
+            return;
+        }
+
         $part->delete();
 
         $this->dispatch('part-deleted');

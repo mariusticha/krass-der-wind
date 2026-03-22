@@ -30,9 +30,6 @@ Route::group([], function () {
     Route::livewire('gigs', GigsIndex::class)->name('gigs.index');
     Route::livewire('songs', SongsIndex::class)->name('songs.index');
 
-    /* ----- user menu ----- */
-    Route::livewire('parts', PartsIndex::class)->name('parts.index');
-    Route::livewire('sheets', SheetsIndex::class)->name('sheets.index');
 
     /* ----- footer ----- */
     Route::view('imprint', 'pages.imprint', config('app.legals'))->name('imprint');
@@ -40,8 +37,10 @@ Route::group([], function () {
 });
 
 Route::middleware(['auth', 'verified'])->group(function () {
-    /* ----- dashboard ----- */
+    /* ----- user menu ----- */
     Route::view('dashboard', 'pages.dashboard')->name('dashboard');
+    Route::livewire('parts', PartsIndex::class)->name('parts.index');
+    Route::livewire('sheets', SheetsIndex::class)->name('sheets.index');
 
     /* ----- crud ----- */
     Route::livewire('gigs/create', GigsEdit::class)->name('gigs.create');
