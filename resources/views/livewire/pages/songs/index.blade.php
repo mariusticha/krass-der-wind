@@ -2,11 +2,11 @@
     <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 pt-24 pb-12 relative z-10">
         <x-ui.heading-1 title="Songs" :description="auth()->guest() ? 'Browse our song repertoire' : 'Manage your band\'s song collection'">
             <x-slot:actions>
-                @auth
-                    <flux:button href="{{ route('songs.create') }}" wire:navigate icon="plus">
-                        Create Song
-                    </flux:button>
-                @endauth
+                @authverified
+                <flux:button href="{{ route('songs.create') }}" wire:navigate icon="plus">
+                    Create Song
+                </flux:button>
+                @endauthverified
             </x-slot:actions>
             </x-heading-1>
 

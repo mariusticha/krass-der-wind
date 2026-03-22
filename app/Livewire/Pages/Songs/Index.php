@@ -5,6 +5,7 @@ namespace App\Livewire\Pages\Songs;
 use App\Models\Song;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
+use Illuminate\Support\Facades\Auth;
 use Livewire\Attributes\On;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -20,6 +21,10 @@ class Index extends Component
 
     public function deleteSong(Song $song): void
     {
+        if (! Auth::check() || ! Auth::user()->hasVerifiedEmail()) {
+            return;
+        }
+
         $song->delete();
 
         $this->dispatch('song-deleted');

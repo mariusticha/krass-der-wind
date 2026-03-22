@@ -8,8 +8,6 @@ use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
-Route::view('/', 'pages.welcome')->name('home');
-
 // Auto-login for local development
 Route::get('/login', function () {
     if (request()->has('auto_login') && app()->environment('local')) {
@@ -22,19 +20,22 @@ Route::get('/login', function () {
     return app(\Laravel\Fortify\Http\Controllers\AuthenticatedSessionController::class)->create(request());
 })->name('login');
 
+Route::view('/', 'pages.welcome')->name('home');
+
 Route::livewire('gigs', GigsIndex::class)->name('gigs.index');
-Route::livewire('gigs/create', GigsEdit::class)->middleware('auth')->name('gigs.create');
-Route::livewire('gigs/{gig}/edit', GigsEdit::class)->middleware('auth')->name('gigs.edit');
-
 Route::livewire('songs', SongsIndex::class)->name('songs.index');
-Route::livewire('songs/create', SongsEdit::class)->middleware('auth')->name('songs.create');
-Route::livewire('songs/{song}/edit', SongsEdit::class)->middleware('auth')->name('songs.edit');
 
-Route::view('dashboard', 'pages.dashboard')
-    ->middleware(['auth', 'verified'])
-    ->name('dashboard');
+Route::view('imprint', 'pages.imprint', config('app.legals'))->name('imprint');
+Route::view('privacy', 'pages.privacy', config('app.legals'))->name('privacy');
 
-Route::view('imprint', 'pages.imprint')->name('imprint');
-Route::view('privacy', 'pages.privacy')->name('privacy');
+Route::middleware(['auth', 'verified'])->group(function () {
+    Route::livewire('gigs/create', GigsEdit::class)->name('gigs.create');
+    Route::livewire('gigs/{gig}/edit', GigsEdit::class)->name('gigs.edit');
+
+    Route::livewire('songs/create', SongsEdit::class)->name('songs.create');
+    Route::livewire('songs/{song}/edit', SongsEdit::class)->name('songs.edit');
+
+    Route::view('dashboard', 'pages.dashboard')->name('dashboard');
+});
 
 require __DIR__ . '/settings.php';

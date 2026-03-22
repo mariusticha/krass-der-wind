@@ -4,11 +4,11 @@
             ? 'Check out where we\'ve been and where we\'re going!'
             : 'Manage your band\'s performances'">
             <x-slot:actions>
-                @auth
-                    <flux:button href="{{ route('gigs.create') }}" wire:navigate icon="plus">
-                        Create Gig
-                    </flux:button>
-                @endauth
+                @authverified
+                <flux:button href="{{ route('gigs.create') }}" wire:navigate icon="plus">
+                    Create Gig
+                </flux:button>
+                @endauthverified
             </x-slot:actions>
             </x-heading-1>
 

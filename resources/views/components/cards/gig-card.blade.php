@@ -48,19 +48,19 @@
         <div class="flex-1 min-w-0">
             <div class="flex flex-wrap items-center gap-2 mb-2">
                 <h3 class="text-xl font-semibold">{{ $gig->name }}</h3>
-                @auth
-                    @if ($gig->is_public)
-                        <flux:badge color="green" size="sm">Public</flux:badge>
-                    @else
-                        <flux:badge color="zinc" size="sm">Private</flux:badge>
-                    @endif
+                @authverified
+                @if ($gig->is_public)
+                    <flux:badge color="green" size="sm">Public</flux:badge>
+                @else
+                    <flux:badge color="zinc" size="sm">Private</flux:badge>
+                @endif
 
-                    @if ($isUpcoming && $isAttending)
-                        <flux:badge color="blue" size="sm">Attending</flux:badge>
-                    @elseif ($isPast && $didAttend)
-                        <flux:badge color="purple" size="sm">Attended</flux:badge>
-                    @endif
-                @endauth
+                @if ($isUpcoming && $isAttending)
+                    <flux:badge color="blue" size="sm">Attending</flux:badge>
+                @elseif ($isPast && $didAttend)
+                    <flux:badge color="purple" size="sm">Attended</flux:badge>
+                @endif
+                @endauthverified
             </div>
 
             <div class="space-y-1 text-gray-600 dark:text-gray-300">
@@ -69,17 +69,18 @@
                     @if ($gig->time)
                         at {{ $gig->time->format('H:i') }}
                     @endif
-                </x-icon-text>
-                <x-ui.icon-text icon="map-pin">
-                    {{ $gig->location }}, {{ $gig->city }}
-                </x-icon-text>
-                @auth
-                    <button wire:click="showAttendees({{ $gig->id }})" class="{{ $attendeeLinkColor }} cursor-pointer">
-                        <x-ui.icon-text icon="user-group" margin="mt-1">
-                            {{ $attendeeCount }} {{ Str::plural('person', $attendeeCount) }} {{ $attendeeLabel }}
+                    </x-icon-text>
+                    <x-ui.icon-text icon="map-pin">
+                        {{ $gig->location }}, {{ $gig->city }}
                         </x-icon-text>
-                    </button>
-                @endauth
+                        @authverified
+                        <button wire:click="showAttendees({{ $gig->id }})"
+                            class="{{ $attendeeLinkColor }} cursor-pointer">
+                            <x-ui.icon-text icon="user-group" margin="mt-1">
+                                {{ $attendeeCount }} {{ Str::plural('person', $attendeeCount) }} {{ $attendeeLabel }}
+                                </x-icon-text>
+                        </button>
+                        @endauthverified
             </div>
 
             @if ($gig->description)
@@ -113,12 +114,12 @@
                                             @endif
                                         </span>
                                     </div>
-                                    @auth
-                                        @if ($song->pivot->notes)
-                                            <div class="text-xs text-gray-500 dark:text-gray-400 italic mt-0.5">
-                                                {{ $song->pivot->notes }}</div>
-                                        @endif
-                                    @endauth
+                                    @authverified
+                                    @if ($song->pivot->notes)
+                                        <div class="text-xs text-gray-500 dark:text-gray-400 italic mt-0.5">
+                                            {{ $song->pivot->notes }}</div>
+                                    @endif
+                                    @endauthverified
                                 </div>
                             </div>
                         @endforeach
@@ -127,36 +128,36 @@
             @endif
         </div>
 
-        @auth
-            <div class="flex flex-col md:flex-row gap-2 md:ml-4 md:flex-shrink-0">
-                <div class="flex flex-wrap md:flex-nowrap gap-2">
-                    <flux:button wire:click="{{ $isUpcoming ? 'toggleRsvp' : 'toggleAttendance' }}({{ $gig->id }})"
-                        size="sm" variant="ghost" :color="$participationColor" icon="{{ $participationIcon }}"
-                        class="flex-1 md:flex-initial">
-                        <span>{{ $participationText }}</span>
+        @authverified
+        <div class="flex flex-col md:flex-row gap-2 md:ml-4 md:flex-shrink-0">
+            <div class="flex flex-wrap md:flex-nowrap gap-2">
+                <flux:button wire:click="{{ $isUpcoming ? 'toggleRsvp' : 'toggleAttendance' }}({{ $gig->id }})"
+                    size="sm" variant="ghost" :color="$participationColor" icon="{{ $participationIcon }}"
+                    class="flex-1 md:flex-initial">
+                    <span>{{ $participationText }}</span>
+                </flux:button>
+                <flux:button wire:click="togglePublic({{ $gig->id }})" size="sm" variant="ghost"
+                    icon="{{ $gig->is_public ? 'eye-slash' : 'eye' }}"
+                    title="{{ $gig->is_public ? 'Make Private' : 'Make Public' }}" class="flex-1 md:flex-initial">
+                    <span>{{ $gig->is_public ? 'Unpublish' : 'Publish' }}</span>
+                </flux:button>
+                <flux:dropdown position="bottom" align="end">
+                    <flux:button size="sm" variant="ghost" icon="ellipsis-vertical" square
+                        class="w-full md:w-auto">
                     </flux:button>
-                    <flux:button wire:click="togglePublic({{ $gig->id }})" size="sm" variant="ghost"
-                        icon="{{ $gig->is_public ? 'eye-slash' : 'eye' }}"
-                        title="{{ $gig->is_public ? 'Make Private' : 'Make Public' }}" class="flex-1 md:flex-initial">
-                        <span>{{ $gig->is_public ? 'Unpublish' : 'Publish' }}</span>
-                    </flux:button>
-                    <flux:dropdown position="bottom" align="end">
-                        <flux:button size="sm" variant="ghost" icon="ellipsis-vertical" square
-                            class="w-full md:w-auto">
-                        </flux:button>
 
-                        <flux:menu>
-                            <flux:menu.item :href="route('gigs.edit', $gig)" wire:navigate icon="pencil">
-                                Edit
-                            </flux:menu.item>
-                            <flux:menu.item wire:click="deleteGig({{ $gig->id }})"
-                                wire:confirm="Are you sure you want to delete this gig?" icon="trash" variant="danger">
-                                Delete
-                            </flux:menu.item>
-                        </flux:menu>
-                    </flux:dropdown>
-                </div>
+                    <flux:menu>
+                        <flux:menu.item :href="route('gigs.edit', $gig)" wire:navigate icon="pencil">
+                            Edit
+                        </flux:menu.item>
+                        <flux:menu.item wire:click="deleteGig({{ $gig->id }})"
+                            wire:confirm="Are you sure you want to delete this gig?" icon="trash" variant="danger">
+                            Delete
+                        </flux:menu.item>
+                    </flux:menu>
+                </flux:dropdown>
             </div>
-        @endauth
+        </div>
+        @endauthverified
     </div>
 </flux:card>
