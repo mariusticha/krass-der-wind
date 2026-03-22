@@ -5,6 +5,7 @@ namespace App\Livewire\Pages\Gigs;
 use App\Models\Gig;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
+use Illuminate\Support\Facades\Auth;
 use Livewire\Attributes\On;
 use Livewire\Component;
 
@@ -30,8 +31,8 @@ class Index extends Component
         $upcomingQuery = Gig::query();
         $pastQuery = Gig::query();
 
-        // Show only public gigs when not authenticated
-        if (! auth()->check()) {
+        // Show only public gigs when not authenticated or email not verified
+        if (! Auth::check() || ! Auth::user()->hasVerifiedEmail()) {
             $upcomingQuery->public();
             $pastQuery->public();
         }
@@ -46,6 +47,10 @@ class Index extends Component
 
     public function deleteGig(Gig $gig): void
     {
+        if (! Auth::check() || ! Auth::user()->hasVerifiedEmail()) {
+            return;
+        }
+
         $gig->delete();
 
         $this->dispatch('gig-deleted');
@@ -54,18 +59,30 @@ class Index extends Component
 
     public function showAttendees(Gig $gig): void
     {
+        if (! Auth::check() || ! Auth::user()->hasVerifiedEmail()) {
+            return;
+        }
+
         $this->selectedGig = $gig->load('users');
         $this->showAttendeesModal = true;
     }
 
     public function closeAttendeesModal(): void
     {
+        if (! Auth::check() || ! Auth::user()->hasVerifiedEmail()) {
+            return;
+        }
+
         $this->showAttendeesModal = false;
         $this->selectedGig = null;
     }
 
     public function toggleRsvp(Gig $gig): void
     {
+        if (! Auth::check() || ! Auth::user()->hasVerifiedEmail()) {
+            return;
+        }
+
         $user = auth()->user();
         $pivot = $user->gigs()->where('gig_id', $gig->id)->first();
 
@@ -84,6 +101,10 @@ class Index extends Component
 
     public function toggleAttendance(Gig $gig): void
     {
+        if (! Auth::check() || ! Auth::user()->hasVerifiedEmail()) {
+            return;
+        }
+
         $user = auth()->user();
         $pivot = $user->gigs()->where('gig_id', $gig->id)->first();
 
@@ -104,6 +125,10 @@ class Index extends Component
 
     public function togglePublic(Gig $gig): void
     {
+        if (! Auth::check() || ! Auth::user()->hasVerifiedEmail()) {
+            return;
+        }
+
         $gig->update(['is_public' => ! $gig->is_public]);
         $this->loadGigs();
     }

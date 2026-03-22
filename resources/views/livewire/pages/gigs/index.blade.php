@@ -1,56 +1,50 @@
 <div>
     <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 pt-24 pb-12 relative z-10">
-        <x-ui.page-header title="Gigs" :description="auth()->guest()
+        <x-ui.heading-1 title="Gigs" :description="auth()->guest()
             ? 'Check out where we\'ve been and where we\'re going!'
             : 'Manage your band\'s performances'">
             <x-slot:actions>
-                @auth
-                    <flux:button href="{{ route('gigs.create') }}" wire:navigate icon="plus">
-                        Create Gig
-                    </flux:button>
-                @endauth
+                @authverified
+                <flux:button href="{{ route('gigs.create') }}" wire:navigate icon="plus">
+                    Create Gig
+                </flux:button>
+                @endauthverified
             </x-slot:actions>
-        </x-page-header>
+            </x-heading-1>
 
-        {{-- Upcoming Gigs --}}
-        <div class="mb-12">
-            <h2
-                class="text-2xl font-semibold mb-6 bg-gradient-to-r from-amber-500 to-orange-500 bg-clip-text text-transparent">
-                Upcoming
-            </h2>
+            {{-- Upcoming Gigs --}}
+            <div class="mb-12">
+                <x-ui.heading-2 title="Upcoming" />
 
-            @if (count($upcomingGigs) === 0)
-                <flux:card>
-                    <p class="text-gray-500 dark:text-gray-400 text-center py-8">No upcoming gigs scheduled.</p>
-                </flux:card>
-            @else
-                <div class="space-y-4">
-                    @foreach ($upcomingGigs as $gig)
-                        <x-cards.gig-card :gig="$gig" type="upcoming" />
-                    @endforeach
-                </div>
-            @endif
-        </div>
+                @if (count($upcomingGigs) === 0)
+                    <flux:card>
+                        <p class="text-gray-500 dark:text-gray-400 text-center py-8">No upcoming gigs scheduled.</p>
+                    </flux:card>
+                @else
+                    <div class="space-y-4">
+                        @foreach ($upcomingGigs as $gig)
+                            <x-cards.gig-card :gig="$gig" type="upcoming" />
+                        @endforeach
+                    </div>
+                @endif
+            </div>
 
-        {{-- Past Gigs --}}
-        <div>
-            <h2
-                class="text-2xl font-semibold mb-6 bg-gradient-to-r from-purple-500 to-blue-500 bg-clip-text text-transparent">
-                Past
-            </h2>
+            {{-- Past Gigs --}}
+            <div>
+                <x-ui.heading-2 title="Past" variant="accent" />
 
-            @if (count($pastGigs) === 0)
-                <flux:card>
-                    <p class="text-gray-500 dark:text-gray-400 text-center py-8">No past gigs yet.</p>
-                </flux:card>
-            @else
-                <div class="space-y-4">
-                    @foreach ($pastGigs as $gig)
-                        <x-cards.gig-card :gig="$gig" type="past" />
-                    @endforeach
-                </div>
-            @endif
-        </div>
+                @if (count($pastGigs) === 0)
+                    <flux:card>
+                        <p class="text-gray-500 dark:text-gray-400 text-center py-8">No past gigs yet.</p>
+                    </flux:card>
+                @else
+                    <div class="space-y-4">
+                        @foreach ($pastGigs as $gig)
+                            <x-cards.gig-card :gig="$gig" type="past" />
+                        @endforeach
+                    </div>
+                @endif
+            </div>
     </div>
 
     {{-- Attendees Modal --}}

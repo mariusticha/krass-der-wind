@@ -1,5 +1,5 @@
 <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 pt-24 pb-12 relative z-10">
-    <x-ui.page-header :title="$songId ? 'Edit Song' : 'Create New Song'" :description="$songId ? 'Update the song details' : 'Add a new song to the repertoire'" />
+    <x-ui.heading-1 :title="$songId ? 'Edit Song' : 'Create New Song'" :description="$songId ? 'Update the song details' : 'Add a new song to the repertoire'" />
 
     <flux:card>
         <div class="p-6 sm:p-8">

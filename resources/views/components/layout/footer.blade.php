@@ -23,8 +23,14 @@
             <div>
                 <h3 class="text-zinc-800 dark:text-zinc-400 font-semibold text-sm mb-3">Kontakt</h3>
                 <ul class="space-y-1.5 text-xs text-zinc-700 dark:text-zinc-500">
-                    <li>info@krassderwind.de</li>
-                    <li>+49 123 456789</li>
+                    <li><a href="{{ route('imprint') }}"
+                            class="hover:text-zinc-900 dark:hover:text-zinc-300 transition">Impressum</a></li>
+                    <li><a href="{{ route('privacy') }}"
+                            class="hover:text-zinc-900 dark:hover:text-zinc-300 transition">Datenschutzerklärung</a>
+                    </li>
+                    <li><a href="mailto:info@krassderwind.de"
+                            class="hover:text-zinc-900 dark:hover:text-zinc-300 transition">info@krassderwind.de</a>
+                    </li>
                 </ul>
             </div>
         </div>

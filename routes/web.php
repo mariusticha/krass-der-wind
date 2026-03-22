@@ -12,8 +12,6 @@ use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
-Route::view('/', 'pages.welcome')->name('home');
-
 // Auto-login for local development
 Route::get('/login', function () {
     if (request()->has('auto_login') && app()->environment('local')) {
@@ -26,24 +24,37 @@ Route::get('/login', function () {
     return app(\Laravel\Fortify\Http\Controllers\AuthenticatedSessionController::class)->create(request());
 })->name('login');
 
-Route::livewire('gigs', GigsIndex::class)->name('gigs.index');
-Route::livewire('gigs/create', GigsEdit::class)->middleware('auth')->name('gigs.create');
-Route::livewire('gigs/{gig}/edit', GigsEdit::class)->middleware('auth')->name('gigs.edit');
+Route::group([], function () {
+    /* ----- navigation ----- */
+    Route::view('/', 'pages.welcome')->name('home');
+    Route::livewire('gigs', GigsIndex::class)->name('gigs.index');
+    Route::livewire('songs', SongsIndex::class)->name('songs.index');
 
-Route::livewire('songs', SongsIndex::class)->name('songs.index');
-Route::livewire('songs/create', SongsEdit::class)->middleware('auth')->name('songs.create');
-Route::livewire('songs/{song}/edit', SongsEdit::class)->middleware('auth')->name('songs.edit');
+    /* ----- user menu ----- */
+    Route::livewire('parts', PartsIndex::class)->name('parts.index');
+    Route::livewire('sheets', SheetsIndex::class)->name('sheets.index');
 
-Route::livewire('parts', PartsIndex::class)->name('parts.index');
-Route::livewire('parts/create', PartsEdit::class)->middleware('auth')->name('parts.create');
-Route::livewire('parts/{part}/edit', PartsEdit::class)->middleware('auth')->name('parts.edit');
+    /* ----- footer ----- */
+    Route::view('imprint', 'pages.imprint', config('app.legals'))->name('imprint');
+    Route::view('privacy', 'pages.privacy', config('app.legals'))->name('privacy');
+});
 
-Route::livewire('sheets', SheetsIndex::class)->name('sheets.index');
-Route::livewire('sheets/create', SheetsEdit::class)->middleware('auth')->name('sheets.create');
-Route::livewire('sheets/{sheet}/edit', SheetsEdit::class)->middleware('auth')->name('sheets.edit');
+Route::middleware(['auth', 'verified'])->group(function () {
+    /* ----- dashboard ----- */
+    Route::view('dashboard', 'pages.dashboard')->name('dashboard');
 
-Route::view('dashboard', 'pages.dashboard')
-    ->middleware(['auth', 'verified'])
-    ->name('dashboard');
+    /* ----- crud ----- */
+    Route::livewire('gigs/create', GigsEdit::class)->name('gigs.create');
+    Route::livewire('gigs/{gig}/edit', GigsEdit::class)->name('gigs.edit');
+
+    Route::livewire('songs/create', SongsEdit::class)->name('songs.create');
+    Route::livewire('songs/{song}/edit', SongsEdit::class)->name('songs.edit');
+
+    Route::livewire('parts/create', PartsEdit::class)->middleware('auth')->name('parts.create');
+    Route::livewire('parts/{part}/edit', PartsEdit::class)->middleware('auth')->name('parts.edit');
+
+    Route::livewire('sheets/create', SheetsEdit::class)->middleware('auth')->name('sheets.create');
+    Route::livewire('sheets/{sheet}/edit', SheetsEdit::class)->middleware('auth')->name('sheets.edit');
+});
 
 require __DIR__ . '/settings.php';
