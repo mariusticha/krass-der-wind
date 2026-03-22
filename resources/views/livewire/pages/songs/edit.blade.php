@@ -45,8 +45,9 @@
                         <div class="space-y-2 mb-6">
                             @foreach ($sheets as $sheet)
                                 <x-ui.removable-row wire:key="sheet-{{ $sheet->id }}"
-                                    wireClick="removeSheet({{ $sheet->id }})"
-                                    wire:confirm="Are you sure you want to remove this sheet?">
+                                    wireClick="removeSheet({{ $sheet->id }})" modalKey="sheet-{{ $sheet->id }}"
+                                    confirmHeading="Remove sheet"
+                                    confirmMessage="The PDF file will be permanently deleted.">
                                     <div class="flex items-center gap-3">
                                         <flux:icon.document-text class="size-5 text-zinc-400 flex-shrink-0" />
                                         <div>

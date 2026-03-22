@@ -34,29 +34,26 @@
 
                         @if (count($selectedSongs) > 0)
                             <div class="space-y-2 mb-4">
-                                <div>
-                                    @foreach ($selectedSongs as $index => $song)
-                                        <div class="mb-4">
-                                            <x-ui.removable-row wire:key="song-{{ $song['id'] }}"
-                                                wireClick="removeSelectedSong({{ $index }})">
-                                                <div
-                                                    class="font-medium text-zinc-900 dark:text-zinc-100 font-sans mb-1">
-                                                    {{ $song['name'] }}
-                                                </div>
-                                                <div class="text-sm text-zinc-600 dark:text-zinc-400 font-sans mb-3">
-                                                    {{ $song['artist'] }}
-                                                    @if ($song['year'])
-                                                        <span
-                                                            class="text-zinc-400 dark:text-zinc-500">({{ $song['year'] }})</span>
-                                                    @endif
-                                                </div>
-                                                <flux:input wire:model="selectedSongs.{{ $index }}.notes"
-                                                    placeholder="Add notes (e.g., 'extended intro', 'acoustic version')"
-                                                    size="sm" />
-                                            </x-ui.removable-row>
+                                @foreach ($selectedSongs as $index => $song)
+                                    <x-ui.removable-row wire:key="song-{{ $song['id'] }}"
+                                        wireClick="removeSelectedSong({{ $index }})"
+                                        modalKey="setlist-song-{{ $song['id'] }}" confirmHeading="Remove from setlist"
+                                        confirmMessage="This song will be removed from the setlist.">
+                                        <div class="font-medium text-zinc-900 dark:text-zinc-100 font-sans mb-1">
+                                            {{ $song['name'] }}
                                         </div>
-                                    @endforeach
-                                </div>
+                                        <div class="text-sm text-zinc-600 dark:text-zinc-400 font-sans mb-3">
+                                            {{ $song['artist'] }}
+                                            @if ($song['year'])
+                                                <span
+                                                    class="text-zinc-400 dark:text-zinc-500">({{ $song['year'] }})</span>
+                                            @endif
+                                        </div>
+                                        <flux:input wire:model="selectedSongs.{{ $index }}.notes"
+                                            placeholder="Add notes (e.g., 'extended intro', 'acoustic version')"
+                                            size="sm" />
+                                    </x-ui.removable-row>
+                                @endforeach
                             </div>
                         @else
                             <div class="text-sm text-zinc-500 dark:text-zinc-400 italic mb-4">
