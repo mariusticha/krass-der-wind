@@ -69,7 +69,7 @@
             @if ($song->sheets()->count() > 0)
                 <div class="flex items-center gap-2">
                     <flux:icon.document-text class="size-4" />
-                    <span>{{ trans_choice(':count sheet|:count sheets', $song->sheets()->count(), ['count' => $song->sheets()->count()]) }}</span>
+                    <span>{{ trans_choice(':count part|:count parts', $song->sheets()->count(), ['count' => $song->sheets()->count()]) }}</span>
                 </div>
             @else
                 <p class="italic">{{ __('No sheets available') }}</p>
