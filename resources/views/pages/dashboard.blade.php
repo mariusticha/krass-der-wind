@@ -28,7 +28,7 @@
         ->get();
 @endphp
 
-<x-layouts::app :title="'Dashboard - ' . $user->name">
+<x-layouts::app :titleAddition="$user->name">
     <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 pt-24 pb-12 relative z-10">
         <div class="flex h-full w-full flex-1 flex-col gap-6">
             <x-ui.heading-1 :title="__('Welcome back, :name!', ['name' => $user->name])" :description="__('Here\'s an overview of your band activity')" />

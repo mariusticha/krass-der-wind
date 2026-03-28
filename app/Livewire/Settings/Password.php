@@ -5,6 +5,8 @@ namespace App\Livewire\Settings;
 use App\Concerns\PasswordValidationRules;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\ValidationException;
+use Illuminate\View\Factory;
+use Illuminate\View\View;
 use Livewire\Component;
 
 class Password extends Component
@@ -40,5 +42,13 @@ class Password extends Component
         $this->reset('current_password', 'password', 'password_confirmation');
 
         $this->dispatch('password-updated');
+    }
+
+    public function render(): Factory | View
+    {
+        return view('livewire.settings.password')
+            ->layoutData([
+                'titleAddition' => __('Password')
+            ]);
     }
 }

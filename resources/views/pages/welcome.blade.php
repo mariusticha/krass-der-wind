@@ -1,4 +1,4 @@
-<x-layouts::app title="KrassderWind - Bläserband">
+<x-layouts::app titleAddition="{{ __('Concert Band') }}">
     <!-- Hero Section with LOUD Background -->
     <section id="hero" data-section="hero" data-section-name="Hero - Landing"
         class="relative overflow-hidden bg-gradient-to-br from-zinc-50 to-zinc-100 dark:from-zinc-900 dark:to-zinc-800 h-screen flex items-center">

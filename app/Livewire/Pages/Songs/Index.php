@@ -42,6 +42,8 @@ class Index extends Component
 
         return view('livewire.pages.songs.index', [
             'songs' => $songs,
+        ])->layoutData([
+            'titleAddition' => __('Songs')
         ]);
     }
 }

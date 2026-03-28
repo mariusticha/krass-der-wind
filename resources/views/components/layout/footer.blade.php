@@ -11,22 +11,22 @@
                 <h3 class="text-zinc-800 dark:text-zinc-400 font-semibold text-sm mb-3">Navigation</h3>
                 <ul class="space-y-1.5 text-xs text-zinc-700 dark:text-zinc-500">
                     <li><a href="{{ route('home') }}"
-                            class="hover:text-zinc-900 dark:hover:text-zinc-300 transition">Home</a></li>
+                            class="hover:text-zinc-900 dark:hover:text-zinc-300 transition">{{ __('Home') }}</a></li>
                     <li><a href="{{ route('gigs.index') }}"
-                            class="hover:text-zinc-900 dark:hover:text-zinc-300 transition">Gigs</a></li>
+                            class="hover:text-zinc-900 dark:hover:text-zinc-300 transition">{{ __('Gigs') }}</a></li>
                     <li><a href="{{ route('songs.index') }}"
-                            class="hover:text-zinc-900 dark:hover:text-zinc-300 transition">Songs</a></li>
+                            class="hover:text-zinc-900 dark:hover:text-zinc-300 transition">{{ __('Songs') }}</a></li>
                     <li><a href="{{ route('home') }}#about"
-                            class="hover:text-zinc-900 dark:hover:text-zinc-300 transition">About</a></li>
+                            class="hover:text-zinc-900 dark:hover:text-zinc-300 transition">{{ __('About') }}</a></li>
                 </ul>
             </div>
             <div>
-                <h3 class="text-zinc-800 dark:text-zinc-400 font-semibold text-sm mb-3">Kontakt</h3>
+                <h3 class="text-zinc-800 dark:text-zinc-400 font-semibold text-sm mb-3">{{ __('Contact') }}</h3>
                 <ul class="space-y-1.5 text-xs text-zinc-700 dark:text-zinc-500">
                     <li><a href="{{ route('imprint') }}"
-                            class="hover:text-zinc-900 dark:hover:text-zinc-300 transition">Impressum</a></li>
+                            class="hover:text-zinc-900 dark:hover:text-zinc-300 transition">{{ __('Imprint') }}</a></li>
                     <li><a href="{{ route('privacy') }}"
-                            class="hover:text-zinc-900 dark:hover:text-zinc-300 transition">Datenschutzerklärung</a>
+                            class="hover:text-zinc-900 dark:hover:text-zinc-300 transition">{{ __('Privacy') }}</a>
                     </li>
                     <li><a href="mailto:info@krassderwind.de"
                             class="hover:text-zinc-900 dark:hover:text-zinc-300 transition">info@krassderwind.de</a>

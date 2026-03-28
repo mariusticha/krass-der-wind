@@ -1,4 +1,4 @@
-<x-layouts::app title="Datenschutzerklärung – KrassderWind">
+<x-layouts::app titleAddition="{{ __('Privacy') }}">
     <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 pt-28 pb-16 relative z-10">
         <article class="text-zinc-600 dark:text-zinc-400 space-y-6 text-sm">
             <x-ui.heading-1 title="Datenschutzerklärung"></x-ui.heading-1>

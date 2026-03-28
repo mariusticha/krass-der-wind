@@ -7,9 +7,10 @@ use App\Models\User;
 test('navigation displays main links', function () {
     $response = $this->get(route('home'));
 
-    $response->assertSee('Gigs')
-        ->assertSee('Songs')
-        ->assertSee('Noten');
+    $response->assertSee(__('Home'))
+        ->assertSee(__('Gigs'))
+        ->assertSee(__('Songs'))
+        ->assertSee(__('About'));
 });
 
 test('navigation displays brand logo and name', function () {

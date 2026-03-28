@@ -125,8 +125,8 @@ test('welcome page renders navigation component', function () {
     $response = $this->get(route('home'));
 
     // Navigation is present
-    $response->assertSee('Gigs')
-        ->assertSee('Songs');
+    $response->assertSee(__('Gigs'))
+        ->assertSee(__('Songs'));
 });
 
 test('welcome page renders footer component', function () {
@@ -140,7 +140,7 @@ test('welcome page renders footer component', function () {
 test('welcome page has correct title', function () {
     $response = $this->get(route('home'));
 
-    $response->assertSee('<title>KrassderWind - Bläserband</title>', false);
+    $response->assertSee('<title>KrassderWind | ' . __('Concert Band') . '</title>', false);
 });
 
 test('welcome page uses correct layout', function () {
