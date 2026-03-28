@@ -1,4 +1,4 @@
-<x-layouts::app title="Krass der Wind - Brass Band">
+<x-layouts::app title="KrassderWind - Bläserband">
     <!-- Hero Section with LOUD Background -->
     <section id="hero" data-section="hero" data-section-name="Hero - Landing"
         class="relative overflow-hidden bg-gradient-to-br from-zinc-50 to-zinc-100 dark:from-zinc-900 dark:to-zinc-800 h-screen flex items-center">
@@ -94,7 +94,7 @@
             <div class="text-center animate-fade-in-up">
                 <h1 class="text-5xl lg:text-7xl font-bold mb-6 bg-gradient-to-r from-amber-500 via-orange-500 to-amber-600 bg-clip-text text-transparent animate-gradient bg-[length:200%_auto] opacity-0 animate-fade-in-up"
                     style="animation-delay: 0.2s; animation-fill-mode: forwards;">
-                    Krass der Wind
+                    KrassderWind
                 </h1>
                 <p class="text-xl lg:text-2xl text-zinc-600 dark:text-zinc-400 mb-8 max-w-2xl mx-auto transform hover:scale-105 transition-transform duration-300 opacity-0 animate-fade-in-up"
                     style="animation-delay: 0.4s; animation-fill-mode: forwards;">
@@ -171,7 +171,7 @@
                             <div class="absolute inset-0 bg-gradient-to-br from-white to-transparent animate-pulse">
                             </div>
                         </div>
-                        <img src="{{ asset('images/2025-kdw-funny.jpg') }}" alt="Krass der Wind Band"
+                        <img src="{{ asset('images/2025-kdw-funny.jpg') }}" alt="KrassderWind Band"
                             class="w-full h-full object-cover transform group-hover:scale-110 transition-all duration-700">
                         <!-- Floating particles -->
                         <div class="absolute top-10 left-10 w-2 h-2 bg-white/40 rounded-full animate-ping"></div>

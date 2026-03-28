@@ -10,29 +10,21 @@
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                         d="M9 19V6l12-3v13M9 19c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zm12-3c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zM9 10l12-3" />
                 </svg>
-                <span class="text-xl font-bold text-zinc-900 dark:text-zinc-100">Krass der Wind</span>
+                <span class="text-xl font-bold text-zinc-900 dark:text-zinc-100">KrassderWind</span>
             </a>
 
             <!-- Desktop Nav Links -->
             <div class="hidden md:flex items-center space-x-8 flex-1 ml-8">
                 <a href="{{ route('gigs.index') }}"
                     class="text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white transition text-base {{ request()->routeIs('gigs.*') ? 'font-semibold !text-amber-600 dark:!text-amber-500' : '' }}">
-                    Gigs
+                    {{ __('Gigs') }}
                 </a>
                 <a href="{{ route('songs.index') }}"
                     class="text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white transition text-base {{ request()->routeIs('songs.*') ? 'font-semibold !text-amber-600 dark:!text-amber-500' : '' }}">
-                    Songs
-                </a>
-                <a href="https://noethernetz.de/krassderwind/noten-fuer-krassderwind/" target="_blank"
-                    class="text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white transition flex items-center gap-1 text-base">
-                    Noten
-                    <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
-                    </svg>
+                    {{ __('Songs') }}
                 </a>
                 <a href="{{ route('home') }}#about"
-                    class="text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white transition text-base">About</a>
+                    class="text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white transition text-base">{{ __('About') }}</a>
 
                 @if (app()->environment('local'))
                     <a href="{{ route('login') }}?auto_login=1"
@@ -79,12 +71,12 @@
                 <a href="{{ route('gigs.index') }}"
                     class="px-3 py-2 rounded-lg text-zinc-600 dark:text-zinc-400 hover:bg-zinc-100 dark:hover:bg-zinc-800 transition {{ request()->routeIs('gigs.*') ? 'font-semibold !text-amber-600 dark:!text-amber-500 bg-amber-50 dark:bg-amber-950/30' : '' }}"
                     @click="mobileMenuOpen = false">
-                    Gigs
+                    {{ __('Gigs') }}
                 </a>
                 <a href="{{ route('songs.index') }}"
                     class="px-3 py-2 rounded-lg text-zinc-600 dark:text-zinc-400 hover:bg-zinc-100 dark:hover:bg-zinc-800 transition {{ request()->routeIs('songs.*') ? 'font-semibold !text-amber-600 dark:!text-amber-500 bg-amber-50 dark:bg-amber-950/30' : '' }}"
                     @click="mobileMenuOpen = false">
-                    Songs
+                    {{ __('Songs') }}
                 </a>
                 <a href="https://noethernetz.de/krassderwind/noten-fuer-krassderwind/" target="_blank"
                     class="px-3 py-2 rounded-lg text-zinc-600 dark:text-zinc-400 hover:bg-zinc-100 dark:hover:bg-zinc-800 transition flex items-center gap-1"
@@ -98,7 +90,7 @@
                 <a href="{{ route('home') }}#about"
                     class="px-3 py-2 rounded-lg text-zinc-600 dark:text-zinc-400 hover:bg-zinc-100 dark:hover:bg-zinc-800 transition"
                     @click="mobileMenuOpen = false">
-                    About
+                    {{ __('About') }}
                 </a>
 
                 @if (app()->environment('local'))
@@ -130,7 +122,7 @@
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                     d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
                             </svg>
-                            Dashboard
+                            {{ __('Dashboard') }}
                         </a>
                         <a href="{{ route('profile.edit') }}"
                             class="px-3 py-2 rounded-lg text-zinc-600 dark:text-zinc-400 hover:bg-zinc-100 dark:hover:bg-zinc-800 transition flex items-center gap-2 {{ request()->routeIs('profile.*', 'user-password.*', 'two-factor.*', 'appearance.*') ? 'font-semibold' : '' }}"
@@ -141,7 +133,7 @@
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                     d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
                             </svg>
-                            Settings
+                            {{ __('Settings') }}
                         </a>
                         <form method="POST" action="{{ route('logout') }}">
                             @csrf
@@ -151,7 +143,7 @@
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                         d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
                                 </svg>
-                                Log Out
+                                {{ __('Log Out') }}
                             </button>
                         </form>
                     @else

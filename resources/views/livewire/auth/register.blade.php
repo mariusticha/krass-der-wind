@@ -17,7 +17,7 @@
 
             <!-- Instrument -->
             <flux:input name="instrument" :label="__('Instrument')" :value="old('instrument')" type="text" required
-                autocomplete="instrument" placeholder="Guitar, Drums, etc." />
+                autocomplete="instrument" :placeholder="__('Guitar, Drums, etc.')" />
 
             <!-- Password -->
             <flux:input name="password" :label="__('Password')" type="password" required autocomplete="new-password"

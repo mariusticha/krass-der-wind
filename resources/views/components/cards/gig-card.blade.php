@@ -23,17 +23,20 @@
     $participationIcon = ($isUpcoming && $isAttending) || ($isPast && $didAttend) ? 'x-mark' : 'plus';
     $participationText = $isUpcoming
         ? ($isAttending
-            ? 'Decline'
-            : 'Attend')
+            ? __('Decline')
+            : __('Attend'))
         : ($didAttend
-            ? 'Unattended'
-            : 'Mark Attended');
+            ? __('Unattended')
+            : __('Mark Attended'));
 
     // Attendee link colors
     $attendeeLinkColor = $isUpcoming
         ? 'text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300'
         : 'text-purple-600 dark:text-purple-400 hover:text-purple-700 dark:hover:text-purple-300';
     $attendeeLabel = $isUpcoming ? 'attending' : 'attended';
+    $attendeeText = $isUpcoming
+        ? trans_choice(':count person attending|:count people attending', $attendeeCount, ['count' => $attendeeCount])
+        : trans_choice(':count person attended|:count people attended', $attendeeCount, ['count' => $attendeeCount]);
 @endphp
 
 <div>
@@ -51,15 +54,15 @@
                     <h3 class="text-xl font-semibold">{{ $gig->name }}</h3>
                     @authverified
                     @if ($gig->is_public)
-                        <flux:badge color="green" size="sm">Public</flux:badge>
+                        <flux:badge color="green" size="sm">{{ __('Public') }}</flux:badge>
                     @else
-                        <flux:badge color="zinc" size="sm">Private</flux:badge>
+                        <flux:badge color="zinc" size="sm">{{ __('Private') }}</flux:badge>
                     @endif
 
                     @if ($isUpcoming && $isAttending)
-                        <flux:badge color="blue" size="sm">Attending</flux:badge>
+                        <flux:badge color="blue" size="sm">{{ __('Attending') }}</flux:badge>
                     @elseif ($isPast && $didAttend)
-                        <flux:badge color="purple" size="sm">Attended</flux:badge>
+                        <flux:badge color="purple" size="sm">{{ __('Attended') }}</flux:badge>
                     @endif
                     @endauthverified
                 </div>
@@ -78,8 +81,7 @@
                             <button wire:click="showAttendees({{ $gig->id }})"
                                 class="{{ $attendeeLinkColor }} cursor-pointer">
                                 <x-ui.icon-text icon="user-group" margin="mt-1">
-                                    {{ $attendeeCount }} {{ Str::plural('person', $attendeeCount) }}
-                                    {{ $attendeeLabel }}
+                                    {{ $attendeeText }}
                                     </x-icon-text>
                             </button>
                             @endauthverified
@@ -94,8 +96,8 @@
                         <button @click="open = !open"
                             class="flex items-center gap-1 font-medium text-sm text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-gray-100 mb-2">
                             <flux:icon.musical-note class="size-4" />
-                            <span>Setlist ({{ $gig->songs->count() }}
-                                {{ Str::plural('song', $gig->songs->count()) }})</span>
+                            <span>{{ __('Setlist') }}
+                                ({{ trans_choice(':count song|:count songs', $gig->songs->count(), ['count' => $gig->songs->count()]) }})</span>
                             <flux:icon.chevron-down class="size-4 transition-transform"
                                 ::class="open && 'rotate-180'" />
                         </button>
@@ -143,8 +145,9 @@
                     </flux:button>
                     <flux:button wire:click="togglePublic({{ $gig->id }})" size="sm" variant="ghost"
                         icon="{{ $gig->is_public ? 'eye-slash' : 'eye' }}"
-                        title="{{ $gig->is_public ? 'Make Private' : 'Make Public' }}" class="flex-1 md:flex-initial">
-                        <span>{{ $gig->is_public ? 'Unpublish' : 'Publish' }}</span>
+                        :title="$gig->is_public ? __('Make Private') : __('Make Public')"
+                        class="flex-1 md:flex-initial">
+                        <span>{{ $gig->is_public ? __('Unpublish') : __('Publish') }}</span>
                     </flux:button>
                     <flux:dropdown position="bottom" align="end">
                         <flux:button size="sm" variant="ghost" icon="ellipsis-vertical" square
@@ -153,12 +156,12 @@
 
                         <flux:menu>
                             <flux:menu.item :href="route('gigs.edit', $gig)" wire:navigate icon="pencil">
-                                Edit
+                                {{ __('Edit') }}
                             </flux:menu.item>
                             <flux:menu.item
                                 x-on:click="$dispatch('modal-show', { name: 'confirm-delete-gig-{{ $gig->id }}' })"
                                 icon="trash" variant="danger">
-                                Delete
+                                {{ __('Delete') }}
                             </flux:menu.item>
                         </flux:menu>
                     </flux:dropdown>
@@ -169,7 +172,7 @@
     </flux:card>
 
     @authverified
-    <x-ui.confirm-modal name="confirm-delete-gig-{{ $gig->id }}" heading="Delete gig"
-        message="This action cannot be undone." wireClick="deleteGig({{ $gig->id }})" />
+    <x-ui.confirm-modal name="confirm-delete-gig-{{ $gig->id }}" :heading="__('Delete gig')" :message="__('This action cannot be undone.')"
+        wireClick="deleteGig({{ $gig->id }})" />
     @endauthverified
 </div>

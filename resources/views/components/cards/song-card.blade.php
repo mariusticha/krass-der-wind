@@ -3,12 +3,8 @@
 @php
     $deleteMessage =
         $song->gigs_count > 0
-            ? 'This song is in ' .
-                $song->gigs_count .
-                ' ' .
-                Str::plural('gig', $song->gigs_count) .
-                '. It will be removed from all of them.'
-            : 'This action cannot be undone.';
+            ? __('This song is in :count gig(s). It will be removed from all of them.', ['count' => $song->gigs_count])
+            : __('This action cannot be undone.');
 @endphp
 
 <div>
@@ -39,7 +35,8 @@
                     @if ($song->description)
                         <p class="mt-3 text-sm md:text-sm text-gray-700 dark:text-gray-300">{{ $song->description }}</p>
                     @else
-                        <p class="mt-3 text-sm md:text-sm italic text-gray-500 dark:text-gray-400">No description</p>
+                        <p class="mt-3 text-sm md:text-sm italic text-gray-500 dark:text-gray-400">
+                            {{ __('No description') }}</p>
                     @endif
                     @endauthverified
                 </div>
@@ -53,12 +50,12 @@
 
                     <flux:menu>
                         <flux:menu.item :href="route('songs.edit', $song)" wire:navigate icon="pencil">
-                            Edit
+                            {{ __('Edit') }}
                         </flux:menu.item>
                         <flux:menu.item
                             x-on:click="$dispatch('modal-show', { name: 'confirm-delete-song-{{ $song->id }}' })"
                             icon="trash" variant="danger">
-                            Delete
+                            {{ __('Delete') }}
                         </flux:menu.item>
                     </flux:menu>
                 </flux:dropdown>
@@ -72,15 +69,15 @@
             @if ($song->sheets()->count() > 0)
                 <div class="flex items-center gap-2">
                     <flux:icon.document-text class="size-4" />
-                    <span>{{ $song->sheets()->count() }} {{ Str::plural('sheet', $song->sheets()->count()) }}</span>
+                    <span>{{ trans_choice(':count sheet|:count sheets', $song->sheets()->count(), ['count' => $song->sheets()->count()]) }}</span>
                 </div>
             @else
-                <p class="italic">No sheets available</p>
+                <p class="italic">{{ __('No sheets available') }}</p>
             @endif
             @if ($song->gigs_count > 0)
                 <div class="flex items-center gap-2">
                     <flux:icon.calendar class="size-4" />
-                    <span>{{ $song->gigs_count }} {{ Str::plural('gig', $song->gigs_count) }}</span>
+                    <span>{{ trans_choice(':count gig|:count gigs', $song->gigs_count, ['count' => $song->gigs_count]) }}</span>
                 </div>
             @else
                 <div></div>
@@ -90,7 +87,7 @@
     </flux:card>
 
     @authverified
-    <x-ui.confirm-modal name="confirm-delete-song-{{ $song->id }}" heading="Delete song" :message="$deleteMessage"
+    <x-ui.confirm-modal name="confirm-delete-song-{{ $song->id }}" :heading="__('Delete song')" :message="$deleteMessage"
         wireClick="deleteSong({{ $song->id }})" />
     @endauthverified
 </div>

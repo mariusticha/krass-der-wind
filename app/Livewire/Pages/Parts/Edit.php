@@ -42,11 +42,11 @@ class Edit extends Component
 
             $part->update($validated);
 
-            $message = 'Part updated successfully!';
+            $message = __('Part updated successfully!');
         } else {
             Part::create($validated);
 
-            $message = 'Part created successfully!';
+            $message = __('Part created successfully!');
         }
 
         session()->flash('message', $message);

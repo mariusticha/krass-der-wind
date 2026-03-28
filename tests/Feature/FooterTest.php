@@ -10,26 +10,26 @@ test('footer displays on pages', function () {
 test('footer contains band name', function () {
     $response = $this->get(route('home'));
 
-    $response->assertSee('Krass der Wind');
+    $response->assertSee('KrassderWind');
 });
 
 test('footer displays on gigs page', function () {
     $response = $this->get(route('gigs.index'));
 
-    $response->assertSee('Krass der Wind');
+    $response->assertSee('KrassderWind');
 });
 
 test('footer displays on songs page', function () {
     $response = $this->get(route('songs.index'));
 
-    $response->assertSee('Krass der Wind');
+    $response->assertSee('KrassderWind');
 });
 
 test('footer is present in app layout', function () {
     $response = $this->get(route('home'));
 
     // Check that footer component is rendered
-    $response->assertSee('Krass der Wind');
+    $response->assertSee('KrassderWind');
 });
 
 // Footer Component Rendering

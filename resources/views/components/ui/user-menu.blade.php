@@ -16,7 +16,7 @@
                 {{ __('Dashboard') }}
             </flux:menu.item>
             <flux:menu.item :href="route('parts.index')" icon="musical-note" wire:navigate>
-                Parts
+                {{ __('Parts') }}
             </flux:menu.item>
             {{-- <flux:menu.item :href="route('my-sheets.index')" icon="document" wire:navigate>
                 My Sheets

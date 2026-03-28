@@ -166,10 +166,10 @@ class Edit extends Component
         if ($this->gigId) {
             $gig = Gig::findOrFail($this->gigId);
             $gig->update($validated);
-            $message = 'Gig updated successfully!';
+            $message = __('Gig updated successfully!');
         } else {
             $gig = Gig::create($validated);
-            $message = 'Gig created successfully!';
+            $message = __('Gig created successfully!');
         }
 
         // Sync songs

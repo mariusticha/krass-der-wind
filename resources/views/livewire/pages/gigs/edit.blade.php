@@ -5,32 +5,32 @@
     <x-layout.navigation />
 
     <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 pt-24 pb-12 relative z-10">
-        <x-ui.heading-1 :title="$gigId ? 'Edit Gig' : 'Create New Gig'" :description="$gigId ? 'Update the gig details' : 'Add a new performance to the schedule'" />
+        <x-ui.heading-1 :title="$gigId ? __('Edit Gig') : __('Create New Gig')" :description="$gigId ? __('Update the gig details') : __('Add a new performance to the schedule')" />
 
         <flux:card>
             <div class="p-6 sm:p-8">
                 <form wire:submit="save" class="space-y-6">
-                    <flux:input wire:model="name" label="Name" placeholder="e.g. Stadtfest 2026" required />
+                    <flux:input wire:model="name" :label="__('Name')" placeholder="e.g. Stadtfest 2026" required />
 
-                    <flux:textarea wire:model="description" label="Description" placeholder="Event details..."
-                        rows="3" />
+                    <flux:textarea wire:model="description" :label="__('Description')"
+                        :placeholder="__('Event details...')" rows="3" />
 
                     <div class="grid grid-cols-2 gap-4">
-                        <flux:input wire:model="date" type="date" label="Date" required />
+                        <flux:input wire:model="date" type="date" :label="__('Date')" required />
 
-                        <flux:input wire:model="time" type="time" label="Time" />
+                        <flux:input wire:model="time" type="time" :label="__('Time')" />
                     </div>
 
                     <div class="grid grid-cols-2 gap-4">
-                        <flux:input wire:model="location" label="Location" placeholder="e.g. Biergarten am See"
+                        <flux:input wire:model="location" :label="__('Location')" placeholder="e.g. Biergarten am See"
                             required />
 
-                        <flux:input wire:model="city" label="City" placeholder="e.g. München" required />
+                        <flux:input wire:model="city" :label="__('City')" placeholder="e.g. München" required />
                     </div>
 
                     <div>
-                        <flux:label>Setlist</flux:label>
-                        <flux:subheading class="mb-3">Manage the songs for this gig</flux:subheading>
+                        <flux:label>{{ __('Setlist') }}</flux:label>
+                        <flux:subheading class="mb-3">{{ __('Manage the songs for this gig') }}</flux:subheading>
 
                         @if (count($selectedSongs) > 0)
                             <div class="space-y-2 mb-4">
@@ -50,20 +50,20 @@
                                             @endif
                                         </div>
                                         <flux:input wire:model="selectedSongs.{{ $index }}.notes"
-                                            placeholder="Add notes (e.g., 'extended intro', 'acoustic version')"
+                                            :placeholder="__('Add notes (e.g., \'extended intro\', \'acoustic version\')')"
                                             size="sm" />
                                     </x-ui.removable-row>
                                 @endforeach
                             </div>
                         @else
                             <div class="text-sm text-zinc-500 dark:text-zinc-400 italic mb-4">
-                                No songs added yet. Search and add songs below.
+                                {{ __('No songs added yet. Search and add songs below.') }}
                             </div>
                         @endif
 
                         <div class="space-y-3">
                             <flux:input wire:model.live.debounce.300ms="songSearch"
-                                placeholder="Search songs by name or artist..." icon="magnifying-glass" />
+                                :placeholder="__('Search songs by name or artist...')" icon="magnifying-glass" />
 
                             @if ($songSearch && $this->availableSongs->count() > 0)
                                 <div
@@ -89,24 +89,25 @@
                                 </div>
                             @elseif($songSearch)
                                 <div class="text-sm text-zinc-500 dark:text-zinc-400 italic py-2">
-                                    No songs found. <button type="button" wire:click="openAddSongModal"
-                                        class="text-blue-600 dark:text-blue-400 hover:underline">Create a new
-                                        song</button>
+                                    {{ __('No songs found.') }} <button type="button" wire:click="openAddSongModal"
+                                        class="text-blue-600 dark:text-blue-400 hover:underline">{{ __('Create a new song') }}</button>
                                 </div>
                             @endif
 
                             <flux:button type="button" wire:click="openAddSongModal" variant="ghost" icon="plus"
                                 size="sm">
-                                Create New Song
+                                {{ __('Create New Song') }}
                             </flux:button>
                         </div>
                     </div>
 
-                    <flux:checkbox wire:model="isPublic" label="Publish gig" />
+                    <flux:checkbox wire:model="isPublic" :label="__('Publish gig')" />
 
                     <div class="flex justify-end gap-3">
-                        <flux:button type="button" variant="ghost" wire:click="cancel">Cancel</flux:button>
-                        <flux:button type="submit" variant="primary">{{ $gigId ? 'Update' : 'Create' }} Gig
+                        <flux:button type="button" variant="ghost" wire:click="cancel">{{ __('Cancel') }}
+                        </flux:button>
+                        <flux:button type="submit" variant="primary">
+                            {{ $gigId ? __('Update Gig') : __('Create Gig') }}
                         </flux:button>
                     </div>
                 </form>
@@ -117,23 +118,23 @@
     {{-- Add Song Modal --}}
     <flux:modal wire:model="showAddSongModal" class="space-y-6">
         <div>
-            <flux:heading size="lg">Create New Song</flux:heading>
-            <flux:subheading>Add a new song to the library</flux:subheading>
+            <flux:heading size="lg">{{ __('Create New Song') }}</flux:heading>
+            <flux:subheading>{{ __('Add a new song to the library') }}</flux:subheading>
         </div>
 
-        <flux:input wire:model="newSongName" label="Song Name" placeholder="e.g. Bohemian Rhapsody" required />
+        <flux:input wire:model="newSongName" :label="__('Song Name')" placeholder="e.g. Bohemian Rhapsody" required />
 
-        <flux:input wire:model="newSongArtist" label="Artist" placeholder="e.g. Queen" required />
+        <flux:input wire:model="newSongArtist" :label="__('Artist')" placeholder="e.g. Queen" required />
 
-        <flux:input wire:model="newSongYear" type="number" label="Year" placeholder="e.g. 1975" min="1900"
-            max="2100" />
+        <flux:input wire:model="newSongYear" type="number" :label="__('Year')" placeholder="e.g. 1975"
+            min="1900" max="2100" />
 
-        <flux:textarea wire:model="newSongDescription" label="Description"
-            placeholder="Additional notes about this song..." rows="3" />
+        <flux:textarea wire:model="newSongDescription" :label="__('Description')"
+            :placeholder="__('Additional notes about this song...')" rows="3" />
 
         <div class="flex justify-end gap-3">
-            <flux:button wire:click="closeAddSongModal" variant="ghost">Cancel</flux:button>
-            <flux:button wire:click="createAndAddSong" variant="primary">Create & Add</flux:button>
+            <flux:button wire:click="closeAddSongModal" variant="ghost">{{ __('Cancel') }}</flux:button>
+            <flux:button wire:click="createAndAddSong" variant="primary">{{ __('Create & Add') }}</flux:button>
         </div>
     </flux:modal>
 </div>

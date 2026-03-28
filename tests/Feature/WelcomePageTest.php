@@ -28,7 +28,7 @@ test('authenticated users can also view welcome page', function () {
 test('welcome page displays band name in hero section', function () {
     $response = $this->get(route('home'));
 
-    $response->assertSee('Krass der Wind');
+    $response->assertSee('KrassderWind');
 });
 
 test('welcome page displays tagline', function () {
@@ -88,7 +88,7 @@ test('welcome page about section displays band image', function () {
     $response = $this->get(route('home'));
 
     $response->assertSee('images/2025-kdw-funny.jpg', false)
-        ->assertSee('alt="Krass der Wind Band"', false);
+        ->assertSee('alt="KrassderWind Band"', false);
 });
 
 // CTA Section Tests
@@ -140,7 +140,7 @@ test('welcome page renders footer component', function () {
 test('welcome page has correct title', function () {
     $response = $this->get(route('home'));
 
-    $response->assertSee('<title>Krass der Wind - Brass Band</title>', false);
+    $response->assertSee('<title>KrassderWind - Bläserband</title>', false);
 });
 
 test('welcome page uses correct layout', function () {
@@ -177,7 +177,7 @@ test('welcome page includes animation classes for visual effects', function () {
 test('welcome page includes alt text for images', function () {
     $response = $this->get(route('home'));
 
-    $response->assertSee('alt="Krass der Wind Band"', false);
+    $response->assertSee('alt="KrassderWind Band"', false);
 });
 
 test('welcome page external links have proper target attribute', function () {
@@ -191,7 +191,7 @@ test('welcome page loads all critical sections', function () {
     $response = $this->get(route('home'));
 
     // Hero section
-    $response->assertSee('Krass der Wind');
+    $response->assertSee('KrassderWind');
 
     // About section
     $response->assertSee('Über Uns');

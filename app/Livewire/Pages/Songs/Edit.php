@@ -71,7 +71,7 @@ class Edit extends Component
             ->exists();
 
         if ($alreadyExists) {
-            $this->addError('newSheetPartId', 'A sheet for this part already exists. Remove it first to replace it.');
+            $this->addError('newSheetPartId', __('A sheet for this part already exists. Remove it first to replace it.'));
 
             return;
         }
@@ -106,10 +106,10 @@ class Edit extends Component
         if ($this->songId) {
             $song = Song::findOrFail($this->songId);
             $song->update($validated);
-            $message = 'Song updated successfully!';
+            $message = __('Song updated successfully!');
         } else {
             Song::create($validated);
-            $message = 'Song created successfully!';
+            $message = __('Song created successfully!');
         }
 
         session()->flash('message', $message);

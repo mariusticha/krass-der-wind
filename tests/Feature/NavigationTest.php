@@ -15,7 +15,7 @@ test('navigation displays main links', function () {
 test('navigation displays brand logo and name', function () {
     $response = $this->get(route('home'));
 
-    $response->assertSee('Krass der Wind');
+    $response->assertSee('KrassderWind');
 });
 
 test('navigation contains about anchor link', function () {
@@ -102,7 +102,7 @@ test('navigation shows settings link for authenticated users', function () {
 
     $response = $this->actingAs($user)->get(route('home'));
 
-    $response->assertSee('Settings')
+    $response->assertSee(__('Settings'))
         ->assertSee(route('profile.edit'), false);
 });
 
@@ -111,7 +111,7 @@ test('navigation shows logout button for authenticated users', function () {
 
     $response = $this->actingAs($user)->get(route('home'));
 
-    $response->assertSee('Log Out');
+    $response->assertSee(__('Log Out'));
 });
 
 test('navigation displays user initials in profile button', function () {

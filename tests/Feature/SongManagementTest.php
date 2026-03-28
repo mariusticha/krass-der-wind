@@ -293,7 +293,7 @@ test('authenticated users can see create button on songs index', function () {
 
     Livewire::actingAs($user)
         ->test(SongsIndex::class)
-        ->assertSee('Create Song');
+        ->assertSee(__('Create Song'));
 });
 
 test('guests can view song details but not private information', function () {
@@ -311,8 +311,8 @@ test('guests can view song details but not private information', function () {
         ->assertSee('Test Artist')
         ->assertSee('2020')
         ->assertDontSee('Private description') // Guests shouldn't see description
-        ->assertDontSee('Edit')
-        ->assertDontSee('Delete');
+        ->assertDontSee(__('Edit'))
+        ->assertDontSee(__('Delete'));
 });
 
 test('authenticated users can see all song information including private data', function () {
@@ -329,8 +329,8 @@ test('authenticated users can see all song information including private data', 
         ->test(SongsIndex::class)
         ->assertSee('Test Song')
         ->assertSee('Internal notes')
-        ->assertSee('Edit')
-        ->assertSee('Delete');
+        ->assertSee(__('Edit'))
+        ->assertSee(__('Delete'));
 });
 
 test('authenticated users can see gig count for songs', function () {
@@ -346,7 +346,7 @@ test('authenticated users can see gig count for songs', function () {
 
     Livewire::actingAs($user)
         ->test(SongsIndex::class)
-        ->assertSee('3 gigs'); // Should show gig count
+        ->assertSee('3' . ' ' . __('Gigs')); // Should show gig count
 });
 
 test('songs create page requires authentication', function () {
@@ -496,7 +496,7 @@ test('song card shows warning when deleting song used in gigs', function () {
     Livewire::actingAs($user)
         ->test(SongsIndex::class)
         ->assertSee('Song in Gigs')
-        ->assertSee('5 gigs'); // Should show gig count as warning context
+        ->assertSee('5 ' . __('Gigs')); // Should show gig count as warning context
 });
 
 test('cancel button on edit page redirects to songs index', function () {
@@ -522,7 +522,7 @@ test('songs index displays empty state when no songs exist', function () {
     Song::query()->delete();
 
     Livewire::test(SongsIndex::class)
-        ->assertSee('No songs yet');
+        ->assertSee(__('No songs yet.'));
 });
 
 test('songs index page shows correct titles for guests vs authenticated users', function () {
@@ -530,14 +530,14 @@ test('songs index page shows correct titles for guests vs authenticated users', 
 
     // Guest view
     Livewire::test(SongsIndex::class)
-        ->assertSee('Browse our song repertoire');
+        ->assertSee(__('Browse our song repertoire'));
 
     // Authenticated view
     $user = User::factory()->create();
 
     Livewire::actingAs($user)
         ->test(SongsIndex::class)
-        ->assertSee('Manage your band\'s song collection');
+        ->assertSee(__("Manage your band's song collection"));
 });
 
 // Sheet management tests

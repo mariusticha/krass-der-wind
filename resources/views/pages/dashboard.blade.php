@@ -31,7 +31,7 @@
 <x-layouts::app :title="'Dashboard - ' . $user->name">
     <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 pt-24 pb-12 relative z-10">
         <div class="flex h-full w-full flex-1 flex-col gap-6">
-            <x-ui.heading-1 :title="'Welcome back, ' . $user->name . '!'" description="Here's an overview of your band activity" />
+            <x-ui.heading-1 :title="__('Welcome back, :name!', ['name' => $user->name])" :description="__('Here\'s an overview of your band activity')" />
 
             <!-- Stats Grid -->
             <div class="grid auto-rows-min gap-4 md:grid-cols-3">
@@ -43,7 +43,8 @@
                     </div>
                     <div class="flex items-center justify-between relative z-10">
                         <div>
-                            <p class="text-sm text-zinc-600 dark:text-zinc-400 font-sans">Total Gigs Attended</p>
+                            <p class="text-sm text-zinc-600 dark:text-zinc-400 font-sans">{{ __('Total Gigs Attended') }}
+                            </p>
                             <p class="text-3xl font-bold text-zinc-900 dark:text-zinc-100 mt-2 font-sans">
                                 {{ $attendedGigs }}</p>
                         </div>
@@ -66,7 +67,8 @@
                     </div>
                     <div class="flex items-center justify-between relative z-10">
                         <div>
-                            <p class="text-sm text-zinc-600 dark:text-zinc-400 font-sans">Upcoming Gigs (Accepted)
+                            <p class="text-sm text-zinc-600 dark:text-zinc-400 font-sans">
+                                {{ __('Upcoming Gigs (Accepted)') }}
                             </p>
                             <p class="text-3xl font-bold text-zinc-900 dark:text-zinc-100 mt-2 font-sans">
                                 {{ $myUpcomingGigs->count() }}</p>
@@ -90,7 +92,7 @@
                     </div>
                     <div class="flex items-center justify-between relative z-10">
                         <div>
-                            <p class="text-sm text-zinc-600 dark:text-zinc-400 font-sans">All Gigs</p>
+                            <p class="text-sm text-zinc-600 dark:text-zinc-400 font-sans">{{ __('All Gigs') }}</p>
                             <p class="text-3xl font-bold text-zinc-900 dark:text-zinc-100 mt-2 font-sans">
                                 {{ $totalGigs }}</p>
                         </div>
@@ -116,7 +118,7 @@
                         </div>
                         <div class="relative z-10">
                             <h3 class="text-lg font-semibold text-zinc-900 dark:text-zinc-100 mb-4">
-                                Next Gig Attending
+                                {{ __('Next Gig Attending') }}
                             </h3>
                             <div class="space-y-2">
                                 <p class="font-medium text-zinc-900 dark:text-zinc-100 font-sans">
@@ -142,7 +144,7 @@
                                 </p>
                                 <flux:button href="{{ route('gigs.index') }}" wire:navigate class="mt-4"
                                     size="sm">
-                                    View Details
+                                    {{ __('View Details') }}
                                 </flux:button>
                             </div>
                         </div>
@@ -150,10 +152,11 @@
                 @else
                     <flux:card
                         class="p-6 transition-all duration-300 hover:scale-[1.02] hover:shadow-xl hover:shadow-zinc-500/10">
-                        <h3 class="text-lg font-semibold text-zinc-900 dark:text-zinc-100 mb-4">Next Gig</h3>
-                        <p class="text-zinc-600 dark:text-zinc-400">No upcoming gigs accepted yet.</p>
+                        <h3 class="text-lg font-semibold text-zinc-900 dark:text-zinc-100 mb-4">{{ __('Next Gig') }}
+                        </h3>
+                        <p class="text-zinc-600 dark:text-zinc-400">{{ __('No upcoming gigs accepted yet.') }}</p>
                         <flux:button href="{{ route('gigs.index') }}" wire:navigate class="mt-4" size="sm">
-                            Browse Gigs
+                            {{ __('Browse Gigs') }}
                         </flux:button>
                     </flux:card>
                 @endif
@@ -165,7 +168,8 @@
                             class="absolute inset-0 bg-gradient-to-r from-green-500/5 to-emerald-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none">
                         </div>
                         <div class="relative z-10">
-                            <h3 class="text-lg font-semibold text-zinc-900 dark:text-zinc-100 mb-4">Last Gig Played
+                            <h3 class="text-lg font-semibold text-zinc-900 dark:text-zinc-100 mb-4">
+                                {{ __('Last Gig Played') }}
                             </h3>
                             <div class="space-y-2">
                                 <p class="font-medium text-zinc-900 dark:text-zinc-100 font-sans">
@@ -191,7 +195,7 @@
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                             d="M5 13l4 4L19 7" />
                                     </svg>
-                                    <span class="text-sm font-medium">Attended</span>
+                                    <span class="text-sm font-medium">{{ __('Attended') }}</span>
                                 </div>
                             </div>
                         </div>
@@ -199,9 +203,10 @@
                 @else
                     <flux:card
                         class="p-6 transition-all duration-300 hover:scale-[1.02] hover:shadow-xl hover:shadow-zinc-500/10">
-                        <h3 class="text-lg font-semibold text-zinc-900 dark:text-zinc-100 mb-4">Last Gig Played
+                        <h3 class="text-lg font-semibold text-zinc-900 dark:text-zinc-100 mb-4">
+                            {{ __('Last Gig Played') }}
                         </h3>
-                        <p class="text-zinc-600 dark:text-zinc-400">No gigs attended yet.</p>
+                        <p class="text-zinc-600 dark:text-zinc-400">{{ __('No gigs attended yet.') }}</p>
                     </flux:card>
                 @endif
             </div>
@@ -209,7 +214,8 @@
             <!-- My Upcoming Gigs -->
             @if ($myUpcomingGigs->count() > 0)
                 <flux:card class="p-6">
-                    <h3 class="text-lg font-semibold text-zinc-900 dark:text-zinc-100 mb-4">Your Upcoming Gigs</h3>
+                    <h3 class="text-lg font-semibold text-zinc-900 dark:text-zinc-100 mb-4">
+                        {{ __('Your Upcoming Gigs') }}</h3>
                     <div class="space-y-3">
                         @foreach ($myUpcomingGigs as $gig)
                             <div
@@ -227,17 +233,17 @@
                                     $rsvpStatus = $userPivot?->pivot->rsvp_status;
                                 @endphp
                                 @if ($rsvpStatus === 'yes')
-                                    <flux:badge color="green">Accepted</flux:badge>
+                                    <flux:badge color="green">{{ __('Accepted') }}</flux:badge>
                                 @elseif($rsvpStatus === 'no')
-                                    <flux:badge color="red">Declined</flux:badge>
+                                    <flux:badge color="red">{{ __('Declined') }}</flux:badge>
                                 @else
-                                    <flux:badge color="zinc">No Response</flux:badge>
+                                    <flux:badge color="zinc">{{ __('No Response') }}</flux:badge>
                                 @endif
                             </div>
                         @endforeach
                     </div>
                     <flux:button href="{{ route('gigs.index') }}" wire:navigate class="mt-4 w-full" variant="ghost">
-                        View All Gigs
+                        {{ __('View All Gigs') }}
                     </flux:button>
                 </flux:card>
             @endif

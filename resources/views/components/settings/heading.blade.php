@@ -3,4 +3,4 @@
 </div>
 
 <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 pt-20 sm:pt-24 pb-8 sm:pb-12">
-    <x-ui.heading-1 title="Settings" description="Manage your profile and account settings" />
+    <x-ui.heading-1 :title="__('Settings')" :description="__('Manage your profile and account settings')" />

@@ -3,12 +3,10 @@
 @php
     $deleteMessage =
         $part->songs_count > 0
-            ? 'This part is used in ' .
-                $part->songs_count .
-                ' ' .
-                Str::plural('song', $part->songs_count) .
-                '. It will be removed from all of them.'
-            : 'This action cannot be undone.';
+            ? __('This part is used in :count song(s). It will be removed from all of them.', [
+                'count' => $part->songs_count,
+            ])
+            : __('This action cannot be undone.');
 @endphp
 
 <div>
@@ -46,12 +44,12 @@
 
                     <flux:menu>
                         <flux:menu.item :href="route('parts.edit', $part)" wire:navigate icon="pencil">
-                            Edit
+                            {{ __('Edit') }}
                         </flux:menu.item>
                         <flux:menu.item
                             x-on:click="$dispatch('modal-show', { name: 'confirm-delete-part-{{ $part->id }}' })"
                             icon="trash" variant="danger">
-                            Delete
+                            {{ __('Delete') }}
                         </flux:menu.item>
                     </flux:menu>
                 </flux:dropdown>
@@ -64,18 +62,18 @@
                 <div class="flex items-center gap-2">
                     <flux:icon.microphone class="size-4" />
                     @if ($part->songs_count > 0)
-                        <span>{{ $part->songs_count }} {{ Str::plural('song', $part->songs_count) }}</span>
+                        <span>{{ trans_choice(':count song|:count songs', $part->songs_count, ['count' => $part->songs_count]) }}</span>
                     @else
-                        <span>Not used</span>
+                        <span>{{ __('Not used') }}</span>
                     @endif
                 </div>
                 <p>
-                    Created {{ $part->created_at->diffForHumans() }}
+                    {{ __('Created :time', ['time' => $part->created_at->diffForHumans()]) }}
                 </p>
             </div>
         @endauth
     </flux:card>
 
-    <x-ui.confirm-modal name="confirm-delete-part-{{ $part->id }}" heading="Delete part" :message="$deleteMessage"
+    <x-ui.confirm-modal name="confirm-delete-part-{{ $part->id }}" :heading="__('Delete part')" :message="$deleteMessage"
         wireClick="deletePart({{ $part->id }})" />
 </div>

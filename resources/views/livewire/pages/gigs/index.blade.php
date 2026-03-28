@@ -1,12 +1,12 @@
 <div>
     <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 pt-24 pb-12 relative z-10">
-        <x-ui.heading-1 title="Gigs" :description="auth()->guest()
-            ? 'Check out where we\'ve been and where we\'re going!'
-            : 'Manage your band\'s performances'">
+        <x-ui.heading-1 :title="__('Gigs')" :description="auth()->guest()
+            ? __('Check out where we\'ve been and where we\'re going!')
+            : __('Manage your band\'s performances')">
             <x-slot:actions>
                 @authverified
                 <flux:button href="{{ route('gigs.create') }}" wire:navigate icon="plus">
-                    Create Gig
+                    {{ __('Create Gig') }}
                 </flux:button>
                 @endauthverified
             </x-slot:actions>
@@ -14,11 +14,12 @@
 
             {{-- Upcoming Gigs --}}
             <div class="mb-12">
-                <x-ui.heading-2 title="Upcoming" />
+                <x-ui.heading-2 :title="__('Upcoming')" />
 
                 @if (count($upcomingGigs) === 0)
                     <flux:card>
-                        <p class="text-gray-500 dark:text-gray-400 text-center py-8">No upcoming gigs scheduled.</p>
+                        <p class="text-gray-500 dark:text-gray-400 text-center py-8">
+                            {{ __('No upcoming gigs scheduled.') }}</p>
                     </flux:card>
                 @else
                     <div class="space-y-4">
@@ -31,11 +32,11 @@
 
             {{-- Past Gigs --}}
             <div>
-                <x-ui.heading-2 title="Past" variant="accent" />
+                <x-ui.heading-2 :title="__('Past')" variant="accent" />
 
                 @if (count($pastGigs) === 0)
                     <flux:card>
-                        <p class="text-gray-500 dark:text-gray-400 text-center py-8">No past gigs yet.</p>
+                        <p class="text-gray-500 dark:text-gray-400 text-center py-8">{{ __('No past gigs yet.') }}</p>
                     </flux:card>
                 @else
                     <div class="space-y-4">
@@ -51,7 +52,7 @@
     @if ($showAttendeesModal && $selectedGig)
         <flux:modal wire:model="showAttendeesModal" class="md:w-[600px]" :backdrop-class="'backdrop-blur-sm'">
             <div>
-                <flux:heading size="lg">Attendees</flux:heading>
+                <flux:heading size="lg">{{ __('Attendees') }}</flux:heading>
                 <flux:subheading class="mb-4">{{ $selectedGig->name }}</flux:subheading>
 
                 @php
@@ -65,7 +66,7 @@
                 @endphp
 
                 @if ($attendees->isEmpty())
-                    <p class="text-gray-500 dark:text-gray-300 text-center py-4">No attendees yet</p>
+                    <p class="text-gray-500 dark:text-gray-300 text-center py-4">{{ __('No attendees yet') }}</p>
                 @else
                     <ul class="space-y-2">
                         @foreach ($attendees as $user)
@@ -75,7 +76,8 @@
                                     class="font-medium {{ $user->id === auth()->id() ? 'text-amber-900 dark:text-amber-100' : 'text-gray-900 dark:text-white' }}">
                                     {{ $user->name }}
                                     @if ($user->id === auth()->id())
-                                        <span class="text-xs text-amber-600 dark:text-amber-400">(You)</span>
+                                        <span
+                                            class="text-xs text-amber-600 dark:text-amber-400">{{ __('(You)') }}</span>
                                     @endif
                                 </span>
                                 <span class="text-sm text-gray-600 dark:text-gray-300">{{ $user->instrument }}</span>
@@ -86,7 +88,7 @@
             </div>
 
             <flux:button wire:click="closeAttendeesModal" variant="primary" class="mt-6">
-                Close
+                {{ __('Close') }}
             </flux:button>
         </flux:modal>
     @endif

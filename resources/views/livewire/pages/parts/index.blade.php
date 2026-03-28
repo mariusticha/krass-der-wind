@@ -1,5 +1,5 @@
 <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 pt-24 pb-12 relative z-10">
-    <x-ui.heading-1 title="Parts" description="Manage your band's parts collection">
+    <x-ui.heading-1 :title="__('Parts')" :description="__('Manage your band\'s parts collection')">
         <x-slot:actions>
             <flux:button href="{{ route('parts.create') }}" wire:navigate icon="plus">
                 Create Part
@@ -9,7 +9,7 @@
 
     @if ($parts->isEmpty())
         <flux:card>
-            <p class="text-gray-500 dark:text-gray-400 text-center py-8">No parts yet.</p>
+            <p class="text-gray-500 dark:text-gray-400 text-center py-8">{{ __('No parts yet.') }}</p>
         </flux:card>
     @else
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">

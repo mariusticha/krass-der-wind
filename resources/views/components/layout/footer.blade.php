@@ -2,7 +2,7 @@
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div class="grid md:grid-cols-3 gap-6 mb-6">
             <div>
-                <h3 class="text-zinc-800 dark:text-zinc-400 font-semibold text-sm mb-3">Krass der Wind</h3>
+                <h3 class="text-zinc-800 dark:text-zinc-400 font-semibold text-sm mb-3">KrassderWind</h3>
                 <p class="text-xs leading-relaxed text-zinc-700 dark:text-zinc-500">
                     Politische Blasmusik aus Falkensee – für Demokratie und Menschenrechte.
                 </p>
@@ -36,7 +36,7 @@
         </div>
         <div
             class="border-t border-zinc-300 dark:border-zinc-800 pt-6 text-center text-xs text-zinc-700 dark:text-zinc-500">
-            <p>&copy; {{ date('Y') }} Krass der Wind. Alle Rechte vorbehalten.</p>
+            <p>&copy; {{ date('Y') }} KrassderWind. Alle Rechte vorbehalten.</p>
         </div>
     </div>
 </footer>
