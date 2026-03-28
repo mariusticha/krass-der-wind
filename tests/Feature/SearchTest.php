@@ -82,8 +82,8 @@ test('songs index search resets pagination', function () {
 test('parts index shows all parts when search is empty', function () {
     Part::query()->delete();
 
-    Part::create(['name' => 'Guitar']);
-    Part::create(['name' => 'Drums']);
+    Part::factory()->create(['name' => 'Guitar']);
+    Part::factory()->create(['name' => 'Drums']);
 
     Livewire::test(PartsIndex::class)
         ->assertViewHas('parts', fn($parts) => $parts->count() === 2);
@@ -92,8 +92,8 @@ test('parts index shows all parts when search is empty', function () {
 test('parts index filters by name', function () {
     Part::query()->delete();
 
-    Part::create(['name' => 'Guitar']);
-    Part::create(['name' => 'Drums']);
+    Part::factory()->create(['name' => 'Guitar']);
+    Part::factory()->create(['name' => 'Drums']);
 
     Livewire::test(PartsIndex::class)
         ->set('search', 'guitar')
@@ -103,7 +103,7 @@ test('parts index filters by name', function () {
 test('parts index returns empty when search matches nothing', function () {
     Part::query()->delete();
 
-    Part::create(['name' => 'Guitar']);
+    Part::factory()->create(['name' => 'Guitar']);
 
     Livewire::test(PartsIndex::class)
         ->set('search', 'xyznotfound')
@@ -113,8 +113,8 @@ test('parts index returns empty when search matches nothing', function () {
 test('parts index search is url-persisted', function () {
     Part::query()->delete();
 
-    Part::create(['name' => 'Guitar']);
-    Part::create(['name' => 'Drums']);
+    Part::factory()->create(['name' => 'Guitar']);
+    Part::factory()->create(['name' => 'Drums']);
 
     Livewire::withQueryParams(['search' => 'drums'])
         ->test(PartsIndex::class)

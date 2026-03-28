@@ -31,6 +31,7 @@ class Index extends Component
     public function render(): Factory | View
     {
         $parts = Part::query()
+            ->withCount('songs')
             ->tap(fn($q) => $this->applySearchFilter($q, ['name']))
             ->paginate(10);
 

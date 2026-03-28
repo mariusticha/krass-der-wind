@@ -547,7 +547,7 @@ test('user can add a sheet to a song', function () {
 
     $user = User::factory()->create();
     $song = Song::factory()->create();
-    $part = Part::create(['name' => 'Guitar']);
+    $part = Part::factory()->create();
 
     Livewire::actingAs($user)
         ->test(SongsEdit::class, ['song' => $song])
@@ -567,7 +567,7 @@ test('cannot add duplicate sheet for same song and part', function () {
 
     $user = User::factory()->create();
     $song = Song::factory()->create();
-    $part = Part::create(['name' => 'Keyboard']);
+    $part = Part::factory()->create();
 
     Sheet::create([
         'song_id' => $song->id,
@@ -590,7 +590,7 @@ test('user can remove a sheet from a song', function () {
 
     $user = User::factory()->create();
     $song = Song::factory()->create();
-    $part = Part::create(['name' => 'Bass']);
+    $part = Part::factory()->create();
 
     Storage::put('sheets/test.pdf', 'fake pdf content');
 
@@ -626,7 +626,7 @@ test('adding a sheet validates that a part must be selected', function () {
 test('adding a sheet validates that a file must be uploaded', function () {
     $user = User::factory()->create();
     $song = Song::factory()->create();
-    $part = Part::create(['name' => 'Drums']);
+    $part = Part::factory()->create();
 
     Livewire::actingAs($user)
         ->test(SongsEdit::class, ['song' => $song])
@@ -642,7 +642,7 @@ test('user cannot remove a sheet belonging to a different song', function () {
     $user = User::factory()->create();
     $song = Song::factory()->create();
     $otherSong = Song::factory()->create();
-    $part = Part::create(['name' => 'Vocals']);
+    $part = Part::factory()->create();
 
     Storage::put('sheets/other.pdf', 'fake pdf content');
 
