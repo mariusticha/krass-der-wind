@@ -111,7 +111,7 @@
     "PDF File": "PDF-Datei",
     "Add Sheet": "Noten hinzufügen",
     "No description": "Keine Beschreibung",
-    ":count sheet|:count sheets": ":count Notenblatt|:count Notenblätter",
+    ":count part|:count parts": ":count Stimme|:count Stimmen",
     ":count gig|:count gigs": ":count Auftritt|:count Auftritte",
     "No sheets available": "Keine Noten verfügbar",
     "Delete song": "Lied löschen",
