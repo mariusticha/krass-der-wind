@@ -84,7 +84,7 @@
                     <span>{{ trans_choice(':count gig|:count gigs', $song->gigs_count, ['count' => $song->gigs_count]) }}</span>
                 </div>
             @else
-                <div></div>
+                <p class="italic">{{ __('No gigs available') }}</p>
             @endif
         </div>
         @endauthverified

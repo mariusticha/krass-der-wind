@@ -25,16 +25,6 @@
                     <div class="flex flex-wrap items-center gap-2 mb-2">
                         <h3 class="text-xl font-semibold font-sans">{{ $part->name }}</h3>
                     </div>
-
-                    <!-- description -->
-                    {{-- <div class="space-y-1 text-gray-600 dark:text-gray-300">
-                    <x-ui.icon-text icon="microphone">
-                        {{ $song->artist }}
-                        @if ($song->year)
-                            ({{ $song->year }})
-                        @endif
-                        </x-icon-text>
-                </div> --}}
                 </div>
             </div>
 
