@@ -140,6 +140,6 @@ return [
         'postal_code' => env('LEGALS_POSTAL_CODE', ''),
         'city' => env('LEGALS_CITY', ''),
         'country' => env('LEGALS_COUNTRY', ''),
-        'email' => env('LEGALS_EMAIL', '')
+        'email' => env('LEGALS_EMAIL', ''),
     ],
 ];

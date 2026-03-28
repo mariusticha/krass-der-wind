@@ -3,6 +3,8 @@
 namespace App\Livewire\Pages\Parts;
 
 use App\Models\Part;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Attributes\On;
 use Livewire\Component;
@@ -22,7 +24,7 @@ class Index extends Component
 
     #[On('part-saved')]
     #[On('part-deleted')]
-    public function render()
+    public function render(): Factory | View
     {
         $parts = Part::query()
             ->paginate(10);

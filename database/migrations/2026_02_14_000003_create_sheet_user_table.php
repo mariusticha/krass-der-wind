@@ -4,11 +4,10 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
-{
+return new class extends Migration {
     public function up(): void
     {
-        Schema::create('sheet_user', function (Blueprint $table) {
+        Schema::create('sheet_user', function (Blueprint $table): void {
             $table->foreignId('sheet_id')->constrained();
             $table->foreignId('user_id')->constrained();
             $table->timestamps();

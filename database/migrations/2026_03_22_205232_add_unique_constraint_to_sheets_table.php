@@ -10,7 +10,7 @@ return new class extends Migration {
      */
     public function up(): void
     {
-        Schema::table('sheets', function (Blueprint $table) {
+        Schema::table('sheets', function (Blueprint $table): void {
             $table->unique(['song_id', 'part_id']);
         });
     }
@@ -20,7 +20,7 @@ return new class extends Migration {
      */
     public function down(): void
     {
-        Schema::table('sheets', function (Blueprint $table) {
+        Schema::table('sheets', function (Blueprint $table): void {
             $table->dropUnique(['song_id', 'part_id']);
         });
     }

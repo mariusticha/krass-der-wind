@@ -28,9 +28,7 @@ class AppServiceProvider extends ServiceProvider
     {
         $this->configureDefaults();
 
-        Blade::if('authverified', function () {
-            return Auth::check() && Auth::user()->hasVerifiedEmail();
-        });
+        Blade::if('authverified', fn(): bool => Auth::check() && Auth::user()->hasVerifiedEmail());
     }
 
     protected function configureDefaults(): void

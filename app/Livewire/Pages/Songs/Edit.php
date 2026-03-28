@@ -31,7 +31,7 @@ class Edit extends Component
     public ?int $newSheetPartId = null;
 
     #[Validate('nullable|file|mimes:pdf|max:10240')]
-    public $newSheetFile = null;
+    public $newSheetFile;
 
     public Collection $parts;
 
