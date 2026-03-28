@@ -8,7 +8,7 @@
 @endphp
 
 <div>
-    <div wire:click="viewRecord({{ $song->id }})" class="cursor-pointer">
+    <div wire:click="viewRecord({{ $song->id }})" class="{{ auth()->check() ? 'cursor-pointer' : '' }}">
     <flux:card
         class="transition-all duration-300 hover:scale-[1.02] hover:shadow-2xl hover:shadow-purple-500/10 relative overflow-hidden group flex flex-col">
         <!-- Card hover gradient effect -->

@@ -24,13 +24,17 @@ class Index extends Component
 
     public function mount(): void
     {
-        if ($this->viewingId !== null) {
+        if ($this->viewingId !== null && Auth::check()) {
             $this->showViewModal = true;
         }
     }
 
     public function viewRecord(int $id): void
     {
+        if (! Auth::check()) {
+            return;
+        }
+
         $this->viewingId = $id;
         $this->showViewModal = true;
     }
