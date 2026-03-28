@@ -142,7 +142,7 @@
                                     </svg>
                                     {{ $nextGig->location }}, {{ $nextGig->city }}
                                 </p>
-                                <flux:button href="{{ route('gigs.index') }}" wire:navigate class="mt-4"
+                                <flux:button href="{{ route('gigs.index', ['view' => $nextGig->id]) }}" wire:navigate class="mt-4"
                                     size="sm">
                                     {{ __('View Details') }}
                                 </flux:button>
@@ -190,12 +190,17 @@
                                     </svg>
                                     {{ $lastGig->location }}, {{ $lastGig->city }}
                                 </p>
-                                <div class="mt-4 flex items-center gap-2 text-green-600 dark:text-green-500">
-                                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                            d="M5 13l4 4L19 7" />
-                                    </svg>
-                                    <span class="text-sm font-medium">{{ __('Attended') }}</span>
+                                <div class="mt-4 flex items-center justify-between">
+                                    <div class="flex items-center gap-2 text-green-600 dark:text-green-500">
+                                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                d="M5 13l4 4L19 7" />
+                                        </svg>
+                                        <span class="text-sm font-medium">{{ __('Attended') }}</span>
+                                    </div>
+                                    <flux:button href="{{ route('gigs.index', ['view' => $lastGig->id]) }}" wire:navigate size="sm">
+                                        {{ __('View Details') }}
+                                    </flux:button>
                                 </div>
                             </div>
                         </div>
@@ -218,7 +223,7 @@
                         {{ __('Your Upcoming Gigs') }}</h3>
                     <div class="space-y-3">
                         @foreach ($myUpcomingGigs as $gig)
-                            <div
+                            <a href="{{ route('gigs.index', ['view' => $gig->id]) }}" wire:navigate
                                 class="flex items-center justify-between p-3 rounded-lg bg-zinc-50 dark:bg-zinc-800/50 transition-all duration-300 hover:scale-[1.02] hover:shadow-lg hover:shadow-blue-500/10 hover:bg-zinc-100 dark:hover:bg-zinc-800 cursor-pointer">
                                 <div>
                                     <p class="font-medium text-zinc-900 dark:text-zinc-100 font-sans">
@@ -239,7 +244,7 @@
                                 @else
                                     <flux:badge color="zinc">{{ __('No Response') }}</flux:badge>
                                 @endif
-                            </div>
+                            </a>
                         @endforeach
                     </div>
                     <flux:button href="{{ route('gigs.index') }}" wire:navigate class="mt-4 w-full" variant="ghost">

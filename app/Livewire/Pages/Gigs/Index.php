@@ -7,6 +7,7 @@ use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Attributes\On;
+use Livewire\Attributes\Url;
 use Livewire\Component;
 
 class Index extends Component
@@ -15,13 +16,21 @@ class Index extends Component
 
     public $pastGigs;
 
-    public $showAttendeesModal = false;
+    #[Url(as: 'view')]
+    public ?int $viewingId = null;
 
-    public $selectedGig;
+    public bool $showViewModal = false;
+
+    public ?Gig $viewingGig = null;
 
     public function mount(): void
     {
         $this->loadGigs();
+
+        if ($this->viewingId !== null) {
+            $this->loadViewingGig();
+            $this->showViewModal = true;
+        }
     }
 
     #[On('gig-saved')]
@@ -45,6 +54,26 @@ class Index extends Component
         $this->pastGigs = $pastQuery->past()->get();
     }
 
+    public function viewRecord(int $id): void
+    {
+        $this->viewingId = $id;
+        $this->loadViewingGig();
+        $this->showViewModal = true;
+    }
+
+    public function updatedShowViewModal(bool $value): void
+    {
+        if (! $value) {
+            $this->viewingId = null;
+            $this->viewingGig = null;
+        }
+    }
+
+    private function loadViewingGig(): void
+    {
+        $this->viewingGig = Gig::with(['users', 'songs'])->find($this->viewingId);
+    }
+
     public function deleteGig(Gig $gig): void
     {
         if (! Auth::check() || ! Auth::user()->hasVerifiedEmail()) {
@@ -55,26 +84,6 @@ class Index extends Component
 
         $this->dispatch('gig-deleted');
         $this->loadGigs();
-    }
-
-    public function showAttendees(Gig $gig): void
-    {
-        if (! Auth::check() || ! Auth::user()->hasVerifiedEmail()) {
-            return;
-        }
-
-        $this->selectedGig = $gig->load('users');
-        $this->showAttendeesModal = true;
-    }
-
-    public function closeAttendeesModal(): void
-    {
-        if (! Auth::check() || ! Auth::user()->hasVerifiedEmail()) {
-            return;
-        }
-
-        $this->showAttendeesModal = false;
-        $this->selectedGig = null;
     }
 
     public function toggleRsvp(Gig $gig): void
@@ -137,7 +146,7 @@ class Index extends Component
     {
         return view('livewire.pages.gigs.index')
             ->layoutData([
-                'titleAddition' => __('Gigs')
+                'titleAddition' => __('Gigs'),
             ]);
     }
 }

@@ -40,6 +40,7 @@
 @endphp
 
 <div>
+    <div wire:click="viewRecord({{ $gig->id }})" class="cursor-pointer">
     <flux:card
         class="transition-all duration-300 hover:scale-[1.02] hover:shadow-2xl {{ $hoverShadow }} relative overflow-hidden group">
         <!-- Card hover gradient effect -->
@@ -78,12 +79,9 @@
                             {{ $gig->location }}, {{ $gig->city }}
                             </x-icon-text>
                             @authverified
-                            <button wire:click="showAttendees({{ $gig->id }})"
-                                class="{{ $attendeeLinkColor }} cursor-pointer">
-                                <x-ui.icon-text icon="user-group" margin="mt-1">
-                                    {{ $attendeeText }}
-                                    </x-icon-text>
-                            </button>
+                            <x-ui.icon-text icon="user-group" margin="mt-1">
+                                {{ $attendeeText }}
+                            </x-ui.icon-text>
                             @endauthverified
                 </div>
 
@@ -93,7 +91,7 @@
 
                 @if ($gig->songs && $gig->songs->count() > 0)
                     <div class="mt-4" x-data="{ open: false }">
-                        <button @click="open = !open"
+                        <button @click.stop="open = !open"
                             class="flex items-center gap-1 font-medium text-sm text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-gray-100 mb-2">
                             <flux:icon.musical-note class="size-4" />
                             <span>{{ __('Setlist') }}
@@ -135,7 +133,7 @@
             </div>
 
             @authverified
-            <div class="flex flex-col md:flex-row gap-2 md:ml-4 md:flex-shrink-0">
+            <div @click.stop class="flex flex-col md:flex-row gap-2 md:ml-4 md:flex-shrink-0">
                 <div class="flex flex-wrap md:flex-nowrap gap-2">
                     <flux:button
                         wire:click="{{ $isUpcoming ? 'toggleRsvp' : 'toggleAttendance' }}({{ $gig->id }})"
@@ -155,6 +153,9 @@
                         </flux:button>
 
                         <flux:menu>
+                            <flux:menu.item wire:click="viewRecord({{ $gig->id }})" icon="eye">
+                                {{ __('View') }}
+                            </flux:menu.item>
                             <flux:menu.item :href="route('gigs.edit', $gig)" wire:navigate icon="pencil">
                                 {{ __('Edit') }}
                             </flux:menu.item>
@@ -170,6 +171,7 @@
             @endauthverified
         </div>
     </flux:card>
+    </div>
 
     @authverified
     <x-ui.confirm-modal name="confirm-delete-gig-{{ $gig->id }}" :heading="__('Delete gig')" :message="__('This action cannot be undone.')"

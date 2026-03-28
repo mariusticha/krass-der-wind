@@ -8,6 +8,7 @@
 @endphp
 
 <div>
+    <div wire:click="viewRecord({{ $song->id }})" class="cursor-pointer">
     <flux:card
         class="transition-all duration-300 hover:scale-[1.02] hover:shadow-2xl hover:shadow-purple-500/10 relative overflow-hidden group flex flex-col">
         <!-- Card hover gradient effect -->
@@ -43,12 +44,15 @@
             </div>
 
             @authverified
-            <div class="flex gap-2 absolute top-3 right-3 md:static md:ml-4 md:flex-shrink-0 z-20">
+            <div @click.stop class="flex gap-2 absolute top-3 right-3 md:static md:ml-4 md:flex-shrink-0 z-20">
                 <flux:dropdown position="bottom" align="end">
                     <flux:button size="sm" variant="ghost" icon="ellipsis-vertical" square
                         class="w-full md:w-auto" />
 
                     <flux:menu>
+                        <flux:menu.item wire:click="viewRecord({{ $song->id }})" icon="eye">
+                            {{ __('View') }}
+                        </flux:menu.item>
                         <flux:menu.item :href="route('songs.edit', $song)" wire:navigate icon="pencil">
                             {{ __('Edit') }}
                         </flux:menu.item>
@@ -85,6 +89,7 @@
         </div>
         @endauthverified
     </flux:card>
+    </div>
 
     @authverified
     <x-ui.confirm-modal name="confirm-delete-song-{{ $song->id }}" :heading="__('Delete song')" :message="$deleteMessage"

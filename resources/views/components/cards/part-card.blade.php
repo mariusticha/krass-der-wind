@@ -10,6 +10,7 @@
 @endphp
 
 <div>
+    <div wire:click="viewRecord({{ $part->id }})" class="cursor-pointer">
     <flux:card
         class="transition-all duration-300 hover:scale-[1.02] hover:shadow-2xl hover:shadow-purple-500/10 relative overflow-hidden group flex flex-col">
         <!-- Card hover gradient effect -->
@@ -37,12 +38,15 @@
                 </div>
             </div>
 
-            <div class="flex gap-2 absolute top-3 right-3 md:static md:ml-4 md:flex-shrink-0 z-20">
+            <div @click.stop class="flex gap-2 absolute top-3 right-3 md:static md:ml-4 md:flex-shrink-0 z-20">
                 <flux:dropdown position="bottom" align="end">
                     <flux:button size="sm" variant="ghost" icon="ellipsis-vertical" square
                         class="w-full md:w-auto" />
 
                     <flux:menu>
+                        <flux:menu.item wire:click="viewRecord({{ $part->id }})" icon="eye">
+                            {{ __('View') }}
+                        </flux:menu.item>
                         <flux:menu.item :href="route('parts.edit', $part)" wire:navigate icon="pencil">
                             {{ __('Edit') }}
                         </flux:menu.item>
@@ -73,6 +77,7 @@
             </div>
         @endauth
     </flux:card>
+    </div>
 
     <x-ui.confirm-modal name="confirm-delete-part-{{ $part->id }}" :heading="__('Delete part')" :message="$deleteMessage"
         wireClick="deletePart({{ $part->id }})" />
