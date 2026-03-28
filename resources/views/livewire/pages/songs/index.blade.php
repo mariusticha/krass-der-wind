@@ -10,6 +10,8 @@
             </x-slot:actions>
             </x-heading-1>
 
+            <x-ui.search-input :placeholder="__('Search songs...')" class="mb-6" />
+
             @if ($songs->isEmpty())
                 <flux:card>
                     <p class="text-gray-500 dark:text-gray-400 text-center py-8">{{ __('No songs yet.') }}</p>

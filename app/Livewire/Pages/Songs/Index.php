@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Pages\Songs;
 
+use App\Concerns\Searchable;
 use App\Models\Song;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
@@ -12,6 +13,7 @@ use Livewire\WithPagination;
 
 class Index extends Component
 {
+    use Searchable;
     use WithPagination;
 
     public function mount(): void
@@ -36,6 +38,7 @@ class Index extends Component
     {
         $songs = Song::query()
             ->withCount('gigs')
+            ->tap(fn($q) => $this->applySearchFilter($q, ['name', 'artist']))
             ->orderBy('artist')
             ->orderBy('name')
             ->paginate(10);
@@ -43,7 +46,7 @@ class Index extends Component
         return view('livewire.pages.songs.index', [
             'songs' => $songs,
         ])->layoutData([
-            'titleAddition' => __('Songs')
+            'titleAddition' => __('Songs'),
         ]);
     }
 }

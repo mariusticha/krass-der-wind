@@ -7,6 +7,8 @@
         </x-slot:actions>
     </x-ui.heading-1>
 
+    <x-ui.search-input :placeholder="__('Search parts...')" class="mb-6" />
+
     @if ($parts->isEmpty())
         <flux:card>
             <p class="text-gray-500 dark:text-gray-400 text-center py-8">{{ __('No parts yet.') }}</p>
