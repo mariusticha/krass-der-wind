@@ -18,11 +18,7 @@ class User extends Authenticatable implements MustVerifyEmail
     use Notifiable;
     use TwoFactorAuthenticatable;
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var list<string>
-     */
+    /* ----- config ----- */
     protected $fillable = [
         'name',
         'email',
@@ -30,11 +26,6 @@ class User extends Authenticatable implements MustVerifyEmail
         'password',
     ];
 
-    /**
-     * The attributes that should be hidden for serialization.
-     *
-     * @var list<string>
-     */
     protected $hidden = [
         'password',
         'two_factor_secret',
@@ -42,11 +33,6 @@ class User extends Authenticatable implements MustVerifyEmail
         'remember_token',
     ];
 
-    /**
-     * Get the attributes that should be cast.
-     *
-     * @return array<string, string>
-     */
     protected function casts(): array
     {
         return [
@@ -55,18 +41,18 @@ class User extends Authenticatable implements MustVerifyEmail
         ];
     }
 
-    /**
-     * Get the user's initials
-     */
-    public function initials(): string
+    /* ----- scopes ----- */
+    public function scopeVerified($query)
     {
-        return Str::of($this->name)
-            ->explode(' ')
-            ->take(2)
-            ->map(fn($word) => Str::substr($word, 0, 1))
-            ->implode('');
+        return $query->whereNotNull('email_verified_at');
     }
 
+    public function scopeNotVerified($query)
+    {
+        return $query->whereNull('email_verified_at');
+    }
+
+    /* ----- relations ----- */
     public function gigs(): BelongsToMany
     {
         return $this->belongsToMany(Gig::class)
@@ -78,5 +64,15 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return $this->belongsToMany(Sheet::class)
             ->withTimestamps();
+    }
+
+    /* ----- helpers ----- */
+    public function initials(): string
+    {
+        return Str::of($this->name)
+            ->explode(' ')
+            ->take(2)
+            ->map(fn($word) => Str::substr($word, 0, 1))
+            ->implode('');
     }
 }
