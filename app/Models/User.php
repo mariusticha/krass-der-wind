@@ -47,7 +47,7 @@ class User extends Authenticatable implements MustVerifyEmail
         return $query->whereNotNull('email_verified_at');
     }
 
-    public function scopeNotVerified($query)
+    public function scopeUnverified($query)
     {
         return $query->whereNull('email_verified_at');
     }
