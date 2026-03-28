@@ -3,9 +3,9 @@
 namespace Database\Seeders;
 
 use App\Models\Gig;
+use App\Models\Part;
 use App\Models\Song;
 use App\Models\User;
-// use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -130,6 +130,24 @@ class DatabaseSeeder extends Seeder
                     ]),
                 ]);
             }
+        }
+
+        // Create 10 parts for sheets
+        $parts = [
+            'Trumpet 1',
+            'Trumpet 2',
+            'Clarinet 1',
+            'Clarinet 2',
+            'Trombone 1',
+            'Trombone 2',
+            'Saxophone 1',
+            'Saxophone 2',
+            'Tuba',
+            'Drums',
+        ];
+
+        foreach ($parts as $part) {
+            Part::create(['name' => $part]);
         }
     }
 }

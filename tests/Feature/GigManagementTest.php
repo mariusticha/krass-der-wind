@@ -1,7 +1,5 @@
 <?php
 
-use App\Livewire\Gigs\AttendanceButton;
-use App\Livewire\Gigs\RsvpButton;
 use App\Livewire\Pages\Gigs\Edit;
 use App\Livewire\Pages\Gigs\Index;
 use App\Models\Gig;
@@ -59,14 +57,24 @@ test('authenticated users can RSVP to a gig', function () {
     $gig = Gig::factory()->upcoming()->create();
 
     Livewire::actingAs($user)
-        ->test(RsvpButton::class, ['gig' => $gig])
-        ->assertSet('rsvpStatus', null)
-        ->call('rsvp', 'yes')
-        ->assertSet('rsvpStatus', 'yes')
-        ->assertDispatched('rsvp-updated');
+        ->test(Index::class)
+        ->call('toggleRsvp', $gig->id);
 
     expect($gig->users()->where('user_id', $user->id)->first()->pivot->rsvp_status)
         ->toBe('yes');
+});
+
+test('authenticated users can remove their RSVP from a gig', function () {
+    $user = User::factory()->create();
+    $gig = Gig::factory()->upcoming()->create();
+
+    $user->gigs()->attach($gig->id, ['rsvp_status' => 'yes']);
+
+    Livewire::actingAs($user)
+        ->test(Index::class)
+        ->call('toggleRsvp', $gig->id);
+
+    expect($gig->users()->where('user_id', $user->id)->exists())->toBeFalse();
 });
 
 test('authenticated users can mark attendance for past gigs', function () {
@@ -74,11 +82,8 @@ test('authenticated users can mark attendance for past gigs', function () {
     $gig = Gig::factory()->past()->create();
 
     Livewire::actingAs($user)
-        ->test(AttendanceButton::class, ['gig' => $gig])
-        ->assertSet('attended', false)
-        ->call('toggleAttendance')
-        ->assertSet('attended', true)
-        ->assertDispatched('attendance-updated');
+        ->test(Index::class)
+        ->call('toggleAttendance', $gig->id);
 
     expect($gig->users()->where('user_id', $user->id)->first()->pivot->attended)
         ->toBeTruthy();

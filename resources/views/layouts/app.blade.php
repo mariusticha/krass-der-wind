@@ -15,6 +15,7 @@
 
     <x-layout.navigation />
 
+
     <main class="flex-1">
         {{ $slot }}
     </main>
