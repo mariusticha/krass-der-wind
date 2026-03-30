@@ -98,7 +98,7 @@
                 </h1>
                 <p class="text-xl lg:text-2xl text-zinc-600 dark:text-zinc-400 mb-8 max-w-2xl mx-auto transform hover:scale-105 transition-transform duration-300 opacity-0 animate-fade-in-up"
                     style="animation-delay: 0.4s; animation-fill-mode: forwards;">
-                    Politische Musik-Aktion! <br> Neu seit 2024 in Falkensee!
+                    Politische Musik-Aktion! <br> Seit 2024 in Falkensee und im Havelland.
                 </p>
                 <div class="flex justify-center space-x-4 opacity-0 animate-fade-in-up"
                     style="animation-delay: 0.6s; animation-fill-mode: forwards;">

@@ -35,7 +35,7 @@ test('welcome page displays tagline', function () {
     $response = $this->get(route('home'));
 
     $response->assertSee('Politische Musik-Aktion!')
-        ->assertSee('Neu seit 2024 in Falkensee!');
+        ->assertSee('Seit 2024 in Falkensee und im Havelland.');
 });
 
 test('welcome page displays hero call-to-action buttons', function () {
