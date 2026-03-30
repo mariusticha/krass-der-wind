@@ -53,16 +53,37 @@ test('closing gig view modal clears viewingId', function () {
 
 // --- Song view ---
 
-test('url query parameter opens song view modal on mount', function () {
+test('url query parameter does not open song view modal on mount for guests', function () {
     $song = Song::factory()->create();
+
+    Livewire::test(SongsIndex::class, ['viewingId' => $song->id])
+        ->assertSet('viewingId', null)
+        ->assertSet('showViewModal', false);
+});
+
+test('url query parameter opens song view modal on mount for authenticated users', function () {
+    $song = Song::factory()->create();
+
+    $this->actingAs(User::factory()->create());
 
     Livewire::test(SongsIndex::class, ['viewingId' => $song->id])
         ->assertSet('viewingId', $song->id)
         ->assertSet('showViewModal', true);
 });
 
-test('unauthenticated users can open song view modal', function () {
+test('guests cannot open song view modal', function () {
     $song = Song::factory()->create();
+
+    Livewire::test(SongsIndex::class)
+        ->call('viewRecord', $song->id)
+        ->assertSet('viewingId', null)
+        ->assertSet('showViewModal', false);
+});
+
+test('authenticated users can open song view modal', function () {
+    $song = Song::factory()->create();
+
+    $this->actingAs(User::factory()->create());
 
     Livewire::test(SongsIndex::class)
         ->call('viewRecord', $song->id)
@@ -130,6 +151,8 @@ test('song view modal renders sheets for song', function () {
     $song = Song::factory()->create();
     $part = Part::factory()->create();
     $song->sheets()->create(['part_id' => $part->id, 'file_path' => 'sheets/test.pdf']);
+
+    $this->actingAs(User::factory()->create());
 
     Livewire::test(SongsIndex::class)
         ->call('viewRecord', $song->id)

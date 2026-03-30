@@ -25,6 +25,10 @@ class Index extends Component
 
     public function mount(): void
     {
+        if (! Auth::check()) {
+            $this->viewingId = null;
+        }
+
         if ($this->viewingId !== null && Auth::check()) {
             $this->showViewModal = true;
         }
