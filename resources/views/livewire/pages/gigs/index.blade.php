@@ -117,7 +117,7 @@
                         <div>
                             <a href="{{ $viewingGig->link_url }}" target="_blank" rel="noopener noreferrer"
                                 class="font-medium text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 hover:underline transition-colors">
-                                {{ __('Event Page') }}
+                                {{ $viewingGig->link_text ?: __('Event Page') }}
                             </a>
                         </div>
                     </div>

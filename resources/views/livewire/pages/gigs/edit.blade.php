@@ -15,8 +15,12 @@
                     <flux:textarea wire:model="description" :label="__('Description')"
                         :placeholder="__('Event details...')" rows="3" />
 
-                    <flux:input wire:model="linkUrl" type="url" :label="__('Event Link (optional)')"
-                        placeholder="https://..." :description="__('Link to an external event page (e.g. tickets, host website)')" />
+                    <div class="grid grid-cols-2 gap-4">
+                        <flux:input wire:model="linkText" :label="__('Link Text (optional)')"
+                            :placeholder="__('e.g. Tickets, Facebook Event')" />
+                        <flux:input wire:model="linkUrl" type="url" :label="__('Link URL (optional)')"
+                            placeholder="https://..." />
+                    </div>
 
                     <div class="grid grid-cols-2 gap-4">
                         <flux:input wire:model="date" type="date" :label="__('Date')" required />

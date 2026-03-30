@@ -114,9 +114,29 @@ test('a gig can be created with a link url', function () {
         ->set('location', 'Venue')
         ->set('city', 'München')
         ->set('linkUrl', 'https://example.com/event')
+        ->set('linkText', 'Buy Tickets')
         ->call('save');
 
-    expect(Gig::where('name', 'Link Gig')->first()->link_url)->toBe('https://example.com/event');
+    $gig = Gig::where('name', 'Link Gig')->first();
+    expect($gig->link_url)->toBe('https://example.com/event');
+    expect($gig->link_text)->toBe('Buy Tickets');
+});
+
+test('a gig can be created with a link url but no link text', function () {
+    $user = User::factory()->create();
+
+    Livewire::actingAs($user)
+        ->test(Edit::class)
+        ->set('name', 'Link No Text Gig')
+        ->set('date', '2026-08-01')
+        ->set('location', 'Venue')
+        ->set('city', 'München')
+        ->set('linkUrl', 'https://example.com/event')
+        ->call('save');
+
+    $gig = Gig::where('name', 'Link No Text Gig')->first();
+    expect($gig->link_url)->toBe('https://example.com/event');
+    expect($gig->link_text)->toBeNull();
 });
 
 test('a gig can be created without a link url', function () {
@@ -147,13 +167,14 @@ test('an invalid url is rejected when saving a gig', function () {
         ->assertHasErrors(['linkUrl']);
 });
 
-test('link url is loaded when editing an existing gig', function () {
+test('link url and text are loaded when editing an existing gig', function () {
     $user = User::factory()->create();
-    $gig = Gig::factory()->create(['link_url' => 'https://example.com/existing']);
+    $gig = Gig::factory()->create(['link_url' => 'https://example.com/existing', 'link_text' => 'Facebook Event']);
 
     Livewire::actingAs($user)
         ->test(Edit::class, ['gig' => $gig])
-        ->assertSet('linkUrl', 'https://example.com/existing');
+        ->assertSet('linkUrl', 'https://example.com/existing')
+        ->assertSet('linkText', 'Facebook Event');
 });
 
 

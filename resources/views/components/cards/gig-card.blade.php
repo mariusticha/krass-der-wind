@@ -85,15 +85,13 @@
                             @endauthverified
                             @if ($gig->link_url)
                                 <div class="flex items-center gap-1.5 mt-1">
-                                    <flux:tooltip :content="__('Event Page')" position="top">
-                                        <a href="{{ $gig->link_url }}" target="_blank" rel="noopener noreferrer"
-                                            @click.stop
-                                            class="inline-flex items-center gap-1 text-sm text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 transition-colors">
-                                            <x-ui.icon-text icon="arrow-top-right-on-square" margin="mt-1">
-                                                {{ __('Event Page') }}
-                                            </x-ui.icon-text>
-                                        </a>
-                                    </flux:tooltip>
+                                    <a href="{{ $gig->link_url }}" target="_blank" rel="noopener noreferrer"
+                                        @click.stop
+                                        class="inline-flex items-center gap-1 text-sm text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 transition-colors">
+                                        <x-ui.icon-text icon="arrow-top-right-on-square" margin="mt-1">
+                                            {{ $gig->link_text ?: __('Event Page') }}
+                                        </x-ui.icon-text>
+                                    </a>
                                 </div>
                             @endif
                 </div>

@@ -94,6 +94,9 @@
     "Gig updated successfully!": "Auftritt erfolgreich aktualisiert!",
     "Gig created successfully!": "Auftritt erfolgreich erstellt!",
     "Event Link (optional)": "Veranstaltungslink (optional)",
+    "Link Text (optional)": "Linktext (optional)",
+    "Link URL (optional)": "Link-URL (optional)",
+    "e.g. Tickets, Facebook Event": "z.B. Tickets, Facebook-Veranstaltung",
     "Link to an external event page (e.g. tickets, host website)": "Link zu einer externen Veranstaltungsseite (z.B. Tickets, Webseite des Veranstalters)",
     "Event Page": "Veranstaltungsseite",
 

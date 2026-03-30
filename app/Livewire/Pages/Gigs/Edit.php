@@ -28,6 +28,8 @@ class Edit extends Component
 
     public string $linkUrl = '';
 
+    public string $linkText = '';
+
     // Song management
     public array $selectedSongs = [];
 
@@ -53,6 +55,7 @@ class Edit extends Component
             'city' => ['required', 'string', 'max:255'],
             'description' => ['nullable', 'string'],
             'linkUrl' => ['nullable', 'url', 'max:2048'],
+            'linkText' => ['nullable', 'string', 'max:255'],
             'isPublic' => ['boolean'],
             'selectedSongs' => ['array'],
             'selectedSongs.*.id' => ['required', 'exists:songs,id'],
@@ -71,6 +74,7 @@ class Edit extends Component
             $this->city = $gig->city;
             $this->description = $gig->description ?? '';
             $this->linkUrl = $gig->link_url ?? '';
+            $this->linkText = $gig->link_text ?? '';
             $this->isPublic = $gig->is_public;
 
             // Load songs
@@ -165,8 +169,10 @@ class Edit extends Component
         // Map to correct database column names
         $validated['is_public'] = $validated['isPublic'];
         $validated['link_url'] = $validated['linkUrl'] ?: null;
+        $validated['link_text'] = $validated['linkText'] ?: null;
         unset($validated['isPublic']);
         unset($validated['linkUrl']);
+        unset($validated['linkText']);
         unset($validated['selectedSongs']);
 
         if ($this->gigId) {
