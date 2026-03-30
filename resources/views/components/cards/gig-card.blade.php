@@ -50,7 +50,7 @@
 
         <div class="flex flex-col md:flex-row md:justify-between md:items-start gap-4 relative z-10"
             :class="{ 'opacity-90': {{ $isPast ? 'true' : 'false' }} }">
-            <div class="flex-1 min-w-0">
+            <div class="flex-1 min-w-0 pr-10 md:pr-0">
                 <div class="flex flex-wrap items-center gap-2 mb-2">
                     <h3 class="text-xl font-semibold">{{ $gig->name }}</h3>
                     @authverified
@@ -146,40 +146,54 @@
             </div>
 
             @authverified
-            <div @click.stop class="flex flex-col md:flex-row gap-2 md:ml-4 md:flex-shrink-0">
-                <div class="flex flex-wrap md:flex-nowrap gap-2">
+            {{-- Dropdown: absolute top-right on mobile, static in flow on desktop --}}
+            <div @click.stop class="absolute top-0 right-0 z-20 md:static md:flex md:flex-row md:items-center md:gap-2 md:ml-4 md:flex-shrink-0">
+                {{-- Attend + publish: hidden on mobile (shown at bottom), in flow on desktop --}}
+                <div class="hidden md:contents">
                     <flux:button
                         wire:click="{{ $isUpcoming ? 'toggleRsvp' : 'toggleAttendance' }}({{ $gig->id }})"
-                        size="sm" variant="ghost" :color="$participationColor" icon="{{ $participationIcon }}"
-                        class="flex-1 md:flex-initial">
+                        size="sm" variant="ghost" :color="$participationColor" icon="{{ $participationIcon }}">
                         <span>{{ $participationText }}</span>
                     </flux:button>
                     <flux:button wire:click="togglePublic({{ $gig->id }})" size="sm" variant="ghost"
                         icon="{{ $gig->is_public ? 'eye-slash' : 'eye' }}"
-                        :title="$gig->is_public ? __('Make Private') : __('Make Public')"
-                        class="flex-1 md:flex-initial">
+                        :title="$gig->is_public ? __('Make Private') : __('Make Public')">
                         <span>{{ $gig->is_public ? __('Unpublish') : __('Publish') }}</span>
                     </flux:button>
-                    <flux:dropdown position="bottom" align="end">
-                        <flux:button size="sm" variant="ghost" icon="ellipsis-vertical" square
-                            class="w-full md:w-auto">
-                        </flux:button>
-
-                        <flux:menu>
-                            <flux:menu.item wire:click="viewRecord({{ $gig->id }})" icon="eye">
-                                {{ __('View') }}
-                            </flux:menu.item>
-                            <flux:menu.item :href="route('gigs.edit', $gig)" wire:navigate icon="pencil">
-                                {{ __('Edit') }}
-                            </flux:menu.item>
-                            <flux:menu.item
-                                x-on:click="$dispatch('modal-show', { name: 'confirm-delete-gig-{{ $gig->id }}' })"
-                                icon="trash" variant="danger">
-                                {{ __('Delete') }}
-                            </flux:menu.item>
-                        </flux:menu>
-                    </flux:dropdown>
                 </div>
+                <flux:dropdown position="bottom" align="end">
+                    <flux:button size="sm" variant="ghost" icon="ellipsis-vertical" square>
+                    </flux:button>
+
+                    <flux:menu>
+                        <flux:menu.item wire:click="viewRecord({{ $gig->id }})" icon="eye">
+                            {{ __('View') }}
+                        </flux:menu.item>
+                        <flux:menu.item :href="route('gigs.edit', $gig)" wire:navigate icon="pencil">
+                            {{ __('Edit') }}
+                        </flux:menu.item>
+                        <flux:menu.item
+                            x-on:click="$dispatch('modal-show', { name: 'confirm-delete-gig-{{ $gig->id }}' })"
+                            icon="trash" variant="danger">
+                            {{ __('Delete') }}
+                        </flux:menu.item>
+                    </flux:menu>
+                </flux:dropdown>
+            </div>
+            {{-- Mobile-only: attend + publish at bottom --}}
+            <div @click.stop class="flex gap-2 md:hidden w-full mt-1">
+                <flux:button
+                    wire:click="{{ $isUpcoming ? 'toggleRsvp' : 'toggleAttendance' }}({{ $gig->id }})"
+                    size="sm" variant="ghost" :color="$participationColor" icon="{{ $participationIcon }}"
+                    class="flex-1">
+                    <span>{{ $participationText }}</span>
+                </flux:button>
+                <flux:button wire:click="togglePublic({{ $gig->id }})" size="sm" variant="ghost"
+                    icon="{{ $gig->is_public ? 'eye-slash' : 'eye' }}"
+                    :title="$gig->is_public ? __('Make Private') : __('Make Public')"
+                    class="flex-1">
+                    <span>{{ $gig->is_public ? __('Unpublish') : __('Publish') }}</span>
+                </flux:button>
             </div>
             @endauthverified
         </div>
