@@ -93,6 +93,9 @@
     "Add notes (e.g., 'extended intro', 'acoustic version')": "Anmerkungen hinzufügen (z.B. 'extended intro', 'acoustic version')",
     "Gig updated successfully!": "Auftritt erfolgreich aktualisiert!",
     "Gig created successfully!": "Auftritt erfolgreich erstellt!",
+    "Event Link (optional)": "Veranstaltungslink (optional)",
+    "Link to an external event page (e.g. tickets, host website)": "Link zu einer externen Veranstaltungsseite (z.B. Tickets, Webseite des Veranstalters)",
+    "Event Page": "Veranstaltungsseite",
 
     "Browse our song repertoire": "Unser Liedrepertoire",
     "Manage your band's song collection": "Verwalte die Liedsammlung deiner Band",

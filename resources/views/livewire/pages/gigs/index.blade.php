@@ -109,6 +109,19 @@
                         <p class="text-sm text-zinc-500 dark:text-zinc-400">{{ $viewingGig->city }}</p>
                     </div>
                 </div>
+                @if ($viewingGig->link_url)
+                    <div class="flex items-center gap-3 text-zinc-700 dark:text-zinc-300">
+                        <div class="w-8 h-8 rounded-lg bg-zinc-100 dark:bg-zinc-800 flex items-center justify-center flex-shrink-0">
+                            <flux:icon.arrow-top-right-on-square class="size-4 text-zinc-500" />
+                        </div>
+                        <div>
+                            <a href="{{ $viewingGig->link_url }}" target="_blank" rel="noopener noreferrer"
+                                class="font-medium text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 hover:underline transition-colors">
+                                {{ __('Event Page') }}
+                            </a>
+                        </div>
+                    </div>
+                @endif
             </div>
 
             {{-- Setlist --}}
