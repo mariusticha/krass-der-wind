@@ -86,7 +86,7 @@ class Profile extends Component
     {
         return view('livewire.settings.profile')
             ->layoutData([
-                'titleAddition' => __('Profile')
+                'titleAddition' => __('Profile'),
             ]);
     }
 }

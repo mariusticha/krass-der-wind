@@ -48,7 +48,7 @@ class Password extends Component
     {
         return view('livewire.settings.password')
             ->layoutData([
-                'titleAddition' => __('Password')
+                'titleAddition' => __('Password'),
             ]);
     }
 }

@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Pages\Songs;
 
+use Illuminate\Database\Eloquent\Builder;
 use App\Concerns\Searchable;
 use App\Models\Song;
 use Illuminate\Contracts\View\Factory;
@@ -67,7 +68,7 @@ class Index extends Component
 
         $songs = Song::query()
             ->withCount('gigs')
-            ->tap(fn($q) => $this->applySearchFilter($q, ['name', 'artist']))
+            ->tap(fn(Builder $q): Builder => $this->applySearchFilter($q, ['name', 'artist']))
             ->orderBy('artist')
             ->orderBy('name')
             ->paginate(10);

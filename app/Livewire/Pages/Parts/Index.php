@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Pages\Parts;
 
+use Illuminate\Database\Eloquent\Builder;
 use App\Concerns\Searchable;
 use App\Models\Part;
 use Illuminate\Contracts\View\Factory;
@@ -63,7 +64,7 @@ class Index extends Component
 
         $parts = Part::query()
             ->withCount('songs')
-            ->tap(fn($q) => $this->applySearchFilter($q, ['name']))
+            ->tap(fn(Builder $q): Builder => $this->applySearchFilter($q, ['name']))
             ->paginate(10);
 
         return view('livewire.pages.parts.index', [

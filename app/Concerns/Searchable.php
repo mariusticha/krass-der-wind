@@ -2,6 +2,7 @@
 
 namespace App\Concerns;
 
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
 use Livewire\Attributes\Url;
 
@@ -21,9 +22,9 @@ trait Searchable
     /**
      * Apply a LIKE filter across the given columns, returning the builder unchanged when no search term is set.
      *
-     * @param  Builder<\Illuminate\Database\Eloquent\Model>  $query
+     * @param Builder<Model> $query
      * @param  array<int, string>  $columns
-     * @return Builder<\Illuminate\Database\Eloquent\Model>
+     * @return Builder<Model>
      */
     protected function applySearchFilter(Builder $query, array $columns): Builder
     {

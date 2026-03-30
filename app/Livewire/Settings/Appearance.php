@@ -12,7 +12,7 @@ class Appearance extends Component
     {
         return view('livewire.settings.appearance')
             ->layoutData([
-                'titleAddition' => __('Appearance')
+                'titleAddition' => __('Appearance'),
             ]);
     }
 }
