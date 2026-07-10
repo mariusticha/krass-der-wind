@@ -2,8 +2,8 @@
 
 namespace App\Concerns;
 
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Model;
 use Livewire\Attributes\Url;
 
 trait Searchable

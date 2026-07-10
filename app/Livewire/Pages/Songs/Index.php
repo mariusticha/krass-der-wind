@@ -2,11 +2,11 @@
 
 namespace App\Livewire\Pages\Songs;
 
-use Illuminate\Database\Eloquent\Builder;
 use App\Concerns\Searchable;
 use App\Models\Song;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Attributes\On;
 use Livewire\Attributes\Url;
