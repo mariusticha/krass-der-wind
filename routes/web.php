@@ -38,6 +38,11 @@ Route::group([], function () {
 Route::middleware(['auth', 'verified'])->group(function () {
     /* ----- user menu ----- */
     Route::view('dashboard', 'pages.dashboard')->name('dashboard');
+
+    /* extension for email - verification  */
+    Route::get('/dashboard', function () {
+        return view('pages.dashboard');
+      })->middleware(['auth', 'verified'])->name('dashboard');
     Route::livewire('parts', PartsIndex::class)->name('parts.index');
 
     /* ----- crud ----- */
