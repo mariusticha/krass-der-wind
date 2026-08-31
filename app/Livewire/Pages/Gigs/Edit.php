@@ -65,7 +65,7 @@ class Edit extends Component
 
     public function mount(?Gig $gig = null): void
     {
-        if ($gig && $gig->exists) {
+        if ($gig instanceof Gig && $gig->exists) {
             $this->gigId = $gig->id;
             $this->name = $gig->name;
             $this->date = $gig->date->format('Y-m-d');

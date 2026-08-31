@@ -27,7 +27,7 @@ class Edit extends Component
 
     public function mount(?Part $part = null): void
     {
-        if ($part && $part->exists) {
+        if ($part instanceof Part && $part->exists) {
             $this->partId = $part->id;
             $this->name = $part->name;
         }

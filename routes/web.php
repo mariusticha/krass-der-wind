@@ -42,7 +42,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     /* extension for email - verification  */
     Route::get('/dashboard', function () {
         return view('pages.dashboard');
-      })->middleware(['auth', 'verified'])->name('dashboard');
+    })->middleware(['auth', 'verified'])->name('dashboard');
     Route::livewire('parts', PartsIndex::class)->name('parts.index');
 
     /* ----- crud ----- */

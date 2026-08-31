@@ -47,7 +47,7 @@ class Edit extends Component
 
     public function mount(?Song $song = null): void
     {
-        if ($song && $song->exists) {
+        if ($song instanceof Song && $song->exists) {
             $this->songId = $song->id;
             $this->name = $song->name;
             $this->artist = $song->artist;
