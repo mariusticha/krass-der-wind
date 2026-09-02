@@ -6,6 +6,8 @@ use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Facades\URL;
 
 test('verified users pending admin approval are redirected to pending approval notice', function () {
+    /** @var object $this */
+
     $user = User::factory()->pendingAdminApproval()->create();
 
     $this->actingAs($user)
@@ -14,6 +16,8 @@ test('verified users pending admin approval are redirected to pending approval n
 });
 
 test('pending approval notice can be rendered for waiting users', function () {
+    /** @var object $this */
+
     $user = User::factory()->pendingAdminApproval()->create();
 
     $this->actingAs($user)
@@ -23,6 +27,8 @@ test('pending approval notice can be rendered for waiting users', function () {
 });
 
 test('approved users are redirected away from pending approval notice', function () {
+    /** @var object $this */
+
     $user = User::factory()->create();
 
     $this->actingAs($user)
@@ -31,6 +37,8 @@ test('approved users are redirected away from pending approval notice', function
 });
 
 test('admin email users can access member area without manual admin approval', function () {
+    /** @var object $this */
+
     config(['admin.emails' => ['admin@example.com']]);
 
     $user = User::factory()->pendingAdminApproval()->create([
@@ -43,6 +51,8 @@ test('admin email users can access member area without manual admin approval', f
 });
 
 test('admin can verify pending users from signed verification link', function () {
+    /** @var object $this */
+
     config(['admin.emails' => ['admin@example.com']]);
 
     $admin = User::factory()->pendingAdminApproval()->create([
@@ -65,6 +75,8 @@ test('admin can verify pending users from signed verification link', function ()
 });
 
 test('non-admin users can not verify pending users from signed link', function () {
+    /** @var object $this */
+
     config(['admin.emails' => ['admin@example.com']]);
 
     $user = User::factory()->create([
@@ -87,6 +99,8 @@ test('non-admin users can not verify pending users from signed link', function (
 });
 
 test('admin user verification settings page is admin-only', function () {
+    /** @var object $this */
+
     config(['admin.emails' => ['admin@example.com']]);
 
     $member = User::factory()->create();
@@ -104,6 +118,8 @@ test('admin user verification settings page is admin-only', function () {
 });
 
 test('new registration notifies configured admin emails', function () {
+    /** @var object $this */
+
     config(['admin.emails' => ['admin@example.com', 'bandleader@example.com']]);
 
     Notification::fake();
@@ -131,6 +147,8 @@ test('new registration notifies configured admin emails', function () {
 });
 
 test('registration auto-approves configured admin emails', function () {
+    /** @var object $this */
+
     config(['admin.emails' => ['admin@example.com']]);
 
     $response = $this->post(route('register.store'), [
