@@ -62,6 +62,12 @@ return [
             'report' => false,
         ],
 
+        'snapshots' => [
+            'driver' => 'local',
+            'root' => base_path('/database/snapshots'),
+            'throw' => false,
+        ],
+
     ],
 
     /*

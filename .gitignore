@@ -26,3 +26,4 @@ yarn-error.log
 
 database/seeders/RealDataSeeder.php
 app/Console/Commands/ImportSheetsCommand.php
+database/snapshots/
