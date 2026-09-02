@@ -5,6 +5,8 @@ namespace App\Actions\Fortify;
 use App\Concerns\PasswordValidationRules;
 use App\Concerns\ProfileValidationRules;
 use App\Models\User;
+use App\Notifications\AdminNewUserRegistered;
+use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Facades\Validator;
 use Laravel\Fortify\Contracts\CreatesNewUsers;
 
@@ -26,11 +28,30 @@ class CreateNewUser implements CreatesNewUsers
             'password' => $this->passwordRules(),
         ])->validate();
 
-        return User::create([
+        /** @var User $user */
+        $user = User::create([
             'name' => $input['name'],
             'email' => $input['email'],
             'instrument' => $input['instrument'],
             'password' => $input['password'],
         ]);
+
+        if ($this->isAdminEmail($user->email)) {
+            $user->markAsAdminVerified();
+        }
+
+        $adminEmails = config('admin.emails', []);
+
+        if ($adminEmails !== []) {
+            Notification::route('mail', $adminEmails)
+                ->notify(new AdminNewUserRegistered($user));
+        }
+
+        return $user;
+    }
+
+    protected function isAdminEmail(string $email): bool
+    {
+        return in_array(strtolower($email), config('admin.emails', []), true);
     }
 }

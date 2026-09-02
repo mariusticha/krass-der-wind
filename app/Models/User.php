@@ -40,6 +40,7 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return [
             'email_verified_at' => 'datetime',
+            'verified_at' => 'datetime',
             'password' => 'hashed',
         ];
     }
@@ -53,6 +54,16 @@ class User extends Authenticatable implements MustVerifyEmail
     public function scopeUnverified(Builder $query): Builder
     {
         return $query->whereNull('email_verified_at');
+    }
+
+    public function scopeAdminVerified(Builder $query): Builder
+    {
+        return $query->whereNotNull('verified_at');
+    }
+
+    public function scopePendingAdminVerification(Builder $query): Builder
+    {
+        return $query->whereNull('verified_at');
     }
 
     /* ----- relations ----- */
@@ -77,5 +88,21 @@ class User extends Authenticatable implements MustVerifyEmail
             ->take(2)
             ->map(fn($word) => Str::substr($word, 0, 1))
             ->implode('');
+    }
+
+    public function hasAdminVerifiedAccess(): bool
+    {
+        return ! is_null($this->verified_at);
+    }
+
+    public function markAsAdminVerified(): void
+    {
+        if ($this->hasAdminVerifiedAccess()) {
+            return;
+        }
+
+        $this->forceFill([
+            'verified_at' => now(),
+        ])->save();
     }
 }

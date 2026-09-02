@@ -22,7 +22,7 @@
                 My Sheets
             </flux:menu.item> --}}
             <flux:menu.item :href="route('profile.edit')" icon="cog" wire:navigate
-                :class="request()->routeIs('profile.*', 'user-password.*', 'two-factor.*', 'appearance.*') ? 'font-semibold' : ''">
+                :class="request()->routeIs('profile.*', 'user-password.*', 'two-factor.*', 'appearance.*', 'settings.users') ? 'font-semibold' : ''">
                 {{ __('Settings') }}
             </flux:menu.item>
         </flux:menu.radio.group>

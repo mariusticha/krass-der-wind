@@ -42,6 +42,7 @@ class UserFactory extends Factory
             'email' => fake()->unique()->safeEmail(),
             'instrument' => fake()->randomElement($instruments),
             'email_verified_at' => now(),
+            'verified_at' => now(),
             'password' => static::$password ??= Hash::make('password'),
             'remember_token' => Str::random(10),
             'two_factor_secret' => null,
@@ -57,6 +58,16 @@ class UserFactory extends Factory
     {
         return $this->state(fn(array $attributes): array => [
             'email_verified_at' => null,
+        ]);
+    }
+
+    /**
+     * Indicate that the model is pending manual admin verification.
+     */
+    public function pendingAdminApproval(): static
+    {
+        return $this->state(fn(array $attributes): array => [
+            'verified_at' => null,
         ]);
     }
 

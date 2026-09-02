@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminVerifyUserController;
 use App\Http\Controllers\SheetFileController;
 use App\Livewire\Pages\Gigs\Edit as GigsEdit;
 use App\Livewire\Pages\Gigs\Index as GigsIndex;
@@ -14,7 +15,7 @@ use Illuminate\Support\Facades\Route;
 // Auto-login for local development
 Route::get('/login', function () {
     if (request()->has('auto_login') && app()->environment('local')) {
-        $user = User::first();
+        $user = User::query()->first();
         if ($user) {
             Auth::login($user);
             return redirect()->back();
@@ -36,13 +37,24 @@ Route::group([], function () {
 });
 
 Route::middleware(['auth', 'verified'])->group(function () {
+    Route::get('pending-approval', function () {
+        $user = request()->user();
+
+        if ($user->can('admin') || $user->hasAdminVerifiedAccess()) {
+            return redirect()->route('dashboard');
+        }
+
+        return view('auth.pending-approval');
+    })->name('approval.notice');
+
+    Route::get('admin/users/{user}/verify', AdminVerifyUserController::class)
+        ->middleware(['can:admin', 'signed'])
+        ->name('admin.users.verify');
+});
+
+Route::middleware(['auth', 'verified', 'admin_verified'])->group(function () {
     /* ----- user menu ----- */
     Route::view('dashboard', 'pages.dashboard')->name('dashboard');
-
-    /* extension for email - verification  */
-    Route::get('/dashboard', function () {
-        return view('pages.dashboard');
-    })->middleware(['auth', 'verified'])->name('dashboard');
     Route::livewire('parts', PartsIndex::class)->name('parts.index');
 
     /* ----- crud ----- */
